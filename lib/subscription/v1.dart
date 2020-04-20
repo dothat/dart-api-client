@@ -1093,10 +1093,14 @@ class Product {
   core.DateTime creationTimestamp;
   core.bool deleted;
   core.String description;
+  core.List<ProductImage> images;
+  core.double measurementQuantity;
+  core.String measurementUnit;
   core.DateTime modificationTimestamp;
   core.String name;
   core.List<ProductPriceList> priceLists;
   core.String productCode;
+  ProductGroup productGroup;
   core.String productId;
   core.double quantity;
   core.String quantityUnit;
@@ -1128,6 +1132,17 @@ class Product {
     if (_json.containsKey("description")) {
       description = _json["description"];
     }
+    if (_json.containsKey("images")) {
+      images = (_json["images"] as core.List)
+          .map<ProductImage>((value) => new ProductImage.fromJson(value))
+          .toList();
+    }
+    if (_json.containsKey("measurementQuantity")) {
+      measurementQuantity = _json["measurementQuantity"].toDouble();
+    }
+    if (_json.containsKey("measurementUnit")) {
+      measurementUnit = _json["measurementUnit"];
+    }
     if (_json.containsKey("modificationTimestamp")) {
       modificationTimestamp =
           core.DateTime.parse(_json["modificationTimestamp"]);
@@ -1143,6 +1158,9 @@ class Product {
     }
     if (_json.containsKey("productCode")) {
       productCode = _json["productCode"];
+    }
+    if (_json.containsKey("productGroup")) {
+      productGroup = new ProductGroup.fromJson(_json["productGroup"]);
     }
     if (_json.containsKey("productId")) {
       productId = _json["productId"];
@@ -1188,6 +1206,15 @@ class Product {
     if (description != null) {
       _json["description"] = description;
     }
+    if (images != null) {
+      _json["images"] = images.map((value) => (value).toJson()).toList();
+    }
+    if (measurementQuantity != null) {
+      _json["measurementQuantity"] = measurementQuantity;
+    }
+    if (measurementUnit != null) {
+      _json["measurementUnit"] = measurementUnit;
+    }
     if (modificationTimestamp != null) {
       _json["modificationTimestamp"] =
           (modificationTimestamp).toIso8601String();
@@ -1201,6 +1228,9 @@ class Product {
     }
     if (productCode != null) {
       _json["productCode"] = productCode;
+    }
+    if (productGroup != null) {
+      _json["productGroup"] = (productGroup).toJson();
     }
     if (productId != null) {
       _json["productId"] = productId;
@@ -1256,6 +1286,78 @@ class ProductAvailability {
     }
     if (schedule != null) {
       _json["schedule"] = (schedule).toJson();
+    }
+    return _json;
+  }
+}
+
+class ProductGroup {
+  core.String groupDescription;
+  core.String groupName;
+  core.List<ProductImage> images;
+
+  ProductGroup();
+
+  ProductGroup.fromJson(core.Map _json) {
+    if (_json.containsKey("groupDescription")) {
+      groupDescription = _json["groupDescription"];
+    }
+    if (_json.containsKey("groupName")) {
+      groupName = _json["groupName"];
+    }
+    if (_json.containsKey("images")) {
+      images = (_json["images"] as core.List)
+          .map<ProductImage>((value) => new ProductImage.fromJson(value))
+          .toList();
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (groupDescription != null) {
+      _json["groupDescription"] = groupDescription;
+    }
+    if (groupName != null) {
+      _json["groupName"] = groupName;
+    }
+    if (images != null) {
+      _json["images"] = images.map((value) => (value).toJson()).toList();
+    }
+    return _json;
+  }
+}
+
+class ProductImage {
+  core.String assetName;
+  core.String imageType;
+  core.String imageUrl;
+
+  ProductImage();
+
+  ProductImage.fromJson(core.Map _json) {
+    if (_json.containsKey("assetName")) {
+      assetName = _json["assetName"];
+    }
+    if (_json.containsKey("imageType")) {
+      imageType = _json["imageType"];
+    }
+    if (_json.containsKey("imageUrl")) {
+      imageUrl = _json["imageUrl"];
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (assetName != null) {
+      _json["assetName"] = assetName;
+    }
+    if (imageType != null) {
+      _json["imageType"] = imageType;
+    }
+    if (imageUrl != null) {
+      _json["imageUrl"] = imageUrl;
     }
     return _json;
   }

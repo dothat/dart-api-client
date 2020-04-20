@@ -95,13 +95,26 @@ checkChangeContext(api.ChangeContext o) {
 }
 
 buildUnnamed43() {
+  var o = new core.List<api.ProductImage>();
+  o.add(buildProductImage());
+  o.add(buildProductImage());
+  return o;
+}
+
+checkUnnamed43(core.List<api.ProductImage> o) {
+  unittest.expect(o, unittest.hasLength(2));
+  checkProductImage(o[0]);
+  checkProductImage(o[1]);
+}
+
+buildUnnamed44() {
   var o = new core.List<api.ProductPriceList>();
   o.add(buildProductPriceList());
   o.add(buildProductPriceList());
   return o;
 }
 
-checkUnnamed43(core.List<api.ProductPriceList> o) {
+checkUnnamed44(core.List<api.ProductPriceList> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkProductPriceList(o[0]);
   checkProductPriceList(o[1]);
@@ -119,10 +132,14 @@ buildProduct() {
     o.creationTimestamp = core.DateTime.parse("2002-02-27T14:01:02");
     o.deleted = true;
     o.description = "foo";
+    o.images = buildUnnamed43();
+    o.measurementQuantity = 42.0;
+    o.measurementUnit = "foo";
     o.modificationTimestamp = core.DateTime.parse("2002-02-27T14:01:02");
     o.name = "foo";
-    o.priceLists = buildUnnamed43();
+    o.priceLists = buildUnnamed44();
     o.productCode = "foo";
+    o.productGroup = buildProductGroup();
     o.productId = "foo";
     o.quantity = 42.0;
     o.quantityUnit = "foo";
@@ -145,11 +162,15 @@ checkProduct(api.Product o) {
         unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")));
     unittest.expect(o.deleted, unittest.isTrue);
     unittest.expect(o.description, unittest.equals('foo'));
+    checkUnnamed43(o.images);
+    unittest.expect(o.measurementQuantity, unittest.equals(42.0));
+    unittest.expect(o.measurementUnit, unittest.equals('foo'));
     unittest.expect(o.modificationTimestamp,
         unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")));
     unittest.expect(o.name, unittest.equals('foo'));
-    checkUnnamed43(o.priceLists);
+    checkUnnamed44(o.priceLists);
     unittest.expect(o.productCode, unittest.equals('foo'));
+    checkProductGroup(o.productGroup);
     unittest.expect(o.productId, unittest.equals('foo'));
     unittest.expect(o.quantity, unittest.equals(42.0));
     unittest.expect(o.quantityUnit, unittest.equals('foo'));
@@ -185,14 +206,14 @@ checkProductAvailability(api.ProductAvailability o) {
   buildCounterProductAvailability--;
 }
 
-buildUnnamed44() {
+buildUnnamed45() {
   var o = new core.List<api.Product>();
   o.add(buildProduct());
   o.add(buildProduct());
   return o;
 }
 
-checkUnnamed44(core.List<api.Product> o) {
+checkUnnamed45(core.List<api.Product> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkProduct(o[0]);
   checkProduct(o[1]);
@@ -203,7 +224,7 @@ buildProductCollection() {
   var o = new api.ProductCollection();
   buildCounterProductCollection++;
   if (buildCounterProductCollection < 3) {
-    o.items = buildUnnamed44();
+    o.items = buildUnnamed45();
   }
   buildCounterProductCollection--;
   return o;
@@ -212,9 +233,68 @@ buildProductCollection() {
 checkProductCollection(api.ProductCollection o) {
   buildCounterProductCollection++;
   if (buildCounterProductCollection < 3) {
-    checkUnnamed44(o.items);
+    checkUnnamed45(o.items);
   }
   buildCounterProductCollection--;
+}
+
+buildUnnamed46() {
+  var o = new core.List<api.ProductImage>();
+  o.add(buildProductImage());
+  o.add(buildProductImage());
+  return o;
+}
+
+checkUnnamed46(core.List<api.ProductImage> o) {
+  unittest.expect(o, unittest.hasLength(2));
+  checkProductImage(o[0]);
+  checkProductImage(o[1]);
+}
+
+core.int buildCounterProductGroup = 0;
+buildProductGroup() {
+  var o = new api.ProductGroup();
+  buildCounterProductGroup++;
+  if (buildCounterProductGroup < 3) {
+    o.groupDescription = "foo";
+    o.groupName = "foo";
+    o.images = buildUnnamed46();
+  }
+  buildCounterProductGroup--;
+  return o;
+}
+
+checkProductGroup(api.ProductGroup o) {
+  buildCounterProductGroup++;
+  if (buildCounterProductGroup < 3) {
+    unittest.expect(o.groupDescription, unittest.equals('foo'));
+    unittest.expect(o.groupName, unittest.equals('foo'));
+    checkUnnamed46(o.images);
+  }
+  buildCounterProductGroup--;
+}
+
+core.int buildCounterProductImage = 0;
+buildProductImage() {
+  var o = new api.ProductImage();
+  buildCounterProductImage++;
+  if (buildCounterProductImage < 3) {
+    o.assetName = "foo";
+    o.imageType = "foo";
+    o.imageUrl = "foo";
+  }
+  buildCounterProductImage--;
+  return o;
+}
+
+checkProductImage(api.ProductImage o) {
+  buildCounterProductImage++;
+  if (buildCounterProductImage < 3) {
+    unittest.expect(o.assetName, unittest.equals('foo'));
+    unittest.expect(o.imageType, unittest.equals('foo'));
+    unittest.expect(o.imageUrl, unittest.equals('foo'));
+  }
+  buildCounterProductImage--;
 }
 
 core.int buildCounterProductPrice = 0;
@@ -242,14 +322,14 @@ checkProductPrice(api.ProductPrice o) {
   buildCounterProductPrice--;
 }
 
-buildUnnamed45() {
+buildUnnamed47() {
   var o = new core.List<api.ProductPrice>();
   o.add(buildProductPrice());
   o.add(buildProductPrice());
   return o;
 }
 
-checkUnnamed45(core.List<api.ProductPrice> o) {
+checkUnnamed47(core.List<api.ProductPrice> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkProductPrice(o[0]);
   checkProductPrice(o[1]);
@@ -261,7 +341,7 @@ buildProductPriceList() {
   buildCounterProductPriceList++;
   if (buildCounterProductPriceList < 3) {
     o.endDate = core.DateTime.parse("2002-02-27T14:01:02Z");
-    o.prices = buildUnnamed45();
+    o.prices = buildUnnamed47();
     o.startDate = core.DateTime.parse("2002-02-27T14:01:02Z");
   }
   buildCounterProductPriceList--;
@@ -273,7 +353,7 @@ checkProductPriceList(api.ProductPriceList o) {
   if (buildCounterProductPriceList < 3) {
     unittest.expect(
         o.endDate, unittest.equals(core.DateTime.parse("2002-02-27T00:00:00")));
-    checkUnnamed45(o.prices);
+    checkUnnamed47(o.prices);
     unittest.expect(o.startDate,
         unittest.equals(core.DateTime.parse("2002-02-27T00:00:00")));
   }
@@ -301,59 +381,6 @@ checkProductVisibility(api.ProductVisibility o) {
   buildCounterProductVisibility--;
 }
 
-buildUnnamed46() {
-  var o = new core.List<core.String>();
-  o.add("foo");
-  o.add("foo");
-  return o;
-}
-
-checkUnnamed46(core.List<core.String> o) {
-  unittest.expect(o, unittest.hasLength(2));
-  unittest.expect(o[0], unittest.equals('foo'));
-  unittest.expect(o[1], unittest.equals('foo'));
-}
-
-buildUnnamed47() {
-  var o = new core.List<api.ScheduleRestriction>();
-  o.add(buildScheduleRestriction());
-  o.add(buildScheduleRestriction());
-  return o;
-}
-
-checkUnnamed47(core.List<api.ScheduleRestriction> o) {
-  unittest.expect(o, unittest.hasLength(2));
-  checkScheduleRestriction(o[0]);
-  checkScheduleRestriction(o[1]);
-}
-
-core.int buildCounterSchedule = 0;
-buildSchedule() {
-  var o = new api.Schedule();
-  buildCounterSchedule++;
-  if (buildCounterSchedule < 3) {
-    o.daysOfWeek = buildUnnamed46();
-    o.frequency = 42;
-    o.frequencyType = "foo";
-    o.restrictions = buildUnnamed47();
-    o.scheduleType = "foo";
-  }
-  buildCounterSchedule--;
-  return o;
-}
-
-checkSchedule(api.Schedule o) {
-  buildCounterSchedule++;
-  if (buildCounterSchedule < 3) {
-    checkUnnamed46(o.daysOfWeek);
-    unittest.expect(o.frequency, unittest.equals(42));
-    unittest.expect(o.frequencyType, unittest.equals('foo'));
-    checkUnnamed47(o.restrictions);
-    unittest.expect(o.scheduleType, unittest.equals('foo'));
-  }
-  buildCounterSchedule--;
-}
-
 buildUnnamed48() {
   var o = new core.List<core.String>();
   o.add("foo");
@@ -367,12 +394,65 @@ checkUnnamed48(core.List<core.String> o) {
   unittest.expect(o[1], unittest.equals('foo'));
 }
 
+buildUnnamed49() {
+  var o = new core.List<api.ScheduleRestriction>();
+  o.add(buildScheduleRestriction());
+  o.add(buildScheduleRestriction());
+  return o;
+}
+
+checkUnnamed49(core.List<api.ScheduleRestriction> o) {
+  unittest.expect(o, unittest.hasLength(2));
+  checkScheduleRestriction(o[0]);
+  checkScheduleRestriction(o[1]);
+}
+
+core.int buildCounterSchedule = 0;
+buildSchedule() {
+  var o = new api.Schedule();
+  buildCounterSchedule++;
+  if (buildCounterSchedule < 3) {
+    o.daysOfWeek = buildUnnamed48();
+    o.frequency = 42;
+    o.frequencyType = "foo";
+    o.restrictions = buildUnnamed49();
+    o.scheduleType = "foo";
+  }
+  buildCounterSchedule--;
+  return o;
+}
+
+checkSchedule(api.Schedule o) {
+  buildCounterSchedule++;
+  if (buildCounterSchedule < 3) {
+    checkUnnamed48(o.daysOfWeek);
+    unittest.expect(o.frequency, unittest.equals(42));
+    unittest.expect(o.frequencyType, unittest.equals('foo'));
+    checkUnnamed49(o.restrictions);
+    unittest.expect(o.scheduleType, unittest.equals('foo'));
+  }
+  buildCounterSchedule--;
+}
+
+buildUnnamed50() {
+  var o = new core.List<core.String>();
+  o.add("foo");
+  o.add("foo");
+  return o;
+}
+
+checkUnnamed50(core.List<core.String> o) {
+  unittest.expect(o, unittest.hasLength(2));
+  unittest.expect(o[0], unittest.equals('foo'));
+  unittest.expect(o[1], unittest.equals('foo'));
+}
+
 core.int buildCounterScheduleRestriction = 0;
 buildScheduleRestriction() {
   var o = new api.ScheduleRestriction();
   buildCounterScheduleRestriction++;
   if (buildCounterScheduleRestriction < 3) {
-    o.daysOfWeek = buildUnnamed48();
+    o.daysOfWeek = buildUnnamed50();
     o.scheduleType = "foo";
   }
   buildCounterScheduleRestriction--;
@@ -382,7 +462,7 @@ buildScheduleRestriction() {
 checkScheduleRestriction(api.ScheduleRestriction o) {
   buildCounterScheduleRestriction++;
   if (buildCounterScheduleRestriction < 3) {
-    checkUnnamed48(o.daysOfWeek);
+    checkUnnamed50(o.daysOfWeek);
     unittest.expect(o.scheduleType, unittest.equals('foo'));
   }
   buildCounterScheduleRestriction--;
@@ -426,6 +506,22 @@ main() {
       var o = buildProductCollection();
       var od = new api.ProductCollection.fromJson(o.toJson());
       checkProductCollection(od);
+    });
+  });
+
+  unittest.group("obj-schema-ProductGroup", () {
+    unittest.test("to-json--from-json", () {
+      var o = buildProductGroup();
+      var od = new api.ProductGroup.fromJson(o.toJson());
+      checkProductGroup(od);
+    });
+  });
+
+  unittest.group("obj-schema-ProductImage", () {
+    unittest.test("to-json--from-json", () {
+      var o = buildProductImage();
+      var od = new api.ProductImage.fromJson(o.toJson());
+      checkProductImage(od);
     });
   });
 
