@@ -1,0 +1,1263 @@
+{
+ "auth": {
+  "oauth2": {
+   "scopes": {
+    "https://www.googleapis.com/auth/userinfo.email": {
+     "description": "View your email address"
+    }
+   }
+  }
+ },
+ "basePath": "/_ah/api/subscription/v1/serviceProviders/",
+ "baseUrl": "https://dev-dothat-api.appspot.com/_ah/api/subscription/v1/serviceProviders/",
+ "batchPath": "batch",
+ "description": "API to access Subscriptions",
+ "discoveryVersion": "v1",
+ "icons": {
+  "x16": "http://www.google.com/images/icons/product/search-16.gif",
+  "x32": "http://www.google.com/images/icons/product/search-32.gif"
+ },
+ "id": "subscription:v1",
+ "kind": "discovery#restDescription",
+ "methods": {
+  "createSubscription": {
+   "httpMethod": "POST",
+   "id": "subscription.createSubscription",
+   "parameterOrder": [
+    "svcProviderId",
+    "custId"
+   ],
+   "parameters": {
+    "svcProviderId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "custId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "{svcProviderId}/customers/{custId}/subscriptions",
+   "request": {
+    "$ref": "Subscription",
+    "parameterName": "resource"
+   },
+   "response": {
+    "$ref": "Subscription"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "deleteSubscription": {
+   "httpMethod": "DELETE",
+   "id": "subscription.deleteSubscription",
+   "parameterOrder": [
+    "svcProviderId",
+    "custId",
+    "subId"
+   ],
+   "parameters": {
+    "svcProviderId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "custId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "subId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "{svcProviderId}/customers/{custId}/subscriptions/{subId}",
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "findSubscriptionsForCustomer": {
+   "httpMethod": "GET",
+   "id": "subscription.findSubscriptionsForCustomer",
+   "parameterOrder": [
+    "svcProviderId",
+    "custId",
+    "startDate",
+    "endDate"
+   ],
+   "parameters": {
+    "svcProviderId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "custId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "startDate": {
+     "format": "date",
+     "location": "query",
+     "required": true,
+     "type": "string"
+    },
+    "endDate": {
+     "format": "date",
+     "location": "query",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "{svcProviderId}/customers/{custId}/subscriptions",
+   "response": {
+    "$ref": "SubscriptionCollection"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "findSubscriptionsForServiceProvider": {
+   "httpMethod": "GET",
+   "id": "subscription.findSubscriptionsForServiceProvider",
+   "parameterOrder": [
+    "svcProviderId",
+    "startDate",
+    "endDate"
+   ],
+   "parameters": {
+    "svcProviderId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "startDate": {
+     "format": "date",
+     "location": "query",
+     "required": true,
+     "type": "string"
+    },
+    "endDate": {
+     "format": "date",
+     "location": "query",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "{svcProviderId}/subscriptions",
+   "response": {
+    "$ref": "SubscriptionCollection"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "getSubscription": {
+   "httpMethod": "GET",
+   "id": "subscription.getSubscription",
+   "parameterOrder": [
+    "svcProviderId",
+    "custId",
+    "subId"
+   ],
+   "parameters": {
+    "svcProviderId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "custId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "subId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "{svcProviderId}/customers/{custId}/subscriptions/{subId}",
+   "response": {
+    "$ref": "Subscription"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "lookupSubscription": {
+   "httpMethod": "GET",
+   "id": "subscription.lookupSubscription",
+   "parameterOrder": [
+    "svcProviderId",
+    "custId",
+    "subStatus",
+    "startDate"
+   ],
+   "parameters": {
+    "svcProviderId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "custId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "subStatus": {
+     "enum": [
+      "PAUSED",
+      "ACTIVE"
+     ],
+     "enumDescriptions": [
+      "",
+      ""
+     ],
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "startDate": {
+     "format": "date",
+     "location": "query",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "{svcProviderId}/customers/{custId}/subscriptions/status/{subStatus}",
+   "response": {
+    "$ref": "Subscription"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "updateSubscription": {
+   "httpMethod": "PUT",
+   "id": "subscription.updateSubscription",
+   "parameterOrder": [
+    "svcProviderId",
+    "custId",
+    "subId"
+   ],
+   "parameters": {
+    "svcProviderId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "custId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "subId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "{svcProviderId}/customers/{custId}/subscriptions/{subId}",
+   "request": {
+    "$ref": "Subscription",
+    "parameterName": "resource"
+   },
+   "response": {
+    "$ref": "Subscription"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  }
+ },
+ "name": "subscription",
+ "canonicalName": "SubscriptionAPI",
+ "ownerDomain": "api.dothat.com",
+ "ownerName": "DoThatAPI",
+ "parameters": {
+  "alt": {
+   "default": "json",
+   "description": "Data format for the response.",
+   "enum": [
+    "json"
+   ],
+   "enumDescriptions": [
+    "Responses with Content-Type of application/json"
+   ],
+   "location": "query",
+   "type": "string"
+  },
+  "fields": {
+   "description": "Selector specifying which fields to include in a partial response.",
+   "location": "query",
+   "type": "string"
+  },
+  "key": {
+   "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.",
+   "location": "query",
+   "type": "string"
+  },
+  "oauth_token": {
+   "description": "OAuth 2.0 token for the current user.",
+   "location": "query",
+   "type": "string"
+  },
+  "prettyPrint": {
+   "default": "true",
+   "description": "Returns response with indentations and line breaks.",
+   "location": "query",
+   "type": "boolean"
+  },
+  "quotaUser": {
+   "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided.",
+   "location": "query",
+   "type": "string"
+  },
+  "userIp": {
+   "description": "IP address of the site where the request originates. Use this if you want to enforce per-user limits.",
+   "location": "query",
+   "type": "string"
+  }
+ },
+ "protocol": "rest",
+ "rootUrl": "https://dev-dothat-api.appspot.com/_ah/api/",
+ "schemas": {
+  "AddressType": {
+   "enum": [
+    "RESIDENTIAL",
+    "BUSINESS"
+   ],
+   "enumDescriptions": [
+    "",
+    ""
+   ],
+   "id": "AddressType",
+   "type": "string"
+  },
+  "Amount": {
+   "id": "Amount",
+   "properties": {
+    "currency": {
+     "$ref": "Currency"
+    },
+    "value": {
+     "format": "double",
+     "type": "number"
+    }
+   },
+   "type": "object"
+  },
+  "ChangeContext": {
+   "id": "ChangeContext",
+   "properties": {
+    "initiatorType": {
+     "$ref": "ChangeInitiatorType"
+    },
+    "messageId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "userIdentifier": {
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "ChangeInitiatorType": {
+   "enum": [
+    "MESSAGE",
+    "PROVIDER_APP",
+    "SYSTEM",
+    "USER_APP",
+    "UNKNOWN",
+    "USER_WEB",
+    "PROVIDER_WEB"
+   ],
+   "enumDescriptions": [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+   ],
+   "id": "ChangeInitiatorType",
+   "type": "string"
+  },
+  "Currency": {
+   "enum": [
+    "INR",
+    "USD"
+   ],
+   "enumDescriptions": [
+    "",
+    ""
+   ],
+   "id": "Currency",
+   "type": "string"
+  },
+  "Customer": {
+   "id": "Customer",
+   "properties": {
+    "active": {
+     "type": "boolean"
+    },
+    "addresses": {
+     "items": {
+      "$ref": "CustomerAddress"
+     },
+     "type": "array"
+    },
+    "businessName": {
+     "type": "string"
+    },
+    "changeContext": {
+     "$ref": "ChangeContext"
+    },
+    "contacts": {
+     "items": {
+      "$ref": "CustomerContact"
+     },
+     "type": "array"
+    },
+    "creationTimestamp": {
+     "format": "date-time",
+     "type": "string"
+    },
+    "customerId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "deleted": {
+     "type": "boolean"
+    },
+    "modificationTimestamp": {
+     "format": "date-time",
+     "type": "string"
+    },
+    "name": {
+     "type": "string"
+    },
+    "version": {
+     "format": "int64",
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "CustomerAddress": {
+   "id": "CustomerAddress",
+   "properties": {
+    "active": {
+     "type": "boolean"
+    },
+    "addressId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "addressLine1": {
+     "type": "string"
+    },
+    "addressLine2": {
+     "type": "string"
+    },
+    "addressLine3": {
+     "type": "string"
+    },
+    "addressType": {
+     "$ref": "AddressType"
+    },
+    "area": {
+     "type": "string"
+    },
+    "block": {
+     "type": "string"
+    },
+    "building": {
+     "type": "string"
+    },
+    "businessName": {
+     "type": "string"
+    },
+    "city": {
+     "type": "string"
+    },
+    "country": {
+     "type": "string"
+    },
+    "creationTimestamp": {
+     "format": "date-time",
+     "type": "string"
+    },
+    "deleted": {
+     "type": "boolean"
+    },
+    "floor": {
+     "type": "string"
+    },
+    "label": {
+     "type": "string"
+    },
+    "locality": {
+     "type": "string"
+    },
+    "modificationTimestamp": {
+     "format": "date-time",
+     "type": "string"
+    },
+    "postalCode": {
+     "type": "string"
+    },
+    "primary": {
+     "type": "boolean"
+    },
+    "serviceArea": {
+     "$ref": "ServiceArea"
+    },
+    "serviceAreaId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "servicedAddress": {
+     "$ref": "ServicedAddress"
+    },
+    "servicedAddressId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "state": {
+     "type": "string"
+    },
+    "stateCode": {
+     "type": "string"
+    },
+    "subLocality": {
+     "type": "string"
+    },
+    "unitNumber": {
+     "type": "string"
+    },
+    "verificationStatus": {
+     "$ref": "VerificationStatus"
+    },
+    "version": {
+     "format": "int64",
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "CustomerContact": {
+   "id": "CustomerContact",
+   "properties": {
+    "active": {
+     "type": "boolean"
+    },
+    "contactId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "creationTimestamp": {
+     "format": "date-time",
+     "type": "string"
+    },
+    "deleted": {
+     "type": "boolean"
+    },
+    "emailAddresses": {
+     "items": {
+      "$ref": "EmailAddress"
+     },
+     "type": "array"
+    },
+    "label": {
+     "type": "string"
+    },
+    "modificationTimestamp": {
+     "format": "date-time",
+     "type": "string"
+    },
+    "name": {
+     "type": "string"
+    },
+    "phoneNumbers": {
+     "items": {
+      "$ref": "PhoneNumber"
+     },
+     "type": "array"
+    },
+    "primary": {
+     "type": "boolean"
+    },
+    "verificationStatus": {
+     "$ref": "VerificationStatus"
+    },
+    "version": {
+     "format": "int64",
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "DayOfWeek": {
+   "enum": [
+    "MON",
+    "TUE",
+    "WED",
+    "THU",
+    "FRI",
+    "SAT",
+    "SUN"
+   ],
+   "enumDescriptions": [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+   ],
+   "id": "DayOfWeek",
+   "type": "string"
+  },
+  "DeliveryPreference": {
+   "id": "DeliveryPreference",
+   "properties": {
+    "address": {
+     "$ref": "CustomerAddress"
+    },
+    "customerAddressId": {
+     "format": "int64",
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "DurationType": {
+   "enum": [
+    "DAY",
+    "WEEK",
+    "MONTH"
+   ],
+   "enumDescriptions": [
+    "",
+    "",
+    ""
+   ],
+   "id": "DurationType",
+   "type": "string"
+  },
+  "EmailAddress": {
+   "id": "EmailAddress",
+   "properties": {
+    "active": {
+     "type": "boolean"
+    },
+    "address": {
+     "type": "string"
+    },
+    "deleted": {
+     "type": "boolean"
+    },
+    "label": {
+     "type": "string"
+    },
+    "primary": {
+     "type": "boolean"
+    },
+    "verificationStatus": {
+     "$ref": "VerificationStatus"
+    }
+   },
+   "type": "object"
+  },
+  "FrequencyType": {
+   "enum": [
+    "DAY",
+    "WEEK"
+   ],
+   "enumDescriptions": [
+    "",
+    ""
+   ],
+   "id": "FrequencyType",
+   "type": "string"
+  },
+  "ImageType": {
+   "enum": [
+    "FULL_SIZE",
+    "THUMBNAIL"
+   ],
+   "enumDescriptions": [
+    "",
+    ""
+   ],
+   "id": "ImageType",
+   "type": "string"
+  },
+  "InstructionType": {
+   "enum": [
+    "STANDING_ORDER",
+    "ON_DEMAND"
+   ],
+   "enumDescriptions": [
+    "",
+    ""
+   ],
+   "id": "InstructionType",
+   "type": "string"
+  },
+  "PhoneNumber": {
+   "id": "PhoneNumber",
+   "properties": {
+    "active": {
+     "type": "boolean"
+    },
+    "deleted": {
+     "type": "boolean"
+    },
+    "label": {
+     "type": "string"
+    },
+    "number": {
+     "type": "string"
+    },
+    "primary": {
+     "type": "boolean"
+    },
+    "verificationStatus": {
+     "$ref": "VerificationStatus"
+    }
+   },
+   "type": "object"
+  },
+  "Product": {
+   "id": "Product",
+   "properties": {
+    "active": {
+     "type": "boolean"
+    },
+    "availability": {
+     "$ref": "ProductAvailability"
+    },
+    "category": {
+     "type": "string"
+    },
+    "changeContext": {
+     "$ref": "ChangeContext"
+    },
+    "creationTimestamp": {
+     "format": "date-time",
+     "type": "string"
+    },
+    "deleted": {
+     "type": "boolean"
+    },
+    "description": {
+     "type": "string"
+    },
+    "displayRank": {
+     "format": "int32",
+     "type": "integer"
+    },
+    "images": {
+     "items": {
+      "$ref": "ProductImage"
+     },
+     "type": "array"
+    },
+    "measurementQuantity": {
+     "format": "double",
+     "type": "number"
+    },
+    "measurementUnit": {
+     "$ref": "QuantityUnit"
+    },
+    "modificationTimestamp": {
+     "format": "date-time",
+     "type": "string"
+    },
+    "name": {
+     "type": "string"
+    },
+    "priceLists": {
+     "items": {
+      "$ref": "ProductPriceList"
+     },
+     "type": "array"
+    },
+    "productCode": {
+     "type": "string"
+    },
+    "productGroup": {
+     "$ref": "ProductGroup"
+    },
+    "productId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "quantity": {
+     "format": "double",
+     "type": "number"
+    },
+    "quantityLabel": {
+     "type": "string"
+    },
+    "quantityUnit": {
+     "$ref": "QuantityUnit"
+    },
+    "serviceProviderId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "version": {
+     "format": "int64",
+     "type": "string"
+    },
+    "visibility": {
+     "$ref": "ProductVisibility"
+    }
+   },
+   "type": "object"
+  },
+  "ProductAvailability": {
+   "id": "ProductAvailability",
+   "properties": {
+    "availableFrom": {
+     "format": "date",
+     "type": "string"
+    },
+    "availableUntil": {
+     "format": "date",
+     "type": "string"
+    },
+    "schedule": {
+     "$ref": "Schedule"
+    }
+   },
+   "type": "object"
+  },
+  "ProductGroup": {
+   "id": "ProductGroup",
+   "properties": {
+    "groupDescription": {
+     "type": "string"
+    },
+    "groupName": {
+     "type": "string"
+    },
+    "images": {
+     "items": {
+      "$ref": "ProductImage"
+     },
+     "type": "array"
+    }
+   },
+   "type": "object"
+  },
+  "ProductImage": {
+   "id": "ProductImage",
+   "properties": {
+    "assetName": {
+     "type": "string"
+    },
+    "imageType": {
+     "$ref": "ImageType"
+    },
+    "imageUrl": {
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "ProductPrice": {
+   "id": "ProductPrice",
+   "properties": {
+    "amount": {
+     "$ref": "Amount"
+    },
+    "duration": {
+     "format": "double",
+     "type": "number"
+    },
+    "durationType": {
+     "$ref": "DurationType"
+    },
+    "schedule": {
+     "$ref": "Schedule"
+    }
+   },
+   "type": "object"
+  },
+  "ProductPriceList": {
+   "id": "ProductPriceList",
+   "properties": {
+    "endDate": {
+     "format": "date",
+     "type": "string"
+    },
+    "prices": {
+     "items": {
+      "$ref": "ProductPrice"
+     },
+     "type": "array"
+    },
+    "startDate": {
+     "format": "date",
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "ProductVisibility": {
+   "id": "ProductVisibility",
+   "properties": {
+    "visibleOnlyForServiceProvider": {
+     "type": "boolean"
+    },
+    "visibleOnlyForWhiteListedCustomers": {
+     "type": "boolean"
+    }
+   },
+   "type": "object"
+  },
+  "QuantityUnit": {
+   "enum": [
+    "KGS",
+    "GRAMS",
+    "LTRS",
+    "MLS",
+    "ITEMS"
+   ],
+   "enumDescriptions": [
+    "",
+    "",
+    "",
+    "",
+    ""
+   ],
+   "id": "QuantityUnit",
+   "type": "string"
+  },
+  "Schedule": {
+   "id": "Schedule",
+   "properties": {
+    "daysOfWeek": {
+     "items": {
+      "$ref": "DayOfWeek"
+     },
+     "type": "array"
+    },
+    "frequency": {
+     "format": "int32",
+     "type": "integer"
+    },
+    "frequencyType": {
+     "$ref": "FrequencyType"
+    },
+    "restrictions": {
+     "items": {
+      "$ref": "ScheduleRestriction"
+     },
+     "type": "array"
+    },
+    "scheduleType": {
+     "$ref": "ScheduleType"
+    }
+   },
+   "type": "object"
+  },
+  "ScheduleRestriction": {
+   "id": "ScheduleRestriction",
+   "properties": {
+    "daysOfWeek": {
+     "items": {
+      "$ref": "DayOfWeek"
+     },
+     "type": "array"
+    },
+    "scheduleType": {
+     "$ref": "ScheduleType"
+    }
+   },
+   "type": "object"
+  },
+  "ScheduleType": {
+   "enum": [
+    "EVERYDAY",
+    "ALTERNATE_DAY",
+    "EVERY_N_DAYS",
+    "EVERY_N_WEEKS",
+    "DAY_OF_WEEK",
+    "WEEK_OF_MONTH"
+   ],
+   "enumDescriptions": [
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+   ],
+   "id": "ScheduleType",
+   "type": "string"
+  },
+  "ServiceArea": {
+   "id": "ServiceArea",
+   "properties": {
+    "addressLine1": {
+     "type": "string"
+    },
+    "addressLine2": {
+     "type": "string"
+    },
+    "addressLine3": {
+     "type": "string"
+    },
+    "changeContext": {
+     "$ref": "ChangeContext"
+    },
+    "city": {
+     "type": "string"
+    },
+    "country": {
+     "type": "string"
+    },
+    "creationTimestamp": {
+     "format": "date-time",
+     "type": "string"
+    },
+    "fullName": {
+     "type": "string"
+    },
+    "modificationTimestamp": {
+     "format": "date-time",
+     "type": "string"
+    },
+    "name": {
+     "type": "string"
+    },
+    "parentServiceAreaId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "parentTreeId": {
+     "type": "string"
+    },
+    "postalCode": {
+     "type": "string"
+    },
+    "serviceAreaId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "serviceProviderId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "state": {
+     "type": "string"
+    },
+    "stateCode": {
+     "type": "string"
+    },
+    "universalServiceAreaId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "version": {
+     "format": "int64",
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "ServicedAddress": {
+   "id": "ServicedAddress",
+   "properties": {
+    "businessName": {
+     "type": "string"
+    },
+    "floor": {
+     "type": "string"
+    },
+    "houseNumber": {
+     "type": "string"
+    },
+    "serviceArea": {
+     "$ref": "ServiceArea"
+    },
+    "servicedAddressId": {
+     "format": "int64",
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "Subscription": {
+   "id": "Subscription",
+   "properties": {
+    "changeContext": {
+     "$ref": "ChangeContext"
+    },
+    "creationTimestamp": {
+     "format": "date-time",
+     "type": "string"
+    },
+    "customer": {
+     "$ref": "Customer"
+    },
+    "deleted": {
+     "type": "boolean"
+    },
+    "endDate": {
+     "format": "date",
+     "type": "string"
+    },
+    "instructionType": {
+     "$ref": "InstructionType"
+    },
+    "modificationTimestamp": {
+     "format": "date-time",
+     "type": "string"
+    },
+    "startDate": {
+     "format": "date",
+     "type": "string"
+    },
+    "subscriptionId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "subscriptionItems": {
+     "items": {
+      "$ref": "SubscriptionItem"
+     },
+     "type": "array"
+    },
+    "subscriptionStatus": {
+     "$ref": "SubscriptionStatus"
+    },
+    "version": {
+     "format": "int64",
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "SubscriptionCollection": {
+   "id": "SubscriptionCollection",
+   "properties": {
+    "items": {
+     "items": {
+      "$ref": "Subscription"
+     },
+     "type": "array"
+    }
+   },
+   "type": "object"
+  },
+  "SubscriptionItem": {
+   "id": "SubscriptionItem",
+   "properties": {
+    "deliveryPreference": {
+     "$ref": "DeliveryPreference"
+    },
+    "instructionType": {
+     "$ref": "InstructionType"
+    },
+    "product": {
+     "$ref": "Product"
+    },
+    "productId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "quantity": {
+     "format": "double",
+     "type": "number"
+    },
+    "schedule": {
+     "$ref": "Schedule"
+    },
+    "slots": {
+     "items": {
+      "$ref": "SubscriptionItemSlot"
+     },
+     "type": "array"
+    },
+    "totalSlots": {
+     "format": "int32",
+     "type": "integer"
+    }
+   },
+   "type": "object"
+  },
+  "SubscriptionItemSlot": {
+   "id": "SubscriptionItemSlot",
+   "properties": {
+    "quantity": {
+     "format": "double",
+     "type": "number"
+    },
+    "slotNumber": {
+     "format": "int32",
+     "type": "integer"
+    }
+   },
+   "type": "object"
+  },
+  "SubscriptionStatus": {
+   "enum": [
+    "PAUSED",
+    "ACTIVE"
+   ],
+   "enumDescriptions": [
+    "",
+    ""
+   ],
+   "id": "SubscriptionStatus",
+   "type": "string"
+  },
+  "VerificationStatus": {
+   "enum": [
+    "UNVERIFIED",
+    "VERIFIED",
+    "OBSOLETE"
+   ],
+   "enumDescriptions": [
+    "",
+    "",
+    ""
+   ],
+   "id": "VerificationStatus",
+   "type": "string"
+  }
+ },
+ "servicePath": "subscription/v1/serviceProviders/",
+ "version": "v1"
+}

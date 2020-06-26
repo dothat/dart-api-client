@@ -1,0 +1,603 @@
+{
+ "auth": {
+  "oauth2": {
+   "scopes": {
+    "https://www.googleapis.com/auth/userinfo.email": {
+     "description": "View your email address"
+    }
+   }
+  }
+ },
+ "basePath": "/_ah/api/serviceArea/v1/",
+ "baseUrl": "https://dev-dothat-api.appspot.com/_ah/api/serviceArea/v1/",
+ "batchPath": "batch",
+ "description": "API to access Service Areas and Serviced Addresses",
+ "discoveryVersion": "v1",
+ "icons": {
+  "x16": "http://www.google.com/images/icons/product/search-16.gif",
+  "x32": "http://www.google.com/images/icons/product/search-32.gif"
+ },
+ "id": "serviceArea:v1",
+ "kind": "discovery#restDescription",
+ "methods": {
+  "createServiceArea": {
+   "httpMethod": "POST",
+   "id": "serviceArea.createServiceArea",
+   "path": "serviceAreas",
+   "request": {
+    "$ref": "ServiceArea",
+    "parameterName": "resource"
+   },
+   "response": {
+    "$ref": "ServiceArea"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "createServiceProviderServiceArea": {
+   "httpMethod": "POST",
+   "id": "serviceArea.createServiceProviderServiceArea",
+   "parameterOrder": [
+    "svcProviderId",
+    "parentSvcAreaId"
+   ],
+   "parameters": {
+    "svcProviderId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "parentSvcAreaId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "serviceProviders/{svcProviderId}/serviceAreas/{parentSvcAreaId}/serviceAreas",
+   "request": {
+    "$ref": "ServiceArea",
+    "parameterName": "resource"
+   },
+   "response": {
+    "$ref": "ServiceArea"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "createServicedAddress": {
+   "httpMethod": "POST",
+   "id": "serviceArea.createServicedAddress",
+   "parameterOrder": [
+    "areaId"
+   ],
+   "parameters": {
+    "areaId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "serviceAreas/{areaId}/addresses",
+   "request": {
+    "$ref": "ServicedAddress",
+    "parameterName": "resource"
+   },
+   "response": {
+    "$ref": "ServicedAddress"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "deleteServicedAddress": {
+   "httpMethod": "DELETE",
+   "id": "serviceArea.deleteServicedAddress",
+   "parameterOrder": [
+    "areaId",
+    "addressId"
+   ],
+   "parameters": {
+    "areaId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "addressId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "serviceAreas/{areaId}/addresses/{addressId}",
+   "response": {
+    "$ref": "ServicedAddress"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "findUnassignedServiceAreas": {
+   "httpMethod": "GET",
+   "id": "serviceArea.findUnassignedServiceAreas",
+   "parameterOrder": [
+    "serviceProviderId"
+   ],
+   "parameters": {
+    "serviceProviderId": {
+     "format": "int64",
+     "location": "query",
+     "type": "string"
+    }
+   },
+   "path": "serviceAreas/findUnassignedServiceAreas",
+   "response": {
+    "$ref": "ServiceAreaCollection"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "getServiceArea": {
+   "httpMethod": "GET",
+   "id": "serviceArea.getServiceArea",
+   "parameterOrder": [
+    "svcAreaId"
+   ],
+   "parameters": {
+    "svcAreaId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "serviceAreas/{svcAreaId}",
+   "response": {
+    "$ref": "ServiceArea"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "getServiceProviderServiceArea": {
+   "httpMethod": "GET",
+   "id": "serviceArea.getServiceProviderServiceArea",
+   "parameterOrder": [
+    "svcProviderId",
+    "svcAreaId"
+   ],
+   "parameters": {
+    "svcProviderId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "svcAreaId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "serviceProviders/{svcProviderId}/serviceAreas/{svcAreaId}",
+   "response": {
+    "$ref": "ServiceArea"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "getServicedAddress": {
+   "httpMethod": "GET",
+   "id": "serviceArea.getServicedAddress",
+   "parameterOrder": [
+    "areaId",
+    "addressId"
+   ],
+   "parameters": {
+    "areaId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "addressId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "serviceAreas/{areaId}/addresses/{addressId}",
+   "response": {
+    "$ref": "ServicedAddress"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "searchServiceAddresses": {
+   "httpMethod": "GET",
+   "id": "serviceArea.searchServiceAddresses",
+   "parameterOrder": [
+    "areaId",
+    "businessName",
+    "houseNumber"
+   ],
+   "parameters": {
+    "areaId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "businessName": {
+     "location": "query",
+     "type": "string"
+    },
+    "houseNumber": {
+     "location": "query",
+     "type": "string"
+    }
+   },
+   "path": "serviceAreas/{areaId}/addresses",
+   "response": {
+    "$ref": "ServicedAddressCollection"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "searchServiceArea": {
+   "httpMethod": "GET",
+   "id": "serviceArea.searchServiceArea",
+   "parameterOrder": [
+    "country",
+    "state",
+    "city",
+    "searchQuery"
+   ],
+   "parameters": {
+    "country": {
+     "location": "query",
+     "type": "string"
+    },
+    "state": {
+     "location": "query",
+     "type": "string"
+    },
+    "city": {
+     "location": "query",
+     "type": "string"
+    },
+    "searchQuery": {
+     "location": "query",
+     "type": "string"
+    }
+   },
+   "path": "serviceAreas",
+   "response": {
+    "$ref": "ServiceAreaCollection"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "updateServiceArea": {
+   "httpMethod": "POST",
+   "id": "serviceArea.updateServiceArea",
+   "parameterOrder": [
+    "svcAreaId"
+   ],
+   "parameters": {
+    "svcAreaId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "serviceAreas/{svcAreaId}",
+   "request": {
+    "$ref": "ServiceArea",
+    "parameterName": "resource"
+   },
+   "response": {
+    "$ref": "ServiceArea"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "updateServiceProviderServiceArea": {
+   "httpMethod": "POST",
+   "id": "serviceArea.updateServiceProviderServiceArea",
+   "parameterOrder": [
+    "svcProviderId",
+    "parentSvcAreaId",
+    "svcAreaId"
+   ],
+   "parameters": {
+    "svcProviderId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "parentSvcAreaId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "svcAreaId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "serviceProviders/{svcProviderId}/serviceAreas/{parentSvcAreaId}/serviceAreas/{svcAreaId}",
+   "request": {
+    "$ref": "ServiceArea",
+    "parameterName": "resource"
+   },
+   "response": {
+    "$ref": "ServiceArea"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "updateServicedAddress": {
+   "httpMethod": "PUT",
+   "id": "serviceArea.updateServicedAddress",
+   "parameterOrder": [
+    "areaId",
+    "addressId"
+   ],
+   "parameters": {
+    "areaId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "addressId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "serviceAreas/{areaId}/addresses/{addressId}",
+   "request": {
+    "$ref": "ServicedAddress",
+    "parameterName": "resource"
+   },
+   "response": {
+    "$ref": "ServicedAddress"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  }
+ },
+ "name": "serviceArea",
+ "canonicalName": "ServiceAreaAPI",
+ "ownerDomain": "api.dothat.com",
+ "ownerName": "DoThatAPI",
+ "parameters": {
+  "alt": {
+   "default": "json",
+   "description": "Data format for the response.",
+   "enum": [
+    "json"
+   ],
+   "enumDescriptions": [
+    "Responses with Content-Type of application/json"
+   ],
+   "location": "query",
+   "type": "string"
+  },
+  "fields": {
+   "description": "Selector specifying which fields to include in a partial response.",
+   "location": "query",
+   "type": "string"
+  },
+  "key": {
+   "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.",
+   "location": "query",
+   "type": "string"
+  },
+  "oauth_token": {
+   "description": "OAuth 2.0 token for the current user.",
+   "location": "query",
+   "type": "string"
+  },
+  "prettyPrint": {
+   "default": "true",
+   "description": "Returns response with indentations and line breaks.",
+   "location": "query",
+   "type": "boolean"
+  },
+  "quotaUser": {
+   "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided.",
+   "location": "query",
+   "type": "string"
+  },
+  "userIp": {
+   "description": "IP address of the site where the request originates. Use this if you want to enforce per-user limits.",
+   "location": "query",
+   "type": "string"
+  }
+ },
+ "protocol": "rest",
+ "rootUrl": "https://dev-dothat-api.appspot.com/_ah/api/",
+ "schemas": {
+  "ChangeContext": {
+   "id": "ChangeContext",
+   "properties": {
+    "initiatorType": {
+     "$ref": "ChangeInitiatorType"
+    },
+    "messageId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "userIdentifier": {
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "ChangeInitiatorType": {
+   "enum": [
+    "MESSAGE",
+    "PROVIDER_APP",
+    "SYSTEM",
+    "USER_APP",
+    "UNKNOWN",
+    "USER_WEB",
+    "PROVIDER_WEB"
+   ],
+   "enumDescriptions": [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+   ],
+   "id": "ChangeInitiatorType",
+   "type": "string"
+  },
+  "ServiceArea": {
+   "id": "ServiceArea",
+   "properties": {
+    "addressLine1": {
+     "type": "string"
+    },
+    "addressLine2": {
+     "type": "string"
+    },
+    "addressLine3": {
+     "type": "string"
+    },
+    "changeContext": {
+     "$ref": "ChangeContext"
+    },
+    "city": {
+     "type": "string"
+    },
+    "country": {
+     "type": "string"
+    },
+    "creationTimestamp": {
+     "format": "date-time",
+     "type": "string"
+    },
+    "fullName": {
+     "type": "string"
+    },
+    "modificationTimestamp": {
+     "format": "date-time",
+     "type": "string"
+    },
+    "name": {
+     "type": "string"
+    },
+    "parentServiceAreaId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "parentTreeId": {
+     "type": "string"
+    },
+    "postalCode": {
+     "type": "string"
+    },
+    "serviceAreaId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "serviceProviderId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "state": {
+     "type": "string"
+    },
+    "stateCode": {
+     "type": "string"
+    },
+    "universalServiceAreaId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "version": {
+     "format": "int64",
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "ServiceAreaCollection": {
+   "id": "ServiceAreaCollection",
+   "properties": {
+    "items": {
+     "items": {
+      "$ref": "ServiceArea"
+     },
+     "type": "array"
+    }
+   },
+   "type": "object"
+  },
+  "ServicedAddress": {
+   "id": "ServicedAddress",
+   "properties": {
+    "businessName": {
+     "type": "string"
+    },
+    "floor": {
+     "type": "string"
+    },
+    "houseNumber": {
+     "type": "string"
+    },
+    "serviceArea": {
+     "$ref": "ServiceArea"
+    },
+    "servicedAddressId": {
+     "format": "int64",
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "ServicedAddressCollection": {
+   "id": "ServicedAddressCollection",
+   "properties": {
+    "items": {
+     "items": {
+      "$ref": "ServicedAddress"
+     },
+     "type": "array"
+    }
+   },
+   "type": "object"
+  }
+ },
+ "servicePath": "serviceArea/v1/",
+ "version": "v1"
+}

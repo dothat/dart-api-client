@@ -1,0 +1,266 @@
+{
+ "auth": {
+  "oauth2": {
+   "scopes": {
+    "https://www.googleapis.com/auth/userinfo.email": {
+     "description": "View your email address"
+    }
+   }
+  }
+ },
+ "basePath": "/_ah/api/packaging/v1/serviceProviders/",
+ "baseUrl": "https://dev-dothat-api.appspot.com/_ah/api/packaging/v1/serviceProviders/",
+ "batchPath": "batch",
+ "description": "API to access Packaging",
+ "discoveryVersion": "v1",
+ "icons": {
+  "x16": "http://www.google.com/images/icons/product/search-16.gif",
+  "x32": "http://www.google.com/images/icons/product/search-32.gif"
+ },
+ "id": "packaging:v1",
+ "kind": "discovery#restDescription",
+ "methods": {
+  "createPackaging": {
+   "httpMethod": "POST",
+   "id": "packaging.createPackaging",
+   "parameterOrder": [
+    "svcProviderId"
+   ],
+   "parameters": {
+    "svcProviderId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "{svcProviderId}/packagings",
+   "request": {
+    "$ref": "Packaging",
+    "parameterName": "resource"
+   },
+   "response": {
+    "$ref": "Packaging"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "deletePackaging": {
+   "httpMethod": "DELETE",
+   "id": "packaging.deletePackaging",
+   "parameterOrder": [
+    "svcProviderId",
+    "pkgId",
+    "expunge"
+   ],
+   "parameters": {
+    "svcProviderId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "pkgId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "expunge": {
+     "location": "query",
+     "type": "boolean"
+    }
+   },
+   "path": "{svcProviderId}/packagings/{pkgId}",
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "findPackagings": {
+   "httpMethod": "GET",
+   "id": "packaging.findPackagings",
+   "parameterOrder": [
+    "svcProviderId"
+   ],
+   "parameters": {
+    "svcProviderId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "{svcProviderId}/packagings",
+   "response": {
+    "$ref": "PackagingCollection"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "getPackaging": {
+   "httpMethod": "GET",
+   "id": "packaging.getPackaging",
+   "parameterOrder": [
+    "svcProviderId",
+    "pkgId"
+   ],
+   "parameters": {
+    "svcProviderId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "pkgId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "{svcProviderId}/packagings/{pkgId}",
+   "response": {
+    "$ref": "Packaging"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "updatePackaging": {
+   "httpMethod": "PUT",
+   "id": "packaging.updatePackaging",
+   "parameterOrder": [
+    "svcProviderId",
+    "pkgId"
+   ],
+   "parameters": {
+    "svcProviderId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "pkgId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "{svcProviderId}/packagings/{pkgId}",
+   "request": {
+    "$ref": "Packaging",
+    "parameterName": "resource"
+   },
+   "response": {
+    "$ref": "Packaging"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  }
+ },
+ "name": "packaging",
+ "canonicalName": "PackagingAPI",
+ "ownerDomain": "api.dothat.com",
+ "ownerName": "DoThatAPI",
+ "parameters": {
+  "alt": {
+   "default": "json",
+   "description": "Data format for the response.",
+   "enum": [
+    "json"
+   ],
+   "enumDescriptions": [
+    "Responses with Content-Type of application/json"
+   ],
+   "location": "query",
+   "type": "string"
+  },
+  "fields": {
+   "description": "Selector specifying which fields to include in a partial response.",
+   "location": "query",
+   "type": "string"
+  },
+  "key": {
+   "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.",
+   "location": "query",
+   "type": "string"
+  },
+  "oauth_token": {
+   "description": "OAuth 2.0 token for the current user.",
+   "location": "query",
+   "type": "string"
+  },
+  "prettyPrint": {
+   "default": "true",
+   "description": "Returns response with indentations and line breaks.",
+   "location": "query",
+   "type": "boolean"
+  },
+  "quotaUser": {
+   "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided.",
+   "location": "query",
+   "type": "string"
+  },
+  "userIp": {
+   "description": "IP address of the site where the request originates. Use this if you want to enforce per-user limits.",
+   "location": "query",
+   "type": "string"
+  }
+ },
+ "protocol": "rest",
+ "rootUrl": "https://dev-dothat-api.appspot.com/_ah/api/",
+ "schemas": {
+  "Packaging": {
+   "id": "Packaging",
+   "properties": {
+    "active": {
+     "type": "boolean"
+    },
+    "creationTimestamp": {
+     "format": "date-time",
+     "type": "string"
+    },
+    "deleted": {
+     "type": "boolean"
+    },
+    "modificationTimestamp": {
+     "format": "date-time",
+     "type": "string"
+    },
+    "name": {
+     "type": "string"
+    },
+    "packagingCode": {
+     "type": "string"
+    },
+    "packagingId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "version": {
+     "format": "int64",
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "PackagingCollection": {
+   "id": "PackagingCollection",
+   "properties": {
+    "items": {
+     "items": {
+      "$ref": "Packaging"
+     },
+     "type": "array"
+    }
+   },
+   "type": "object"
+  }
+ },
+ "servicePath": "packaging/v1/serviceProviders/",
+ "version": "v1"
+}

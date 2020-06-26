@@ -1,0 +1,315 @@
+{
+ "auth": {
+  "oauth2": {
+   "scopes": {
+    "https://www.googleapis.com/auth/userinfo.email": {
+     "description": "View your email address"
+    }
+   }
+  }
+ },
+ "basePath": "/_ah/api/smsConfig/v1/serviceProviders/",
+ "baseUrl": "https://dev-dothat-api.appspot.com/_ah/api/smsConfig/v1/serviceProviders/",
+ "batchPath": "batch",
+ "description": "API to define SMS Configuration for Service Providers",
+ "discoveryVersion": "v1",
+ "icons": {
+  "x16": "http://www.google.com/images/icons/product/search-16.gif",
+  "x32": "http://www.google.com/images/icons/product/search-32.gif"
+ },
+ "id": "smsConfig:v1",
+ "kind": "discovery#restDescription",
+ "methods": {
+  "createSmsConfig": {
+   "httpMethod": "POST",
+   "id": "smsConfig.createSmsConfig",
+   "parameterOrder": [
+    "svcProviderId"
+   ],
+   "parameters": {
+    "svcProviderId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "{svcProviderId}/config/sms",
+   "request": {
+    "$ref": "SmsConfig",
+    "parameterName": "resource"
+   },
+   "response": {
+    "$ref": "SmsConfig"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "deleteSmsConfig": {
+   "httpMethod": "DELETE",
+   "id": "smsConfig.deleteSmsConfig",
+   "parameterOrder": [
+    "svcProviderId"
+   ],
+   "parameters": {
+    "svcProviderId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "{svcProviderId}/config/sms",
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "getSmsConfig": {
+   "httpMethod": "GET",
+   "id": "smsConfig.getSmsConfig",
+   "parameterOrder": [
+    "svcProviderId"
+   ],
+   "parameters": {
+    "svcProviderId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "{svcProviderId}/config/sms",
+   "response": {
+    "$ref": "SmsConfig"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "updateSmsConfig": {
+   "httpMethod": "PUT",
+   "id": "smsConfig.updateSmsConfig",
+   "parameterOrder": [
+    "svcProviderId"
+   ],
+   "parameters": {
+    "svcProviderId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "{svcProviderId}/config/sms",
+   "request": {
+    "$ref": "SmsConfig",
+    "parameterName": "resource"
+   },
+   "response": {
+    "$ref": "SmsConfig"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  }
+ },
+ "name": "smsConfig",
+ "canonicalName": "SmsConfigAPI",
+ "ownerDomain": "api.dothat.com",
+ "ownerName": "DoThatAPI",
+ "parameters": {
+  "alt": {
+   "default": "json",
+   "description": "Data format for the response.",
+   "enum": [
+    "json"
+   ],
+   "enumDescriptions": [
+    "Responses with Content-Type of application/json"
+   ],
+   "location": "query",
+   "type": "string"
+  },
+  "fields": {
+   "description": "Selector specifying which fields to include in a partial response.",
+   "location": "query",
+   "type": "string"
+  },
+  "key": {
+   "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.",
+   "location": "query",
+   "type": "string"
+  },
+  "oauth_token": {
+   "description": "OAuth 2.0 token for the current user.",
+   "location": "query",
+   "type": "string"
+  },
+  "prettyPrint": {
+   "default": "true",
+   "description": "Returns response with indentations and line breaks.",
+   "location": "query",
+   "type": "boolean"
+  },
+  "quotaUser": {
+   "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided.",
+   "location": "query",
+   "type": "string"
+  },
+  "userIp": {
+   "description": "IP address of the site where the request originates. Use this if you want to enforce per-user limits.",
+   "location": "query",
+   "type": "string"
+  }
+ },
+ "protocol": "rest",
+ "rootUrl": "https://dev-dothat-api.appspot.com/_ah/api/",
+ "schemas": {
+  "ChangeType": {
+   "enum": [
+    "PLACE_ORDER",
+    "CANCEL_ORDER",
+    "RECEIVED_MESSAGE",
+    "CREATE_SUBSCRIPTION",
+    "UPDATE_SUBSCRIPTION",
+    "PAUSE_SUBSCRIPTION",
+    "RESUME_SUBSCRIPTION",
+    "CREATE_SERVICE_AREA",
+    "UPDATE_SERVICE_AREA",
+    "CREATE_PRODUCT",
+    "UPDATE_PRODUCT",
+    "CREATE_CUSTOMER",
+    "UPDATE_CUSTOMER",
+    "CREATE_ROUTE",
+    "UPDATE_ROUTE",
+    "UPDATE_ROUTE_ADDRESS"
+   ],
+   "enumDescriptions": [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+   ],
+   "id": "ChangeType",
+   "type": "string"
+  },
+  "ParserConfig": {
+   "id": "ParserConfig",
+   "properties": {
+    "parserConfigId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "parserName": {
+     "type": "string"
+    },
+    "parserType": {
+     "$ref": "ParserType"
+    },
+    "typeSpecificConfig": {
+     "$ref": "ParserTypeSpecificConfig"
+    }
+   },
+   "type": "object"
+  },
+  "ParserRegexConfig": {
+   "id": "ParserRegexConfig",
+   "properties": {
+    "changeType": {
+     "$ref": "ChangeType"
+    },
+    "extractExpressions": {
+     "items": {
+      "type": "string"
+     },
+     "type": "array"
+    },
+    "matchExpression": {
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "ParserType": {
+   "enum": [
+    "REGEX",
+    "URL"
+   ],
+   "enumDescriptions": [
+    "",
+    ""
+   ],
+   "id": "ParserType",
+   "type": "string"
+  },
+  "ParserTypeSpecificConfig": {
+   "id": "ParserTypeSpecificConfig",
+   "properties": {
+    "regexConfig": {
+     "$ref": "ParserRegexConfig"
+    },
+    "urlConfig": {
+     "$ref": "ParserUrlConfig"
+    }
+   },
+   "type": "object"
+  },
+  "ParserUrlConfig": {
+   "id": "ParserUrlConfig",
+   "properties": {
+    "url": {
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "SmsConfig": {
+   "id": "SmsConfig",
+   "properties": {
+    "parsers": {
+     "items": {
+      "$ref": "ParserConfig"
+     },
+     "type": "array"
+    },
+    "receivers": {
+     "items": {
+      "$ref": "SmsReceiverConfig"
+     },
+     "type": "array"
+    }
+   },
+   "type": "object"
+  },
+  "SmsReceiverConfig": {
+   "id": "SmsReceiverConfig",
+   "properties": {
+    "messageExtractor": {
+     "type": "string"
+    },
+    "phoneNumber": {
+     "type": "string"
+    },
+    "uri": {
+     "type": "string"
+    }
+   },
+   "type": "object"
+  }
+ },
+ "servicePath": "smsConfig/v1/serviceProviders/",
+ "version": "v1"
+}
