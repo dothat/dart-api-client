@@ -343,6 +343,7 @@ class Product {
   core.DateTime creationTimestamp;
   core.bool deleted;
   core.String description;
+  core.int displayRank;
   core.List<ProductImage> images;
   core.double measurementQuantity;
   core.String measurementUnit;
@@ -353,6 +354,7 @@ class Product {
   ProductGroup productGroup;
   core.String productId;
   core.double quantity;
+  core.String quantityLabel;
   core.String quantityUnit;
   core.String serviceProviderId;
   core.String version;
@@ -381,6 +383,9 @@ class Product {
     }
     if (_json.containsKey("description")) {
       description = _json["description"];
+    }
+    if (_json.containsKey("displayRank")) {
+      displayRank = _json["displayRank"];
     }
     if (_json.containsKey("images")) {
       images = (_json["images"] as core.List)
@@ -417,6 +422,9 @@ class Product {
     }
     if (_json.containsKey("quantity")) {
       quantity = _json["quantity"].toDouble();
+    }
+    if (_json.containsKey("quantityLabel")) {
+      quantityLabel = _json["quantityLabel"];
     }
     if (_json.containsKey("quantityUnit")) {
       quantityUnit = _json["quantityUnit"];
@@ -456,6 +464,9 @@ class Product {
     if (description != null) {
       _json["description"] = description;
     }
+    if (displayRank != null) {
+      _json["displayRank"] = displayRank;
+    }
     if (images != null) {
       _json["images"] = images.map((value) => (value).toJson()).toList();
     }
@@ -487,6 +498,9 @@ class Product {
     }
     if (quantity != null) {
       _json["quantity"] = quantity;
+    }
+    if (quantityLabel != null) {
+      _json["quantityLabel"] = quantityLabel;
     }
     if (quantityUnit != null) {
       _json["quantityUnit"] = quantityUnit;

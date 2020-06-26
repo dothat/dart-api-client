@@ -517,6 +517,7 @@ buildProduct() {
     o.creationTimestamp = core.DateTime.parse("2002-02-27T14:01:02");
     o.deleted = true;
     o.description = "foo";
+    o.displayRank = 42;
     o.images = buildUnnamed57();
     o.measurementQuantity = 42.0;
     o.measurementUnit = "foo";
@@ -527,6 +528,7 @@ buildProduct() {
     o.productGroup = buildProductGroup();
     o.productId = "foo";
     o.quantity = 42.0;
+    o.quantityLabel = "foo";
     o.quantityUnit = "foo";
     o.serviceProviderId = "foo";
     o.version = "foo";
@@ -547,6 +549,7 @@ checkProduct(api.Product o) {
         unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")));
     unittest.expect(o.deleted, unittest.isTrue);
     unittest.expect(o.description, unittest.equals('foo'));
+    unittest.expect(o.displayRank, unittest.equals(42));
     checkUnnamed57(o.images);
     unittest.expect(o.measurementQuantity, unittest.equals(42.0));
     unittest.expect(o.measurementUnit, unittest.equals('foo'));
@@ -558,6 +561,7 @@ checkProduct(api.Product o) {
     checkProductGroup(o.productGroup);
     unittest.expect(o.productId, unittest.equals('foo'));
     unittest.expect(o.quantity, unittest.equals(42.0));
+    unittest.expect(o.quantityLabel, unittest.equals('foo'));
     unittest.expect(o.quantityUnit, unittest.equals('foo'));
     unittest.expect(o.serviceProviderId, unittest.equals('foo'));
     unittest.expect(o.version, unittest.equals('foo'));
