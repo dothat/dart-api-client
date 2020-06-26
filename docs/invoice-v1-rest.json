@@ -1,0 +1,1253 @@
+{
+ "auth": {
+  "oauth2": {
+   "scopes": {
+    "https://www.googleapis.com/auth/userinfo.email": {
+     "description": "View your email address"
+    }
+   }
+  }
+ },
+ "basePath": "/_ah/api/invoice/v1/serviceProviders/",
+ "baseUrl": "https://dev-dothat-api.appspot.com/_ah/api/invoice/v1/serviceProviders/",
+ "batchPath": "batch",
+ "description": "API to access Invoices",
+ "discoveryVersion": "v1",
+ "icons": {
+  "x16": "http://www.google.com/images/icons/product/search-16.gif",
+  "x32": "http://www.google.com/images/icons/product/search-32.gif"
+ },
+ "id": "invoice:v1",
+ "kind": "discovery#restDescription",
+ "methods": {
+  "createInvoice": {
+   "httpMethod": "POST",
+   "id": "invoice.createInvoice",
+   "parameterOrder": [
+    "svcProviderId",
+    "custId"
+   ],
+   "parameters": {
+    "svcProviderId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "custId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "{svcProviderId}/customers/{custId}/invoices",
+   "request": {
+    "$ref": "Invoice",
+    "parameterName": "resource"
+   },
+   "response": {
+    "$ref": "Invoice"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "createInvoiceTemplate": {
+   "httpMethod": "POST",
+   "id": "invoice.createInvoiceTemplate",
+   "parameterOrder": [
+    "svcProviderId"
+   ],
+   "parameters": {
+    "svcProviderId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "{svcProviderId}/invoices/templates",
+   "request": {
+    "$ref": "InvoiceTemplate",
+    "parameterName": "resource"
+   },
+   "response": {
+    "$ref": "InvoiceTemplate"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "deleteInvoice": {
+   "httpMethod": "DELETE",
+   "id": "invoice.deleteInvoice",
+   "parameterOrder": [
+    "svcProviderId",
+    "custId",
+    "invId"
+   ],
+   "parameters": {
+    "svcProviderId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "custId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "invId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "{svcProviderId}/customers/{custId}/invoices/{invId}",
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "findAllInvoices": {
+   "httpMethod": "GET",
+   "id": "invoice.findAllInvoices",
+   "parameterOrder": [
+    "svcProviderId",
+    "minEndDate",
+    "maxEndDate",
+    "filterType",
+    "filterValue"
+   ],
+   "parameters": {
+    "svcProviderId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "minEndDate": {
+     "format": "date",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "maxEndDate": {
+     "format": "date",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "filterType": {
+     "location": "query",
+     "type": "string"
+    },
+    "filterValue": {
+     "location": "query",
+     "repeated": true,
+     "type": "string"
+    }
+   },
+   "path": "{svcProviderId}/invoices/from/{minEndDate}/until/{maxEndDate}",
+   "response": {
+    "$ref": "InvoiceCollection"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "findCurrentInvoice": {
+   "httpMethod": "GET",
+   "id": "invoice.findCurrentInvoice",
+   "parameterOrder": [
+    "svcProviderId",
+    "custId",
+    "startDate",
+    "endDate"
+   ],
+   "parameters": {
+    "svcProviderId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "custId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "startDate": {
+     "format": "date",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "endDate": {
+     "format": "date",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "{svcProviderId}/customers/{custId}/invoices/from/{startDate}/until/{endDate}",
+   "response": {
+    "$ref": "Invoice"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "findInvoice": {
+   "httpMethod": "GET",
+   "id": "invoice.findInvoice",
+   "parameterOrder": [
+    "svcProviderId",
+    "shortUrlCode"
+   ],
+   "parameters": {
+    "svcProviderId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "shortUrlCode": {
+     "location": "path",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "{svcProviderId}/invoices/{shortUrlCode}",
+   "response": {
+    "$ref": "Invoice"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "findInvoiceTemplate": {
+   "httpMethod": "GET",
+   "id": "invoice.findInvoiceTemplate",
+   "parameterOrder": [
+    "svcProviderId",
+    "templateName",
+    "templateVerName",
+    "invoiceDate"
+   ],
+   "parameters": {
+    "svcProviderId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "templateName": {
+     "location": "query",
+     "type": "string"
+    },
+    "templateVerName": {
+     "location": "query",
+     "type": "string"
+    },
+    "invoiceDate": {
+     "format": "date",
+     "location": "query",
+     "type": "string"
+    }
+   },
+   "path": "{svcProviderId}/invoices/templates",
+   "response": {
+    "$ref": "InvoiceTemplate"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "getInvoice": {
+   "httpMethod": "GET",
+   "id": "invoice.getInvoice",
+   "parameterOrder": [
+    "svcProviderId",
+    "custId",
+    "invId"
+   ],
+   "parameters": {
+    "svcProviderId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "custId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "invId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "{svcProviderId}/customers/{custId}/invoices/{invId}",
+   "response": {
+    "$ref": "Invoice"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "getInvoiceTemplate": {
+   "httpMethod": "GET",
+   "id": "invoice.getInvoiceTemplate",
+   "parameterOrder": [
+    "svcProviderId",
+    "templateId"
+   ],
+   "parameters": {
+    "svcProviderId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "templateId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "{svcProviderId}/invoices/templates/{templateId}",
+   "response": {
+    "$ref": "InvoiceTemplate"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "updateInvoice": {
+   "httpMethod": "PUT",
+   "id": "invoice.updateInvoice",
+   "parameterOrder": [
+    "svcProviderId",
+    "custId",
+    "invId"
+   ],
+   "parameters": {
+    "svcProviderId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "custId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "invId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "{svcProviderId}/customers/{custId}/invoices/{invId}",
+   "request": {
+    "$ref": "Invoice",
+    "parameterName": "resource"
+   },
+   "response": {
+    "$ref": "Invoice"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "updateInvoiceTemplate": {
+   "httpMethod": "PUT",
+   "id": "invoice.updateInvoiceTemplate",
+   "parameterOrder": [
+    "svcProviderId",
+    "templateId"
+   ],
+   "parameters": {
+    "svcProviderId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "templateId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "{svcProviderId}/invoices/templates/{templateId}",
+   "request": {
+    "$ref": "InvoiceTemplate",
+    "parameterName": "resource"
+   },
+   "response": {
+    "$ref": "InvoiceTemplate"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  }
+ },
+ "name": "invoice",
+ "canonicalName": "InvoiceAPI",
+ "ownerDomain": "api.dothat.com",
+ "ownerName": "DoThatAPI",
+ "parameters": {
+  "alt": {
+   "default": "json",
+   "description": "Data format for the response.",
+   "enum": [
+    "json"
+   ],
+   "enumDescriptions": [
+    "Responses with Content-Type of application/json"
+   ],
+   "location": "query",
+   "type": "string"
+  },
+  "fields": {
+   "description": "Selector specifying which fields to include in a partial response.",
+   "location": "query",
+   "type": "string"
+  },
+  "key": {
+   "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.",
+   "location": "query",
+   "type": "string"
+  },
+  "oauth_token": {
+   "description": "OAuth 2.0 token for the current user.",
+   "location": "query",
+   "type": "string"
+  },
+  "prettyPrint": {
+   "default": "true",
+   "description": "Returns response with indentations and line breaks.",
+   "location": "query",
+   "type": "boolean"
+  },
+  "quotaUser": {
+   "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided.",
+   "location": "query",
+   "type": "string"
+  },
+  "userIp": {
+   "description": "IP address of the site where the request originates. Use this if you want to enforce per-user limits.",
+   "location": "query",
+   "type": "string"
+  }
+ },
+ "protocol": "rest",
+ "rootUrl": "https://dev-dothat-api.appspot.com/_ah/api/",
+ "schemas": {
+  "AddressType": {
+   "enum": [
+    "RESIDENTIAL",
+    "BUSINESS"
+   ],
+   "enumDescriptions": [
+    "",
+    ""
+   ],
+   "id": "AddressType",
+   "type": "string"
+  },
+  "Amount": {
+   "id": "Amount",
+   "properties": {
+    "currency": {
+     "$ref": "Currency"
+    },
+    "value": {
+     "format": "double",
+     "type": "number"
+    }
+   },
+   "type": "object"
+  },
+  "BillingAddress": {
+   "id": "BillingAddress",
+   "properties": {
+    "addressLine1": {
+     "type": "string"
+    },
+    "addressLine2": {
+     "type": "string"
+    },
+    "addressLine3": {
+     "type": "string"
+    },
+    "city": {
+     "type": "string"
+    },
+    "state": {
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "BillingPeriod": {
+   "id": "BillingPeriod",
+   "properties": {
+    "endDate": {
+     "format": "date",
+     "type": "string"
+    },
+    "label": {
+     "type": "string"
+    },
+    "startDate": {
+     "format": "date",
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "ChangeContext": {
+   "id": "ChangeContext",
+   "properties": {
+    "initiatorType": {
+     "$ref": "ChangeInitiatorType"
+    },
+    "messageId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "userIdentifier": {
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "ChangeInitiatorType": {
+   "enum": [
+    "MESSAGE",
+    "PROVIDER_APP",
+    "SYSTEM",
+    "USER_APP",
+    "UNKNOWN",
+    "USER_WEB",
+    "PROVIDER_WEB"
+   ],
+   "enumDescriptions": [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+   ],
+   "id": "ChangeInitiatorType",
+   "type": "string"
+  },
+  "Currency": {
+   "enum": [
+    "INR",
+    "USD"
+   ],
+   "enumDescriptions": [
+    "",
+    ""
+   ],
+   "id": "Currency",
+   "type": "string"
+  },
+  "Customer": {
+   "id": "Customer",
+   "properties": {
+    "active": {
+     "type": "boolean"
+    },
+    "addresses": {
+     "items": {
+      "$ref": "CustomerAddress"
+     },
+     "type": "array"
+    },
+    "businessName": {
+     "type": "string"
+    },
+    "changeContext": {
+     "$ref": "ChangeContext"
+    },
+    "contacts": {
+     "items": {
+      "$ref": "CustomerContact"
+     },
+     "type": "array"
+    },
+    "creationTimestamp": {
+     "format": "date-time",
+     "type": "string"
+    },
+    "customerId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "deleted": {
+     "type": "boolean"
+    },
+    "modificationTimestamp": {
+     "format": "date-time",
+     "type": "string"
+    },
+    "name": {
+     "type": "string"
+    },
+    "version": {
+     "format": "int64",
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "CustomerAddress": {
+   "id": "CustomerAddress",
+   "properties": {
+    "active": {
+     "type": "boolean"
+    },
+    "addressId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "addressLine1": {
+     "type": "string"
+    },
+    "addressLine2": {
+     "type": "string"
+    },
+    "addressLine3": {
+     "type": "string"
+    },
+    "addressType": {
+     "$ref": "AddressType"
+    },
+    "area": {
+     "type": "string"
+    },
+    "block": {
+     "type": "string"
+    },
+    "building": {
+     "type": "string"
+    },
+    "businessName": {
+     "type": "string"
+    },
+    "city": {
+     "type": "string"
+    },
+    "country": {
+     "type": "string"
+    },
+    "creationTimestamp": {
+     "format": "date-time",
+     "type": "string"
+    },
+    "deleted": {
+     "type": "boolean"
+    },
+    "floor": {
+     "type": "string"
+    },
+    "label": {
+     "type": "string"
+    },
+    "locality": {
+     "type": "string"
+    },
+    "modificationTimestamp": {
+     "format": "date-time",
+     "type": "string"
+    },
+    "postalCode": {
+     "type": "string"
+    },
+    "primary": {
+     "type": "boolean"
+    },
+    "serviceArea": {
+     "$ref": "ServiceArea"
+    },
+    "serviceAreaId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "servicedAddress": {
+     "$ref": "ServicedAddress"
+    },
+    "servicedAddressId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "state": {
+     "type": "string"
+    },
+    "stateCode": {
+     "type": "string"
+    },
+    "subLocality": {
+     "type": "string"
+    },
+    "unitNumber": {
+     "type": "string"
+    },
+    "verificationStatus": {
+     "$ref": "VerificationStatus"
+    },
+    "version": {
+     "format": "int64",
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "CustomerContact": {
+   "id": "CustomerContact",
+   "properties": {
+    "active": {
+     "type": "boolean"
+    },
+    "contactId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "creationTimestamp": {
+     "format": "date-time",
+     "type": "string"
+    },
+    "deleted": {
+     "type": "boolean"
+    },
+    "emailAddresses": {
+     "items": {
+      "$ref": "EmailAddress"
+     },
+     "type": "array"
+    },
+    "label": {
+     "type": "string"
+    },
+    "modificationTimestamp": {
+     "format": "date-time",
+     "type": "string"
+    },
+    "name": {
+     "type": "string"
+    },
+    "phoneNumbers": {
+     "items": {
+      "$ref": "PhoneNumber"
+     },
+     "type": "array"
+    },
+    "primary": {
+     "type": "boolean"
+    },
+    "verificationStatus": {
+     "$ref": "VerificationStatus"
+    },
+    "version": {
+     "format": "int64",
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "EmailAddress": {
+   "id": "EmailAddress",
+   "properties": {
+    "active": {
+     "type": "boolean"
+    },
+    "address": {
+     "type": "string"
+    },
+    "deleted": {
+     "type": "boolean"
+    },
+    "label": {
+     "type": "string"
+    },
+    "primary": {
+     "type": "boolean"
+    },
+    "verificationStatus": {
+     "$ref": "VerificationStatus"
+    }
+   },
+   "type": "object"
+  },
+  "Invoice": {
+   "id": "Invoice",
+   "properties": {
+    "accountName": {
+     "type": "string"
+    },
+    "attributes": {
+     "items": {
+      "$ref": "InvoiceAttribute"
+     },
+     "type": "array"
+    },
+    "billingAddress": {
+     "$ref": "BillingAddress"
+    },
+    "billingPeriod": {
+     "$ref": "BillingPeriod"
+    },
+    "creationTimestamp": {
+     "format": "date-time",
+     "type": "string"
+    },
+    "customer": {
+     "$ref": "Customer"
+    },
+    "customerId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "dueAmount": {
+     "$ref": "Amount"
+    },
+    "dueDate": {
+     "format": "date",
+     "type": "string"
+    },
+    "invoiceDate": {
+     "format": "date",
+     "type": "string"
+    },
+    "invoiceId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "invoiceNumber": {
+     "type": "string"
+    },
+    "invoiceState": {
+     "$ref": "InvoiceState"
+    },
+    "invoiceStatus": {
+     "$ref": "InvoiceStatus"
+    },
+    "invoiceType": {
+     "$ref": "InvoiceType"
+    },
+    "lineItems": {
+     "items": {
+      "$ref": "InvoiceLineItem"
+     },
+     "type": "array"
+    },
+    "modificationTimestamp": {
+     "format": "date-time",
+     "type": "string"
+    },
+    "paymentStatus": {
+     "$ref": "PaymentStatus"
+    },
+    "shortUrlCode": {
+     "type": "string"
+    },
+    "version": {
+     "format": "int64",
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "InvoiceAttribute": {
+   "id": "InvoiceAttribute",
+   "properties": {
+    "attributeType": {
+     "type": "string"
+    },
+    "attributeValue": {
+     "type": "string"
+    },
+    "entityCode": {
+     "type": "string"
+    },
+    "entityId": {
+     "type": "string"
+    },
+    "systemName": {
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "InvoiceCollection": {
+   "id": "InvoiceCollection",
+   "properties": {
+    "items": {
+     "items": {
+      "$ref": "Invoice"
+     },
+     "type": "array"
+    }
+   },
+   "type": "object"
+  },
+  "InvoiceLineItem": {
+   "id": "InvoiceLineItem",
+   "properties": {
+    "amount": {
+     "format": "double",
+     "type": "number"
+    },
+    "attributes": {
+     "items": {
+      "$ref": "InvoiceAttribute"
+     },
+     "type": "array"
+    },
+    "category": {
+     "type": "string"
+    },
+    "countLabel": {
+     "type": "string"
+    },
+    "creationTimestamp": {
+     "format": "date-time",
+     "type": "string"
+    },
+    "currency": {
+     "$ref": "Currency"
+    },
+    "description": {
+     "type": "string"
+    },
+    "itemDate": {
+     "format": "date",
+     "type": "string"
+    },
+    "itemOrder": {
+     "format": "int32",
+     "type": "integer"
+    },
+    "lineItemId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "modificationTimestamp": {
+     "format": "date-time",
+     "type": "string"
+    },
+    "pricing": {
+     "$ref": "Pricing"
+    },
+    "quantity": {
+     "format": "double",
+     "type": "number"
+    },
+    "quantityCount": {
+     "format": "double",
+     "type": "number"
+    },
+    "quantityUnit": {
+     "$ref": "UnitType"
+    },
+    "title": {
+     "type": "string"
+    },
+    "version": {
+     "format": "int64",
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "InvoiceState": {
+   "enum": [
+    "DRAFT",
+    "FINAL",
+    "REVISED"
+   ],
+   "enumDescriptions": [
+    "",
+    "",
+    ""
+   ],
+   "id": "InvoiceState",
+   "type": "string"
+  },
+  "InvoiceStatus": {
+   "enum": [
+    "CURRENT",
+    "EXPIRED"
+   ],
+   "enumDescriptions": [
+    "",
+    ""
+   ],
+   "id": "InvoiceStatus",
+   "type": "string"
+  },
+  "InvoiceTemplate": {
+   "id": "InvoiceTemplate",
+   "properties": {
+    "content": {
+     "type": "string"
+    },
+    "creationTimestamp": {
+     "format": "date-time",
+     "type": "string"
+    },
+    "default": {
+     "type": "boolean"
+    },
+    "effectiveFromDate": {
+     "format": "date",
+     "type": "string"
+    },
+    "effectiveUntilDate": {
+     "format": "date",
+     "type": "string"
+    },
+    "engineName": {
+     "type": "string"
+    },
+    "invoiceTemplateId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "modificationTimestamp": {
+     "format": "date-time",
+     "type": "string"
+    },
+    "name": {
+     "type": "string"
+    },
+    "version": {
+     "format": "int64",
+     "type": "string"
+    },
+    "versionName": {
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "InvoiceType": {
+   "enum": [
+    "STATEMENT",
+    "BILL",
+    "INVOICE"
+   ],
+   "enumDescriptions": [
+    "",
+    "",
+    ""
+   ],
+   "id": "InvoiceType",
+   "type": "string"
+  },
+  "PaymentStatus": {
+   "enum": [
+    "UNPAID",
+    "PAID",
+    "PARTIALLY_PAID"
+   ],
+   "enumDescriptions": [
+    "",
+    "",
+    ""
+   ],
+   "id": "PaymentStatus",
+   "type": "string"
+  },
+  "PhoneNumber": {
+   "id": "PhoneNumber",
+   "properties": {
+    "active": {
+     "type": "boolean"
+    },
+    "deleted": {
+     "type": "boolean"
+    },
+    "label": {
+     "type": "string"
+    },
+    "number": {
+     "type": "string"
+    },
+    "primary": {
+     "type": "boolean"
+    },
+    "verificationStatus": {
+     "$ref": "VerificationStatus"
+    }
+   },
+   "type": "object"
+  },
+  "Pricing": {
+   "id": "Pricing",
+   "properties": {
+    "currency": {
+     "$ref": "Currency"
+    },
+    "price": {
+     "format": "double",
+     "type": "number"
+    },
+    "pricingQuantity": {
+     "format": "double",
+     "type": "number"
+    },
+    "pricingUnit": {
+     "$ref": "UnitType"
+    }
+   },
+   "type": "object"
+  },
+  "ServiceArea": {
+   "id": "ServiceArea",
+   "properties": {
+    "addressLine1": {
+     "type": "string"
+    },
+    "addressLine2": {
+     "type": "string"
+    },
+    "addressLine3": {
+     "type": "string"
+    },
+    "changeContext": {
+     "$ref": "ChangeContext"
+    },
+    "city": {
+     "type": "string"
+    },
+    "country": {
+     "type": "string"
+    },
+    "creationTimestamp": {
+     "format": "date-time",
+     "type": "string"
+    },
+    "fullName": {
+     "type": "string"
+    },
+    "modificationTimestamp": {
+     "format": "date-time",
+     "type": "string"
+    },
+    "name": {
+     "type": "string"
+    },
+    "parentServiceAreaId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "parentTreeId": {
+     "type": "string"
+    },
+    "postalCode": {
+     "type": "string"
+    },
+    "serviceAreaId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "serviceProviderId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "state": {
+     "type": "string"
+    },
+    "stateCode": {
+     "type": "string"
+    },
+    "universalServiceAreaId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "version": {
+     "format": "int64",
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "ServicedAddress": {
+   "id": "ServicedAddress",
+   "properties": {
+    "businessName": {
+     "type": "string"
+    },
+    "floor": {
+     "type": "string"
+    },
+    "houseNumber": {
+     "type": "string"
+    },
+    "serviceArea": {
+     "$ref": "ServiceArea"
+    },
+    "servicedAddressId": {
+     "format": "int64",
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "UnitType": {
+   "enum": [
+    "ITEM",
+    "KG",
+    "GRAM",
+    "LTR",
+    "ML"
+   ],
+   "enumDescriptions": [
+    "",
+    "",
+    "",
+    "",
+    ""
+   ],
+   "id": "UnitType",
+   "type": "string"
+  },
+  "VerificationStatus": {
+   "enum": [
+    "UNVERIFIED",
+    "VERIFIED",
+    "OBSOLETE"
+   ],
+   "enumDescriptions": [
+    "",
+    "",
+    ""
+   ],
+   "id": "VerificationStatus",
+   "type": "string"
+  }
+ },
+ "servicePath": "invoice/v1/serviceProviders/",
+ "version": "v1"
+}

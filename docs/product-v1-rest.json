@@ -1,0 +1,624 @@
+{
+ "auth": {
+  "oauth2": {
+   "scopes": {
+    "https://www.googleapis.com/auth/userinfo.email": {
+     "description": "View your email address"
+    }
+   }
+  }
+ },
+ "basePath": "/_ah/api/product/v1/serviceProviders/",
+ "baseUrl": "https://dev-dothat-api.appspot.com/_ah/api/product/v1/serviceProviders/",
+ "batchPath": "batch",
+ "description": "API to access Products",
+ "discoveryVersion": "v1",
+ "icons": {
+  "x16": "http://www.google.com/images/icons/product/search-16.gif",
+  "x32": "http://www.google.com/images/icons/product/search-32.gif"
+ },
+ "id": "product:v1",
+ "kind": "discovery#restDescription",
+ "methods": {
+  "createProduct": {
+   "httpMethod": "POST",
+   "id": "product.createProduct",
+   "parameterOrder": [
+    "svcProviderId"
+   ],
+   "parameters": {
+    "svcProviderId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "{svcProviderId}/products",
+   "request": {
+    "$ref": "Product",
+    "parameterName": "resource"
+   },
+   "response": {
+    "$ref": "Product"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "findProducts": {
+   "httpMethod": "GET",
+   "id": "product.findProducts",
+   "parameterOrder": [
+    "svcProviderId"
+   ],
+   "parameters": {
+    "svcProviderId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "{svcProviderId}/products",
+   "response": {
+    "$ref": "ProductCollection"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "findProductsForCustomer": {
+   "httpMethod": "GET",
+   "id": "product.findProductsForCustomer",
+   "parameterOrder": [
+    "svcProviderId",
+    "custId"
+   ],
+   "parameters": {
+    "svcProviderId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "custId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "{svcProviderId}/customers/{custId}/products",
+   "response": {
+    "$ref": "ProductCollection"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "getProduct": {
+   "httpMethod": "GET",
+   "id": "product.getProduct",
+   "parameterOrder": [
+    "svcProviderId",
+    "prodId"
+   ],
+   "parameters": {
+    "svcProviderId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "prodId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "{svcProviderId}/products/{prodId}",
+   "response": {
+    "$ref": "Product"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "updateProduct": {
+   "httpMethod": "PUT",
+   "id": "product.updateProduct",
+   "parameterOrder": [
+    "svcProviderId",
+    "prodId"
+   ],
+   "parameters": {
+    "svcProviderId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "prodId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "{svcProviderId}/products/{prodId}",
+   "request": {
+    "$ref": "Product",
+    "parameterName": "resource"
+   },
+   "response": {
+    "$ref": "Product"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  }
+ },
+ "name": "product",
+ "canonicalName": "ProductAPI",
+ "ownerDomain": "api.dothat.com",
+ "ownerName": "DoThatAPI",
+ "parameters": {
+  "alt": {
+   "default": "json",
+   "description": "Data format for the response.",
+   "enum": [
+    "json"
+   ],
+   "enumDescriptions": [
+    "Responses with Content-Type of application/json"
+   ],
+   "location": "query",
+   "type": "string"
+  },
+  "fields": {
+   "description": "Selector specifying which fields to include in a partial response.",
+   "location": "query",
+   "type": "string"
+  },
+  "key": {
+   "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.",
+   "location": "query",
+   "type": "string"
+  },
+  "oauth_token": {
+   "description": "OAuth 2.0 token for the current user.",
+   "location": "query",
+   "type": "string"
+  },
+  "prettyPrint": {
+   "default": "true",
+   "description": "Returns response with indentations and line breaks.",
+   "location": "query",
+   "type": "boolean"
+  },
+  "quotaUser": {
+   "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided.",
+   "location": "query",
+   "type": "string"
+  },
+  "userIp": {
+   "description": "IP address of the site where the request originates. Use this if you want to enforce per-user limits.",
+   "location": "query",
+   "type": "string"
+  }
+ },
+ "protocol": "rest",
+ "rootUrl": "https://dev-dothat-api.appspot.com/_ah/api/",
+ "schemas": {
+  "Amount": {
+   "id": "Amount",
+   "properties": {
+    "currency": {
+     "$ref": "Currency"
+    },
+    "value": {
+     "format": "double",
+     "type": "number"
+    }
+   },
+   "type": "object"
+  },
+  "ChangeContext": {
+   "id": "ChangeContext",
+   "properties": {
+    "initiatorType": {
+     "$ref": "ChangeInitiatorType"
+    },
+    "messageId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "userIdentifier": {
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "ChangeInitiatorType": {
+   "enum": [
+    "MESSAGE",
+    "PROVIDER_APP",
+    "SYSTEM",
+    "USER_APP",
+    "UNKNOWN",
+    "USER_WEB",
+    "PROVIDER_WEB"
+   ],
+   "enumDescriptions": [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+   ],
+   "id": "ChangeInitiatorType",
+   "type": "string"
+  },
+  "Currency": {
+   "enum": [
+    "INR",
+    "USD"
+   ],
+   "enumDescriptions": [
+    "",
+    ""
+   ],
+   "id": "Currency",
+   "type": "string"
+  },
+  "DayOfWeek": {
+   "enum": [
+    "MON",
+    "TUE",
+    "WED",
+    "THU",
+    "FRI",
+    "SAT",
+    "SUN"
+   ],
+   "enumDescriptions": [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+   ],
+   "id": "DayOfWeek",
+   "type": "string"
+  },
+  "DurationType": {
+   "enum": [
+    "DAY",
+    "WEEK",
+    "MONTH"
+   ],
+   "enumDescriptions": [
+    "",
+    "",
+    ""
+   ],
+   "id": "DurationType",
+   "type": "string"
+  },
+  "FrequencyType": {
+   "enum": [
+    "DAY",
+    "WEEK"
+   ],
+   "enumDescriptions": [
+    "",
+    ""
+   ],
+   "id": "FrequencyType",
+   "type": "string"
+  },
+  "ImageType": {
+   "enum": [
+    "FULL_SIZE",
+    "THUMBNAIL"
+   ],
+   "enumDescriptions": [
+    "",
+    ""
+   ],
+   "id": "ImageType",
+   "type": "string"
+  },
+  "Product": {
+   "id": "Product",
+   "properties": {
+    "active": {
+     "type": "boolean"
+    },
+    "availability": {
+     "$ref": "ProductAvailability"
+    },
+    "category": {
+     "type": "string"
+    },
+    "changeContext": {
+     "$ref": "ChangeContext"
+    },
+    "creationTimestamp": {
+     "format": "date-time",
+     "type": "string"
+    },
+    "deleted": {
+     "type": "boolean"
+    },
+    "description": {
+     "type": "string"
+    },
+    "displayRank": {
+     "format": "int32",
+     "type": "integer"
+    },
+    "images": {
+     "items": {
+      "$ref": "ProductImage"
+     },
+     "type": "array"
+    },
+    "measurementQuantity": {
+     "format": "double",
+     "type": "number"
+    },
+    "measurementUnit": {
+     "$ref": "QuantityUnit"
+    },
+    "modificationTimestamp": {
+     "format": "date-time",
+     "type": "string"
+    },
+    "name": {
+     "type": "string"
+    },
+    "priceLists": {
+     "items": {
+      "$ref": "ProductPriceList"
+     },
+     "type": "array"
+    },
+    "productCode": {
+     "type": "string"
+    },
+    "productGroup": {
+     "$ref": "ProductGroup"
+    },
+    "productId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "quantity": {
+     "format": "double",
+     "type": "number"
+    },
+    "quantityLabel": {
+     "type": "string"
+    },
+    "quantityUnit": {
+     "$ref": "QuantityUnit"
+    },
+    "serviceProviderId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "version": {
+     "format": "int64",
+     "type": "string"
+    },
+    "visibility": {
+     "$ref": "ProductVisibility"
+    }
+   },
+   "type": "object"
+  },
+  "ProductAvailability": {
+   "id": "ProductAvailability",
+   "properties": {
+    "availableFrom": {
+     "format": "date",
+     "type": "string"
+    },
+    "availableUntil": {
+     "format": "date",
+     "type": "string"
+    },
+    "schedule": {
+     "$ref": "Schedule"
+    }
+   },
+   "type": "object"
+  },
+  "ProductCollection": {
+   "id": "ProductCollection",
+   "properties": {
+    "items": {
+     "items": {
+      "$ref": "Product"
+     },
+     "type": "array"
+    }
+   },
+   "type": "object"
+  },
+  "ProductGroup": {
+   "id": "ProductGroup",
+   "properties": {
+    "groupDescription": {
+     "type": "string"
+    },
+    "groupName": {
+     "type": "string"
+    },
+    "images": {
+     "items": {
+      "$ref": "ProductImage"
+     },
+     "type": "array"
+    }
+   },
+   "type": "object"
+  },
+  "ProductImage": {
+   "id": "ProductImage",
+   "properties": {
+    "assetName": {
+     "type": "string"
+    },
+    "imageType": {
+     "$ref": "ImageType"
+    },
+    "imageUrl": {
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "ProductPrice": {
+   "id": "ProductPrice",
+   "properties": {
+    "amount": {
+     "$ref": "Amount"
+    },
+    "duration": {
+     "format": "double",
+     "type": "number"
+    },
+    "durationType": {
+     "$ref": "DurationType"
+    },
+    "schedule": {
+     "$ref": "Schedule"
+    }
+   },
+   "type": "object"
+  },
+  "ProductPriceList": {
+   "id": "ProductPriceList",
+   "properties": {
+    "endDate": {
+     "format": "date",
+     "type": "string"
+    },
+    "prices": {
+     "items": {
+      "$ref": "ProductPrice"
+     },
+     "type": "array"
+    },
+    "startDate": {
+     "format": "date",
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "ProductVisibility": {
+   "id": "ProductVisibility",
+   "properties": {
+    "visibleOnlyForServiceProvider": {
+     "type": "boolean"
+    },
+    "visibleOnlyForWhiteListedCustomers": {
+     "type": "boolean"
+    }
+   },
+   "type": "object"
+  },
+  "QuantityUnit": {
+   "enum": [
+    "KGS",
+    "GRAMS",
+    "LTRS",
+    "MLS",
+    "ITEMS"
+   ],
+   "enumDescriptions": [
+    "",
+    "",
+    "",
+    "",
+    ""
+   ],
+   "id": "QuantityUnit",
+   "type": "string"
+  },
+  "Schedule": {
+   "id": "Schedule",
+   "properties": {
+    "daysOfWeek": {
+     "items": {
+      "$ref": "DayOfWeek"
+     },
+     "type": "array"
+    },
+    "frequency": {
+     "format": "int32",
+     "type": "integer"
+    },
+    "frequencyType": {
+     "$ref": "FrequencyType"
+    },
+    "restrictions": {
+     "items": {
+      "$ref": "ScheduleRestriction"
+     },
+     "type": "array"
+    },
+    "scheduleType": {
+     "$ref": "ScheduleType"
+    }
+   },
+   "type": "object"
+  },
+  "ScheduleRestriction": {
+   "id": "ScheduleRestriction",
+   "properties": {
+    "daysOfWeek": {
+     "items": {
+      "$ref": "DayOfWeek"
+     },
+     "type": "array"
+    },
+    "scheduleType": {
+     "$ref": "ScheduleType"
+    }
+   },
+   "type": "object"
+  },
+  "ScheduleType": {
+   "enum": [
+    "EVERYDAY",
+    "ALTERNATE_DAY",
+    "EVERY_N_DAYS",
+    "EVERY_N_WEEKS",
+    "DAY_OF_WEEK",
+    "WEEK_OF_MONTH"
+   ],
+   "enumDescriptions": [
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+   ],
+   "id": "ScheduleType",
+   "type": "string"
+  }
+ },
+ "servicePath": "product/v1/serviceProviders/",
+ "version": "v1"
+}

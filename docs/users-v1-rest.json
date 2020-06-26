@@ -1,0 +1,811 @@
+{
+ "auth": {
+  "oauth2": {
+   "scopes": {
+    "https://www.googleapis.com/auth/userinfo.email": {
+     "description": "View your email address"
+    }
+   }
+  }
+ },
+ "basePath": "/_ah/api/users/v1/",
+ "baseUrl": "https://dev-dothat-api.appspot.com/_ah/api/users/v1/",
+ "batchPath": "batch",
+ "description": "API to access Users",
+ "discoveryVersion": "v1",
+ "icons": {
+  "x16": "http://www.google.com/images/icons/product/search-16.gif",
+  "x32": "http://www.google.com/images/icons/product/search-32.gif"
+ },
+ "id": "users:v1",
+ "kind": "discovery#restDescription",
+ "methods": {
+  "addUserAddress": {
+   "httpMethod": "POST",
+   "id": "users.addUserAddress",
+   "parameterOrder": [
+    "usrId"
+   ],
+   "parameters": {
+    "usrId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "users/{usrId}/addresses",
+   "request": {
+    "$ref": "UserAddress",
+    "parameterName": "resource"
+   },
+   "response": {
+    "$ref": "UserAddress"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "addUserEmailAddress": {
+   "httpMethod": "POST",
+   "id": "users.addUserEmailAddress",
+   "parameterOrder": [
+    "usrId"
+   ],
+   "parameters": {
+    "usrId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "users/{usrId}/emailAddresses",
+   "request": {
+    "$ref": "EmailAddress",
+    "parameterName": "resource"
+   },
+   "response": {
+    "$ref": "EmailAddress"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "addUserPhoneNumber": {
+   "httpMethod": "POST",
+   "id": "users.addUserPhoneNumber",
+   "parameterOrder": [
+    "usrId"
+   ],
+   "parameters": {
+    "usrId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "users/{usrId}/phoneNumbers",
+   "request": {
+    "$ref": "PhoneNumber",
+    "parameterName": "resource"
+   },
+   "response": {
+    "$ref": "PhoneNumber"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "createUser": {
+   "httpMethod": "POST",
+   "id": "users.createUser",
+   "path": "users",
+   "request": {
+    "$ref": "User",
+    "parameterName": "resource"
+   },
+   "response": {
+    "$ref": "User"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "findUsers": {
+   "httpMethod": "GET",
+   "id": "users.findUsers",
+   "parameterOrder": [
+    "query"
+   ],
+   "parameters": {
+    "query": {
+     "location": "query",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "users",
+   "response": {
+    "$ref": "UserCollection"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "getUser": {
+   "httpMethod": "GET",
+   "id": "users.getUser",
+   "parameterOrder": [
+    "usrId"
+   ],
+   "parameters": {
+    "usrId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "users/{usrId}",
+   "response": {
+    "$ref": "User"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "removeUserAddress": {
+   "httpMethod": "DELETE",
+   "id": "users.removeUserAddress",
+   "parameterOrder": [
+    "usrId",
+    "addrId",
+    "expunge"
+   ],
+   "parameters": {
+    "usrId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "addrId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "expunge": {
+     "location": "query",
+     "required": true,
+     "type": "boolean"
+    }
+   },
+   "path": "users/{usrId}/addresses/{addrId}",
+   "response": {
+    "$ref": "UserAddress"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "removeUserEmailAddress": {
+   "httpMethod": "DELETE",
+   "id": "users.removeUserEmailAddress",
+   "parameterOrder": [
+    "usrId",
+    "emailAddr",
+    "expunge"
+   ],
+   "parameters": {
+    "usrId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "emailAddr": {
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "expunge": {
+     "location": "query",
+     "required": true,
+     "type": "boolean"
+    }
+   },
+   "path": "users/{usrId}/emailAddresses/{emailAddr}",
+   "response": {
+    "$ref": "EmailAddress"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "removeUserPhoneNumber": {
+   "httpMethod": "DELETE",
+   "id": "users.removeUserPhoneNumber",
+   "parameterOrder": [
+    "usrId",
+    "phoneNum",
+    "expunge"
+   ],
+   "parameters": {
+    "usrId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "phoneNum": {
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "expunge": {
+     "location": "query",
+     "required": true,
+     "type": "boolean"
+    }
+   },
+   "path": "users/{usrId}/phoneNumbers/{phoneNum}",
+   "response": {
+    "$ref": "PhoneNumber"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "updateUser": {
+   "httpMethod": "PUT",
+   "id": "users.updateUser",
+   "parameterOrder": [
+    "usrId"
+   ],
+   "parameters": {
+    "usrId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "users/{usrId}",
+   "request": {
+    "$ref": "User",
+    "parameterName": "resource"
+   },
+   "response": {
+    "$ref": "User"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "updateUserAddress": {
+   "httpMethod": "PUT",
+   "id": "users.updateUserAddress",
+   "parameterOrder": [
+    "usrId",
+    "addrId"
+   ],
+   "parameters": {
+    "usrId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "addrId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "users/{usrId}/addresses/{addrId}",
+   "request": {
+    "$ref": "UserAddress",
+    "parameterName": "resource"
+   },
+   "response": {
+    "$ref": "UserAddress"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "updateUserEmailAddress": {
+   "httpMethod": "PUT",
+   "id": "users.updateUserEmailAddress",
+   "parameterOrder": [
+    "usrId",
+    "emailAddr"
+   ],
+   "parameters": {
+    "usrId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "emailAddr": {
+     "location": "path",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "users/{usrId}/emailAddresses/{emailAddr}",
+   "request": {
+    "$ref": "EmailAddress",
+    "parameterName": "resource"
+   },
+   "response": {
+    "$ref": "EmailAddress"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "updateUserPhoneNumber": {
+   "httpMethod": "PUT",
+   "id": "users.updateUserPhoneNumber",
+   "parameterOrder": [
+    "usrId",
+    "phoneNum"
+   ],
+   "parameters": {
+    "usrId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "phoneNum": {
+     "location": "path",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "users/{usrId}/phoneNumbers/{phoneNum}",
+   "request": {
+    "$ref": "PhoneNumber",
+    "parameterName": "resource"
+   },
+   "response": {
+    "$ref": "PhoneNumber"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  }
+ },
+ "name": "users",
+ "canonicalName": "UserAPI",
+ "ownerDomain": "api.dothat.com",
+ "ownerName": "DoThatAPI",
+ "parameters": {
+  "alt": {
+   "default": "json",
+   "description": "Data format for the response.",
+   "enum": [
+    "json"
+   ],
+   "enumDescriptions": [
+    "Responses with Content-Type of application/json"
+   ],
+   "location": "query",
+   "type": "string"
+  },
+  "fields": {
+   "description": "Selector specifying which fields to include in a partial response.",
+   "location": "query",
+   "type": "string"
+  },
+  "key": {
+   "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.",
+   "location": "query",
+   "type": "string"
+  },
+  "oauth_token": {
+   "description": "OAuth 2.0 token for the current user.",
+   "location": "query",
+   "type": "string"
+  },
+  "prettyPrint": {
+   "default": "true",
+   "description": "Returns response with indentations and line breaks.",
+   "location": "query",
+   "type": "boolean"
+  },
+  "quotaUser": {
+   "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided.",
+   "location": "query",
+   "type": "string"
+  },
+  "userIp": {
+   "description": "IP address of the site where the request originates. Use this if you want to enforce per-user limits.",
+   "location": "query",
+   "type": "string"
+  }
+ },
+ "protocol": "rest",
+ "rootUrl": "https://dev-dothat-api.appspot.com/_ah/api/",
+ "schemas": {
+  "AddressType": {
+   "enum": [
+    "RESIDENTIAL",
+    "BUSINESS"
+   ],
+   "enumDescriptions": [
+    "",
+    ""
+   ],
+   "id": "AddressType",
+   "type": "string"
+  },
+  "ChangeContext": {
+   "id": "ChangeContext",
+   "properties": {
+    "initiatorType": {
+     "$ref": "ChangeInitiatorType"
+    },
+    "messageId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "userIdentifier": {
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "ChangeInitiatorType": {
+   "enum": [
+    "MESSAGE",
+    "PROVIDER_APP",
+    "SYSTEM",
+    "USER_APP",
+    "UNKNOWN",
+    "USER_WEB",
+    "PROVIDER_WEB"
+   ],
+   "enumDescriptions": [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+   ],
+   "id": "ChangeInitiatorType",
+   "type": "string"
+  },
+  "EmailAddress": {
+   "id": "EmailAddress",
+   "properties": {
+    "active": {
+     "type": "boolean"
+    },
+    "address": {
+     "type": "string"
+    },
+    "deleted": {
+     "type": "boolean"
+    },
+    "label": {
+     "type": "string"
+    },
+    "primary": {
+     "type": "boolean"
+    },
+    "verificationStatus": {
+     "$ref": "VerificationStatus"
+    }
+   },
+   "type": "object"
+  },
+  "PhoneNumber": {
+   "id": "PhoneNumber",
+   "properties": {
+    "active": {
+     "type": "boolean"
+    },
+    "deleted": {
+     "type": "boolean"
+    },
+    "label": {
+     "type": "string"
+    },
+    "number": {
+     "type": "string"
+    },
+    "primary": {
+     "type": "boolean"
+    },
+    "verificationStatus": {
+     "$ref": "VerificationStatus"
+    }
+   },
+   "type": "object"
+  },
+  "ServiceArea": {
+   "id": "ServiceArea",
+   "properties": {
+    "addressLine1": {
+     "type": "string"
+    },
+    "addressLine2": {
+     "type": "string"
+    },
+    "addressLine3": {
+     "type": "string"
+    },
+    "changeContext": {
+     "$ref": "ChangeContext"
+    },
+    "city": {
+     "type": "string"
+    },
+    "country": {
+     "type": "string"
+    },
+    "creationTimestamp": {
+     "format": "date-time",
+     "type": "string"
+    },
+    "fullName": {
+     "type": "string"
+    },
+    "modificationTimestamp": {
+     "format": "date-time",
+     "type": "string"
+    },
+    "name": {
+     "type": "string"
+    },
+    "parentServiceAreaId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "parentTreeId": {
+     "type": "string"
+    },
+    "postalCode": {
+     "type": "string"
+    },
+    "serviceAreaId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "serviceProviderId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "state": {
+     "type": "string"
+    },
+    "stateCode": {
+     "type": "string"
+    },
+    "universalServiceAreaId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "version": {
+     "format": "int64",
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "ServicedAddress": {
+   "id": "ServicedAddress",
+   "properties": {
+    "businessName": {
+     "type": "string"
+    },
+    "floor": {
+     "type": "string"
+    },
+    "houseNumber": {
+     "type": "string"
+    },
+    "serviceArea": {
+     "$ref": "ServiceArea"
+    },
+    "servicedAddressId": {
+     "format": "int64",
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "User": {
+   "id": "User",
+   "properties": {
+    "active": {
+     "type": "boolean"
+    },
+    "addresses": {
+     "items": {
+      "$ref": "UserAddress"
+     },
+     "type": "array"
+    },
+    "creationTimestamp": {
+     "format": "date-time",
+     "type": "string"
+    },
+    "deleted": {
+     "type": "boolean"
+    },
+    "emailAddresses": {
+     "items": {
+      "$ref": "EmailAddress"
+     },
+     "type": "array"
+    },
+    "modificationTimestamp": {
+     "format": "date-time",
+     "type": "string"
+    },
+    "name": {
+     "type": "string"
+    },
+    "phoneNumbers": {
+     "items": {
+      "$ref": "PhoneNumber"
+     },
+     "type": "array"
+    },
+    "userId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "verificationStatus": {
+     "$ref": "VerificationStatus"
+    },
+    "version": {
+     "format": "int64",
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "UserAddress": {
+   "id": "UserAddress",
+   "properties": {
+    "active": {
+     "type": "boolean"
+    },
+    "addressId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "addressLine1": {
+     "type": "string"
+    },
+    "addressLine2": {
+     "type": "string"
+    },
+    "addressLine3": {
+     "type": "string"
+    },
+    "addressType": {
+     "$ref": "AddressType"
+    },
+    "area": {
+     "type": "string"
+    },
+    "block": {
+     "type": "string"
+    },
+    "building": {
+     "type": "string"
+    },
+    "businessName": {
+     "type": "string"
+    },
+    "city": {
+     "type": "string"
+    },
+    "country": {
+     "type": "string"
+    },
+    "creationTimestamp": {
+     "format": "date-time",
+     "type": "string"
+    },
+    "deleted": {
+     "type": "boolean"
+    },
+    "floor": {
+     "type": "string"
+    },
+    "label": {
+     "type": "string"
+    },
+    "locality": {
+     "type": "string"
+    },
+    "modificationTimestamp": {
+     "format": "date-time",
+     "type": "string"
+    },
+    "postalCode": {
+     "type": "string"
+    },
+    "primary": {
+     "type": "boolean"
+    },
+    "serviceArea": {
+     "$ref": "ServiceArea"
+    },
+    "serviceAreaId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "servicedAddress": {
+     "$ref": "ServicedAddress"
+    },
+    "servicedAddressId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "state": {
+     "type": "string"
+    },
+    "stateCode": {
+     "type": "string"
+    },
+    "subLocality": {
+     "type": "string"
+    },
+    "unitNumber": {
+     "type": "string"
+    },
+    "verificationStatus": {
+     "$ref": "VerificationStatus"
+    },
+    "version": {
+     "format": "int64",
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "UserCollection": {
+   "id": "UserCollection",
+   "properties": {
+    "items": {
+     "items": {
+      "$ref": "User"
+     },
+     "type": "array"
+    }
+   },
+   "type": "object"
+  },
+  "VerificationStatus": {
+   "enum": [
+    "UNVERIFIED",
+    "VERIFIED",
+    "OBSOLETE"
+   ],
+   "enumDescriptions": [
+    "",
+    "",
+    ""
+   ],
+   "id": "VerificationStatus",
+   "type": "string"
+  }
+ },
+ "servicePath": "users/v1/",
+ "version": "v1"
+}

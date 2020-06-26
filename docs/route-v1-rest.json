@@ -1,0 +1,835 @@
+{
+ "auth": {
+  "oauth2": {
+   "scopes": {
+    "https://www.googleapis.com/auth/userinfo.email": {
+     "description": "View your email address"
+    }
+   }
+  }
+ },
+ "basePath": "/_ah/api/route/v1/serviceProviders/",
+ "baseUrl": "https://dev-dothat-api.appspot.com/_ah/api/route/v1/serviceProviders/",
+ "batchPath": "batch",
+ "description": "API to access Routes",
+ "discoveryVersion": "v1",
+ "icons": {
+  "x16": "http://www.google.com/images/icons/product/search-16.gif",
+  "x32": "http://www.google.com/images/icons/product/search-32.gif"
+ },
+ "id": "route:v1",
+ "kind": "discovery#restDescription",
+ "methods": {
+  "createRoute": {
+   "httpMethod": "POST",
+   "id": "route.createRoute",
+   "parameterOrder": [
+    "svcProviderId"
+   ],
+   "parameters": {
+    "svcProviderId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "{svcProviderId}/routes",
+   "request": {
+    "$ref": "Route",
+    "parameterName": "resource"
+   },
+   "response": {
+    "$ref": "Route"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "findRoutes": {
+   "httpMethod": "GET",
+   "id": "route.findRoutes",
+   "parameterOrder": [
+    "svcProviderId"
+   ],
+   "parameters": {
+    "svcProviderId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "{svcProviderId}/routes",
+   "response": {
+    "$ref": "RouteCollection"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "getRoute": {
+   "httpMethod": "GET",
+   "id": "route.getRoute",
+   "parameterOrder": [
+    "svcProviderId",
+    "rtId"
+   ],
+   "parameters": {
+    "svcProviderId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "rtId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "{svcProviderId}/routes/{rtId}",
+   "response": {
+    "$ref": "Route"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "getRouteAddressList": {
+   "httpMethod": "GET",
+   "id": "route.getRouteAddressList",
+   "parameterOrder": [
+    "svcProviderId",
+    "rtId"
+   ],
+   "parameters": {
+    "svcProviderId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "rtId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "{svcProviderId}/routes/{rtId}/addresses",
+   "response": {
+    "$ref": "RouteAddressList"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "updateRoute": {
+   "httpMethod": "PUT",
+   "id": "route.updateRoute",
+   "parameterOrder": [
+    "svcProviderId",
+    "rtId"
+   ],
+   "parameters": {
+    "svcProviderId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "rtId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "{svcProviderId}/routes/{rtId}",
+   "request": {
+    "$ref": "Route",
+    "parameterName": "resource"
+   },
+   "response": {
+    "$ref": "Route"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "updateRouteAddressList": {
+   "httpMethod": "PUT",
+   "id": "route.updateRouteAddressList",
+   "parameterOrder": [
+    "svcProviderId",
+    "rtId"
+   ],
+   "parameters": {
+    "svcProviderId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "rtId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "{svcProviderId}/routes/{rtId}/addresses",
+   "request": {
+    "$ref": "RouteAddressList",
+    "parameterName": "resource"
+   },
+   "response": {
+    "$ref": "RouteAddressList"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  }
+ },
+ "name": "route",
+ "canonicalName": "RouteAPI",
+ "ownerDomain": "api.dothat.com",
+ "ownerName": "DoThatAPI",
+ "parameters": {
+  "alt": {
+   "default": "json",
+   "description": "Data format for the response.",
+   "enum": [
+    "json"
+   ],
+   "enumDescriptions": [
+    "Responses with Content-Type of application/json"
+   ],
+   "location": "query",
+   "type": "string"
+  },
+  "fields": {
+   "description": "Selector specifying which fields to include in a partial response.",
+   "location": "query",
+   "type": "string"
+  },
+  "key": {
+   "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.",
+   "location": "query",
+   "type": "string"
+  },
+  "oauth_token": {
+   "description": "OAuth 2.0 token for the current user.",
+   "location": "query",
+   "type": "string"
+  },
+  "prettyPrint": {
+   "default": "true",
+   "description": "Returns response with indentations and line breaks.",
+   "location": "query",
+   "type": "boolean"
+  },
+  "quotaUser": {
+   "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided.",
+   "location": "query",
+   "type": "string"
+  },
+  "userIp": {
+   "description": "IP address of the site where the request originates. Use this if you want to enforce per-user limits.",
+   "location": "query",
+   "type": "string"
+  }
+ },
+ "protocol": "rest",
+ "rootUrl": "https://dev-dothat-api.appspot.com/_ah/api/",
+ "schemas": {
+  "AddressType": {
+   "enum": [
+    "RESIDENTIAL",
+    "BUSINESS"
+   ],
+   "enumDescriptions": [
+    "",
+    ""
+   ],
+   "id": "AddressType",
+   "type": "string"
+  },
+  "ChangeContext": {
+   "id": "ChangeContext",
+   "properties": {
+    "initiatorType": {
+     "$ref": "ChangeInitiatorType"
+    },
+    "messageId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "userIdentifier": {
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "ChangeInitiatorType": {
+   "enum": [
+    "MESSAGE",
+    "PROVIDER_APP",
+    "SYSTEM",
+    "USER_APP",
+    "UNKNOWN",
+    "USER_WEB",
+    "PROVIDER_WEB"
+   ],
+   "enumDescriptions": [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+   ],
+   "id": "ChangeInitiatorType",
+   "type": "string"
+  },
+  "Customer": {
+   "id": "Customer",
+   "properties": {
+    "active": {
+     "type": "boolean"
+    },
+    "addresses": {
+     "items": {
+      "$ref": "CustomerAddress"
+     },
+     "type": "array"
+    },
+    "businessName": {
+     "type": "string"
+    },
+    "changeContext": {
+     "$ref": "ChangeContext"
+    },
+    "contacts": {
+     "items": {
+      "$ref": "CustomerContact"
+     },
+     "type": "array"
+    },
+    "creationTimestamp": {
+     "format": "date-time",
+     "type": "string"
+    },
+    "customerId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "deleted": {
+     "type": "boolean"
+    },
+    "modificationTimestamp": {
+     "format": "date-time",
+     "type": "string"
+    },
+    "name": {
+     "type": "string"
+    },
+    "version": {
+     "format": "int64",
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "CustomerAddress": {
+   "id": "CustomerAddress",
+   "properties": {
+    "active": {
+     "type": "boolean"
+    },
+    "addressId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "addressLine1": {
+     "type": "string"
+    },
+    "addressLine2": {
+     "type": "string"
+    },
+    "addressLine3": {
+     "type": "string"
+    },
+    "addressType": {
+     "$ref": "AddressType"
+    },
+    "area": {
+     "type": "string"
+    },
+    "block": {
+     "type": "string"
+    },
+    "building": {
+     "type": "string"
+    },
+    "businessName": {
+     "type": "string"
+    },
+    "city": {
+     "type": "string"
+    },
+    "country": {
+     "type": "string"
+    },
+    "creationTimestamp": {
+     "format": "date-time",
+     "type": "string"
+    },
+    "deleted": {
+     "type": "boolean"
+    },
+    "floor": {
+     "type": "string"
+    },
+    "label": {
+     "type": "string"
+    },
+    "locality": {
+     "type": "string"
+    },
+    "modificationTimestamp": {
+     "format": "date-time",
+     "type": "string"
+    },
+    "postalCode": {
+     "type": "string"
+    },
+    "primary": {
+     "type": "boolean"
+    },
+    "serviceArea": {
+     "$ref": "ServiceArea"
+    },
+    "serviceAreaId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "servicedAddress": {
+     "$ref": "ServicedAddress"
+    },
+    "servicedAddressId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "state": {
+     "type": "string"
+    },
+    "stateCode": {
+     "type": "string"
+    },
+    "subLocality": {
+     "type": "string"
+    },
+    "unitNumber": {
+     "type": "string"
+    },
+    "verificationStatus": {
+     "$ref": "VerificationStatus"
+    },
+    "version": {
+     "format": "int64",
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "CustomerContact": {
+   "id": "CustomerContact",
+   "properties": {
+    "active": {
+     "type": "boolean"
+    },
+    "contactId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "creationTimestamp": {
+     "format": "date-time",
+     "type": "string"
+    },
+    "deleted": {
+     "type": "boolean"
+    },
+    "emailAddresses": {
+     "items": {
+      "$ref": "EmailAddress"
+     },
+     "type": "array"
+    },
+    "label": {
+     "type": "string"
+    },
+    "modificationTimestamp": {
+     "format": "date-time",
+     "type": "string"
+    },
+    "name": {
+     "type": "string"
+    },
+    "phoneNumbers": {
+     "items": {
+      "$ref": "PhoneNumber"
+     },
+     "type": "array"
+    },
+    "primary": {
+     "type": "boolean"
+    },
+    "verificationStatus": {
+     "$ref": "VerificationStatus"
+    },
+    "version": {
+     "format": "int64",
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "DeliveryInstruction": {
+   "id": "DeliveryInstruction",
+   "properties": {
+    "notes": {
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "EmailAddress": {
+   "id": "EmailAddress",
+   "properties": {
+    "active": {
+     "type": "boolean"
+    },
+    "address": {
+     "type": "string"
+    },
+    "deleted": {
+     "type": "boolean"
+    },
+    "label": {
+     "type": "string"
+    },
+    "primary": {
+     "type": "boolean"
+    },
+    "verificationStatus": {
+     "$ref": "VerificationStatus"
+    }
+   },
+   "type": "object"
+  },
+  "PhoneNumber": {
+   "id": "PhoneNumber",
+   "properties": {
+    "active": {
+     "type": "boolean"
+    },
+    "deleted": {
+     "type": "boolean"
+    },
+    "label": {
+     "type": "string"
+    },
+    "number": {
+     "type": "string"
+    },
+    "primary": {
+     "type": "boolean"
+    },
+    "verificationStatus": {
+     "$ref": "VerificationStatus"
+    }
+   },
+   "type": "object"
+  },
+  "Route": {
+   "id": "Route",
+   "properties": {
+    "active": {
+     "type": "boolean"
+    },
+    "changeContext": {
+     "$ref": "ChangeContext"
+    },
+    "creationTimestamp": {
+     "format": "date-time",
+     "type": "string"
+    },
+    "deleted": {
+     "type": "boolean"
+    },
+    "deliverySchedule": {
+     "$ref": "RouteSchedule"
+    },
+    "modificationTimestamp": {
+     "format": "date-time",
+     "type": "string"
+    },
+    "name": {
+     "type": "string"
+    },
+    "routeCode": {
+     "type": "string"
+    },
+    "routeId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "version": {
+     "format": "int64",
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "RouteAddress": {
+   "id": "RouteAddress",
+   "properties": {
+    "address": {
+     "$ref": "CustomerAddress"
+    },
+    "addressId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "creationTimestamp": {
+     "format": "date-time",
+     "type": "string"
+    },
+    "customer": {
+     "$ref": "Customer"
+    },
+    "customerId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "deliveryInstruction": {
+     "$ref": "DeliveryInstruction"
+    },
+    "modificationTimestamp": {
+     "format": "date-time",
+     "type": "string"
+    },
+    "route": {
+     "$ref": "Route"
+    },
+    "routeAddressId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "routeId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "routeOrder": {
+     "format": "int32",
+     "type": "integer"
+    },
+    "version": {
+     "format": "int64",
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "RouteAddressList": {
+   "id": "RouteAddressList",
+   "properties": {
+    "addresses": {
+     "items": {
+      "$ref": "RouteAddress"
+     },
+     "type": "array"
+    },
+    "changeContext": {
+     "$ref": "ChangeContext"
+    },
+    "route": {
+     "$ref": "Route"
+    },
+    "routeId": {
+     "format": "int64",
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "RouteCollection": {
+   "id": "RouteCollection",
+   "properties": {
+    "items": {
+     "items": {
+      "$ref": "Route"
+     },
+     "type": "array"
+    }
+   },
+   "type": "object"
+  },
+  "RouteSchedule": {
+   "id": "RouteSchedule",
+   "properties": {
+    "policyType": {
+     "$ref": "SchedulePolicyType"
+    },
+    "scheduleType": {
+     "$ref": "ScheduleType"
+    }
+   },
+   "type": "object"
+  },
+  "SchedulePolicyType": {
+   "enum": [
+    "ALTERNATE_DAYS_DAY_1",
+    "ALTERNATE_DAYS_DAY_2"
+   ],
+   "enumDescriptions": [
+    "",
+    ""
+   ],
+   "id": "SchedulePolicyType",
+   "type": "string"
+  },
+  "ScheduleType": {
+   "enum": [
+    "EVERYDAY",
+    "ALTERNATE_DAY",
+    "EVERY_N_DAYS",
+    "EVERY_N_WEEKS",
+    "DAY_OF_WEEK",
+    "WEEK_OF_MONTH"
+   ],
+   "enumDescriptions": [
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+   ],
+   "id": "ScheduleType",
+   "type": "string"
+  },
+  "ServiceArea": {
+   "id": "ServiceArea",
+   "properties": {
+    "addressLine1": {
+     "type": "string"
+    },
+    "addressLine2": {
+     "type": "string"
+    },
+    "addressLine3": {
+     "type": "string"
+    },
+    "changeContext": {
+     "$ref": "ChangeContext"
+    },
+    "city": {
+     "type": "string"
+    },
+    "country": {
+     "type": "string"
+    },
+    "creationTimestamp": {
+     "format": "date-time",
+     "type": "string"
+    },
+    "fullName": {
+     "type": "string"
+    },
+    "modificationTimestamp": {
+     "format": "date-time",
+     "type": "string"
+    },
+    "name": {
+     "type": "string"
+    },
+    "parentServiceAreaId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "parentTreeId": {
+     "type": "string"
+    },
+    "postalCode": {
+     "type": "string"
+    },
+    "serviceAreaId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "serviceProviderId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "state": {
+     "type": "string"
+    },
+    "stateCode": {
+     "type": "string"
+    },
+    "universalServiceAreaId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "version": {
+     "format": "int64",
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "ServicedAddress": {
+   "id": "ServicedAddress",
+   "properties": {
+    "businessName": {
+     "type": "string"
+    },
+    "floor": {
+     "type": "string"
+    },
+    "houseNumber": {
+     "type": "string"
+    },
+    "serviceArea": {
+     "$ref": "ServiceArea"
+    },
+    "servicedAddressId": {
+     "format": "int64",
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "VerificationStatus": {
+   "enum": [
+    "UNVERIFIED",
+    "VERIFIED",
+    "OBSOLETE"
+   ],
+   "enumDescriptions": [
+    "",
+    "",
+    ""
+   ],
+   "id": "VerificationStatus",
+   "type": "string"
+  }
+ },
+ "servicePath": "route/v1/serviceProviders/",
+ "version": "v1"
+}
