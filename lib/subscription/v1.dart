@@ -332,8 +332,9 @@ class SubscriptionApi {
   ///
   /// [subStatus] - null
   /// Possible string values are:
-  /// - "PAUSED"
   /// - "ACTIVE"
+  /// - "PAUSED"
+  /// - "STOPPED"
   ///
   /// [startDate] - null
   ///
