@@ -225,10 +225,12 @@
     },
     "subStatus": {
      "enum": [
+      "ACTIVE",
       "PAUSED",
-      "ACTIVE"
+      "STOPPED"
      ],
      "enumDescriptions": [
+      "",
       "",
       ""
      ],
@@ -1233,10 +1235,12 @@
   },
   "SubscriptionStatus": {
    "enum": [
+    "ACTIVE",
     "PAUSED",
-    "ACTIVE"
+    "STOPPED"
    ],
    "enumDescriptions": [
+    "",
     "",
     ""
    ],
