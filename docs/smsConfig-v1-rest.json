@@ -175,6 +175,8 @@
     "UPDATE_SUBSCRIPTION",
     "PAUSE_SUBSCRIPTION",
     "RESUME_SUBSCRIPTION",
+    "STOP_SERVICE",
+    "RESTART_SERVICE",
     "CREATE_SERVICE_AREA",
     "UPDATE_SERVICE_AREA",
     "CREATE_PRODUCT",
@@ -186,6 +188,8 @@
     "UPDATE_ROUTE_ADDRESS"
    ],
    "enumDescriptions": [
+    "",
+    "",
     "",
     "",
     "",
