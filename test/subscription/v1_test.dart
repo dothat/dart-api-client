@@ -94,27 +94,27 @@ checkChangeContext(api.ChangeContext o) {
   buildCounterChangeContext--;
 }
 
-buildUnnamed67() {
+buildUnnamed84() {
   var o = new core.List<api.CustomerAddress>();
   o.add(buildCustomerAddress());
   o.add(buildCustomerAddress());
   return o;
 }
 
-checkUnnamed67(core.List<api.CustomerAddress> o) {
+checkUnnamed84(core.List<api.CustomerAddress> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkCustomerAddress(o[0]);
   checkCustomerAddress(o[1]);
 }
 
-buildUnnamed68() {
+buildUnnamed85() {
   var o = new core.List<api.CustomerContact>();
   o.add(buildCustomerContact());
   o.add(buildCustomerContact());
   return o;
 }
 
-checkUnnamed68(core.List<api.CustomerContact> o) {
+checkUnnamed85(core.List<api.CustomerContact> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkCustomerContact(o[0]);
   checkCustomerContact(o[1]);
@@ -126,10 +126,10 @@ buildCustomer() {
   buildCounterCustomer++;
   if (buildCounterCustomer < 3) {
     o.active = true;
-    o.addresses = buildUnnamed67();
+    o.addresses = buildUnnamed84();
     o.businessName = "foo";
     o.changeContext = buildChangeContext();
-    o.contacts = buildUnnamed68();
+    o.contacts = buildUnnamed85();
     o.creationTimestamp = core.DateTime.parse("2002-02-27T14:01:02");
     o.customerId = "foo";
     o.deleted = true;
@@ -145,10 +145,10 @@ checkCustomer(api.Customer o) {
   buildCounterCustomer++;
   if (buildCounterCustomer < 3) {
     unittest.expect(o.active, unittest.isTrue);
-    checkUnnamed67(o.addresses);
+    checkUnnamed84(o.addresses);
     unittest.expect(o.businessName, unittest.equals('foo'));
     checkChangeContext(o.changeContext);
-    checkUnnamed68(o.contacts);
+    checkUnnamed85(o.contacts);
     unittest.expect(o.creationTimestamp,
         unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")));
     unittest.expect(o.customerId, unittest.equals('foo'));
@@ -240,27 +240,27 @@ checkCustomerAddress(api.CustomerAddress o) {
   buildCounterCustomerAddress--;
 }
 
-buildUnnamed69() {
+buildUnnamed86() {
   var o = new core.List<api.EmailAddress>();
   o.add(buildEmailAddress());
   o.add(buildEmailAddress());
   return o;
 }
 
-checkUnnamed69(core.List<api.EmailAddress> o) {
+checkUnnamed86(core.List<api.EmailAddress> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkEmailAddress(o[0]);
   checkEmailAddress(o[1]);
 }
 
-buildUnnamed70() {
+buildUnnamed87() {
   var o = new core.List<api.PhoneNumber>();
   o.add(buildPhoneNumber());
   o.add(buildPhoneNumber());
   return o;
 }
 
-checkUnnamed70(core.List<api.PhoneNumber> o) {
+checkUnnamed87(core.List<api.PhoneNumber> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkPhoneNumber(o[0]);
   checkPhoneNumber(o[1]);
@@ -275,11 +275,11 @@ buildCustomerContact() {
     o.contactId = "foo";
     o.creationTimestamp = core.DateTime.parse("2002-02-27T14:01:02");
     o.deleted = true;
-    o.emailAddresses = buildUnnamed69();
+    o.emailAddresses = buildUnnamed86();
     o.label = "foo";
     o.modificationTimestamp = core.DateTime.parse("2002-02-27T14:01:02");
     o.name = "foo";
-    o.phoneNumbers = buildUnnamed70();
+    o.phoneNumbers = buildUnnamed87();
     o.primary = true;
     o.verificationStatus = "foo";
     o.version = "foo";
@@ -296,12 +296,12 @@ checkCustomerContact(api.CustomerContact o) {
     unittest.expect(o.creationTimestamp,
         unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")));
     unittest.expect(o.deleted, unittest.isTrue);
-    checkUnnamed69(o.emailAddresses);
+    checkUnnamed86(o.emailAddresses);
     unittest.expect(o.label, unittest.equals('foo'));
     unittest.expect(o.modificationTimestamp,
         unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")));
     unittest.expect(o.name, unittest.equals('foo'));
-    checkUnnamed70(o.phoneNumbers);
+    checkUnnamed87(o.phoneNumbers);
     unittest.expect(o.primary, unittest.isTrue);
     unittest.expect(o.verificationStatus, unittest.equals('foo'));
     unittest.expect(o.version, unittest.equals('foo'));
@@ -388,27 +388,27 @@ checkPhoneNumber(api.PhoneNumber o) {
   buildCounterPhoneNumber--;
 }
 
-buildUnnamed71() {
+buildUnnamed88() {
   var o = new core.List<api.ProductImage>();
   o.add(buildProductImage());
   o.add(buildProductImage());
   return o;
 }
 
-checkUnnamed71(core.List<api.ProductImage> o) {
+checkUnnamed88(core.List<api.ProductImage> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkProductImage(o[0]);
   checkProductImage(o[1]);
 }
 
-buildUnnamed72() {
+buildUnnamed89() {
   var o = new core.List<api.ProductPriceList>();
   o.add(buildProductPriceList());
   o.add(buildProductPriceList());
   return o;
 }
 
-checkUnnamed72(core.List<api.ProductPriceList> o) {
+checkUnnamed89(core.List<api.ProductPriceList> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkProductPriceList(o[0]);
   checkProductPriceList(o[1]);
@@ -427,12 +427,12 @@ buildProduct() {
     o.deleted = true;
     o.description = "foo";
     o.displayRank = 42;
-    o.images = buildUnnamed71();
+    o.images = buildUnnamed88();
     o.measurementQuantity = 42.0;
     o.measurementUnit = "foo";
     o.modificationTimestamp = core.DateTime.parse("2002-02-27T14:01:02");
     o.name = "foo";
-    o.priceLists = buildUnnamed72();
+    o.priceLists = buildUnnamed89();
     o.productCode = "foo";
     o.productGroup = buildProductGroup();
     o.productId = "foo";
@@ -459,13 +459,13 @@ checkProduct(api.Product o) {
     unittest.expect(o.deleted, unittest.isTrue);
     unittest.expect(o.description, unittest.equals('foo'));
     unittest.expect(o.displayRank, unittest.equals(42));
-    checkUnnamed71(o.images);
+    checkUnnamed88(o.images);
     unittest.expect(o.measurementQuantity, unittest.equals(42.0));
     unittest.expect(o.measurementUnit, unittest.equals('foo'));
     unittest.expect(o.modificationTimestamp,
         unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")));
     unittest.expect(o.name, unittest.equals('foo'));
-    checkUnnamed72(o.priceLists);
+    checkUnnamed89(o.priceLists);
     unittest.expect(o.productCode, unittest.equals('foo'));
     checkProductGroup(o.productGroup);
     unittest.expect(o.productId, unittest.equals('foo'));
@@ -504,14 +504,14 @@ checkProductAvailability(api.ProductAvailability o) {
   buildCounterProductAvailability--;
 }
 
-buildUnnamed73() {
+buildUnnamed90() {
   var o = new core.List<api.ProductImage>();
   o.add(buildProductImage());
   o.add(buildProductImage());
   return o;
 }
 
-checkUnnamed73(core.List<api.ProductImage> o) {
+checkUnnamed90(core.List<api.ProductImage> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkProductImage(o[0]);
   checkProductImage(o[1]);
@@ -524,7 +524,7 @@ buildProductGroup() {
   if (buildCounterProductGroup < 3) {
     o.groupDescription = "foo";
     o.groupName = "foo";
-    o.images = buildUnnamed73();
+    o.images = buildUnnamed90();
   }
   buildCounterProductGroup--;
   return o;
@@ -535,7 +535,7 @@ checkProductGroup(api.ProductGroup o) {
   if (buildCounterProductGroup < 3) {
     unittest.expect(o.groupDescription, unittest.equals('foo'));
     unittest.expect(o.groupName, unittest.equals('foo'));
-    checkUnnamed73(o.images);
+    checkUnnamed90(o.images);
   }
   buildCounterProductGroup--;
 }
@@ -588,14 +588,14 @@ checkProductPrice(api.ProductPrice o) {
   buildCounterProductPrice--;
 }
 
-buildUnnamed74() {
+buildUnnamed91() {
   var o = new core.List<api.ProductPrice>();
   o.add(buildProductPrice());
   o.add(buildProductPrice());
   return o;
 }
 
-checkUnnamed74(core.List<api.ProductPrice> o) {
+checkUnnamed91(core.List<api.ProductPrice> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkProductPrice(o[0]);
   checkProductPrice(o[1]);
@@ -607,7 +607,9 @@ buildProductPriceList() {
   buildCounterProductPriceList++;
   if (buildCounterProductPriceList < 3) {
     o.endDate = core.DateTime.parse("2002-02-27T14:01:02Z");
-    o.prices = buildUnnamed74();
+    o.prices = buildUnnamed91();
+    o.product = buildProduct();
+    o.productId = "foo";
     o.startDate = core.DateTime.parse("2002-02-27T14:01:02Z");
   }
   buildCounterProductPriceList--;
@@ -619,7 +621,9 @@ checkProductPriceList(api.ProductPriceList o) {
   if (buildCounterProductPriceList < 3) {
     unittest.expect(
         o.endDate, unittest.equals(core.DateTime.parse("2002-02-27T00:00:00")));
-    checkUnnamed74(o.prices);
+    checkUnnamed91(o.prices);
+    checkProduct(o.product);
+    unittest.expect(o.productId, unittest.equals('foo'));
     unittest.expect(o.startDate,
         unittest.equals(core.DateTime.parse("2002-02-27T00:00:00")));
   }
@@ -647,27 +651,27 @@ checkProductVisibility(api.ProductVisibility o) {
   buildCounterProductVisibility--;
 }
 
-buildUnnamed75() {
+buildUnnamed92() {
   var o = new core.List<core.String>();
   o.add("foo");
   o.add("foo");
   return o;
 }
 
-checkUnnamed75(core.List<core.String> o) {
+checkUnnamed92(core.List<core.String> o) {
   unittest.expect(o, unittest.hasLength(2));
   unittest.expect(o[0], unittest.equals('foo'));
   unittest.expect(o[1], unittest.equals('foo'));
 }
 
-buildUnnamed76() {
+buildUnnamed93() {
   var o = new core.List<api.ScheduleRestriction>();
   o.add(buildScheduleRestriction());
   o.add(buildScheduleRestriction());
   return o;
 }
 
-checkUnnamed76(core.List<api.ScheduleRestriction> o) {
+checkUnnamed93(core.List<api.ScheduleRestriction> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkScheduleRestriction(o[0]);
   checkScheduleRestriction(o[1]);
@@ -678,10 +682,10 @@ buildSchedule() {
   var o = new api.Schedule();
   buildCounterSchedule++;
   if (buildCounterSchedule < 3) {
-    o.daysOfWeek = buildUnnamed75();
+    o.daysOfWeek = buildUnnamed92();
     o.frequency = 42;
     o.frequencyType = "foo";
-    o.restrictions = buildUnnamed76();
+    o.restrictions = buildUnnamed93();
     o.scheduleType = "foo";
   }
   buildCounterSchedule--;
@@ -691,23 +695,23 @@ buildSchedule() {
 checkSchedule(api.Schedule o) {
   buildCounterSchedule++;
   if (buildCounterSchedule < 3) {
-    checkUnnamed75(o.daysOfWeek);
+    checkUnnamed92(o.daysOfWeek);
     unittest.expect(o.frequency, unittest.equals(42));
     unittest.expect(o.frequencyType, unittest.equals('foo'));
-    checkUnnamed76(o.restrictions);
+    checkUnnamed93(o.restrictions);
     unittest.expect(o.scheduleType, unittest.equals('foo'));
   }
   buildCounterSchedule--;
 }
 
-buildUnnamed77() {
+buildUnnamed94() {
   var o = new core.List<core.String>();
   o.add("foo");
   o.add("foo");
   return o;
 }
 
-checkUnnamed77(core.List<core.String> o) {
+checkUnnamed94(core.List<core.String> o) {
   unittest.expect(o, unittest.hasLength(2));
   unittest.expect(o[0], unittest.equals('foo'));
   unittest.expect(o[1], unittest.equals('foo'));
@@ -718,7 +722,7 @@ buildScheduleRestriction() {
   var o = new api.ScheduleRestriction();
   buildCounterScheduleRestriction++;
   if (buildCounterScheduleRestriction < 3) {
-    o.daysOfWeek = buildUnnamed77();
+    o.daysOfWeek = buildUnnamed94();
     o.scheduleType = "foo";
   }
   buildCounterScheduleRestriction--;
@@ -728,7 +732,7 @@ buildScheduleRestriction() {
 checkScheduleRestriction(api.ScheduleRestriction o) {
   buildCounterScheduleRestriction++;
   if (buildCounterScheduleRestriction < 3) {
-    checkUnnamed77(o.daysOfWeek);
+    checkUnnamed94(o.daysOfWeek);
     unittest.expect(o.scheduleType, unittest.equals('foo'));
   }
   buildCounterScheduleRestriction--;
@@ -818,14 +822,14 @@ checkServicedAddress(api.ServicedAddress o) {
   buildCounterServicedAddress--;
 }
 
-buildUnnamed78() {
+buildUnnamed95() {
   var o = new core.List<api.SubscriptionItem>();
   o.add(buildSubscriptionItem());
   o.add(buildSubscriptionItem());
   return o;
 }
 
-checkUnnamed78(core.List<api.SubscriptionItem> o) {
+checkUnnamed95(core.List<api.SubscriptionItem> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkSubscriptionItem(o[0]);
   checkSubscriptionItem(o[1]);
@@ -845,7 +849,7 @@ buildSubscription() {
     o.modificationTimestamp = core.DateTime.parse("2002-02-27T14:01:02");
     o.startDate = core.DateTime.parse("2002-02-27T14:01:02Z");
     o.subscriptionId = "foo";
-    o.subscriptionItems = buildUnnamed78();
+    o.subscriptionItems = buildUnnamed95();
     o.subscriptionStatus = "foo";
     o.version = "foo";
   }
@@ -869,21 +873,21 @@ checkSubscription(api.Subscription o) {
     unittest.expect(o.startDate,
         unittest.equals(core.DateTime.parse("2002-02-27T00:00:00")));
     unittest.expect(o.subscriptionId, unittest.equals('foo'));
-    checkUnnamed78(o.subscriptionItems);
+    checkUnnamed95(o.subscriptionItems);
     unittest.expect(o.subscriptionStatus, unittest.equals('foo'));
     unittest.expect(o.version, unittest.equals('foo'));
   }
   buildCounterSubscription--;
 }
 
-buildUnnamed79() {
+buildUnnamed96() {
   var o = new core.List<api.Subscription>();
   o.add(buildSubscription());
   o.add(buildSubscription());
   return o;
 }
 
-checkUnnamed79(core.List<api.Subscription> o) {
+checkUnnamed96(core.List<api.Subscription> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkSubscription(o[0]);
   checkSubscription(o[1]);
@@ -894,7 +898,7 @@ buildSubscriptionCollection() {
   var o = new api.SubscriptionCollection();
   buildCounterSubscriptionCollection++;
   if (buildCounterSubscriptionCollection < 3) {
-    o.items = buildUnnamed79();
+    o.items = buildUnnamed96();
   }
   buildCounterSubscriptionCollection--;
   return o;
@@ -903,19 +907,19 @@ buildSubscriptionCollection() {
 checkSubscriptionCollection(api.SubscriptionCollection o) {
   buildCounterSubscriptionCollection++;
   if (buildCounterSubscriptionCollection < 3) {
-    checkUnnamed79(o.items);
+    checkUnnamed96(o.items);
   }
   buildCounterSubscriptionCollection--;
 }
 
-buildUnnamed80() {
+buildUnnamed97() {
   var o = new core.List<api.SubscriptionItemSlot>();
   o.add(buildSubscriptionItemSlot());
   o.add(buildSubscriptionItemSlot());
   return o;
 }
 
-checkUnnamed80(core.List<api.SubscriptionItemSlot> o) {
+checkUnnamed97(core.List<api.SubscriptionItemSlot> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkSubscriptionItemSlot(o[0]);
   checkSubscriptionItemSlot(o[1]);
@@ -932,7 +936,7 @@ buildSubscriptionItem() {
     o.productId = "foo";
     o.quantity = 42.0;
     o.schedule = buildSchedule();
-    o.slots = buildUnnamed80();
+    o.slots = buildUnnamed97();
     o.totalSlots = 42;
   }
   buildCounterSubscriptionItem--;
@@ -948,7 +952,7 @@ checkSubscriptionItem(api.SubscriptionItem o) {
     unittest.expect(o.productId, unittest.equals('foo'));
     unittest.expect(o.quantity, unittest.equals(42.0));
     checkSchedule(o.schedule);
-    checkUnnamed80(o.slots);
+    checkUnnamed97(o.slots);
     unittest.expect(o.totalSlots, unittest.equals(42));
   }
   buildCounterSubscriptionItem--;

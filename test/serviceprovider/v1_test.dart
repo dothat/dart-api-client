@@ -244,40 +244,40 @@ checkServiceArea(api.ServiceArea o) {
   buildCounterServiceArea--;
 }
 
-buildUnnamed17() {
+buildUnnamed19() {
   var o = new core.List<api.EmailAddress>();
   o.add(buildEmailAddress());
   o.add(buildEmailAddress());
   return o;
 }
 
-checkUnnamed17(core.List<api.EmailAddress> o) {
+checkUnnamed19(core.List<api.EmailAddress> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkEmailAddress(o[0]);
   checkEmailAddress(o[1]);
 }
 
-buildUnnamed18() {
+buildUnnamed20() {
   var o = new core.List<api.PhoneNumber>();
   o.add(buildPhoneNumber());
   o.add(buildPhoneNumber());
   return o;
 }
 
-checkUnnamed18(core.List<api.PhoneNumber> o) {
+checkUnnamed20(core.List<api.PhoneNumber> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkPhoneNumber(o[0]);
   checkPhoneNumber(o[1]);
 }
 
-buildUnnamed19() {
+buildUnnamed21() {
   var o = new core.List<api.ServiceArea>();
   o.add(buildServiceArea());
   o.add(buildServiceArea());
   return o;
 }
 
-checkUnnamed19(core.List<api.ServiceArea> o) {
+checkUnnamed21(core.List<api.ServiceArea> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkServiceArea(o[0]);
   checkServiceArea(o[1]);
@@ -289,12 +289,12 @@ buildServiceProvider() {
   buildCounterServiceProvider++;
   if (buildCounterServiceProvider < 3) {
     o.creationTimestamp = core.DateTime.parse("2002-02-27T14:01:02");
-    o.emailAddresses = buildUnnamed17();
+    o.emailAddresses = buildUnnamed19();
     o.modificationTimestamp = core.DateTime.parse("2002-02-27T14:01:02");
     o.name = "foo";
-    o.phoneNumbers = buildUnnamed18();
+    o.phoneNumbers = buildUnnamed20();
     o.policy = buildServiceProviderPolicy();
-    o.serviceAreas = buildUnnamed19();
+    o.serviceAreas = buildUnnamed21();
     o.serviceProviderId = "foo";
     o.serviceType = "foo";
     o.version = "foo";
@@ -308,13 +308,13 @@ checkServiceProvider(api.ServiceProvider o) {
   if (buildCounterServiceProvider < 3) {
     unittest.expect(o.creationTimestamp,
         unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")));
-    checkUnnamed17(o.emailAddresses);
+    checkUnnamed19(o.emailAddresses);
     unittest.expect(o.modificationTimestamp,
         unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")));
     unittest.expect(o.name, unittest.equals('foo'));
-    checkUnnamed18(o.phoneNumbers);
+    checkUnnamed20(o.phoneNumbers);
     checkServiceProviderPolicy(o.policy);
-    checkUnnamed19(o.serviceAreas);
+    checkUnnamed21(o.serviceAreas);
     unittest.expect(o.serviceProviderId, unittest.equals('foo'));
     unittest.expect(o.serviceType, unittest.equals('foo'));
     unittest.expect(o.version, unittest.equals('foo'));
@@ -322,14 +322,14 @@ checkServiceProvider(api.ServiceProvider o) {
   buildCounterServiceProvider--;
 }
 
-buildUnnamed20() {
+buildUnnamed22() {
   var o = new core.List<api.ServiceProvider>();
   o.add(buildServiceProvider());
   o.add(buildServiceProvider());
   return o;
 }
 
-checkUnnamed20(core.List<api.ServiceProvider> o) {
+checkUnnamed22(core.List<api.ServiceProvider> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkServiceProvider(o[0]);
   checkServiceProvider(o[1]);
@@ -340,7 +340,7 @@ buildServiceProviderCollection() {
   var o = new api.ServiceProviderCollection();
   buildCounterServiceProviderCollection++;
   if (buildCounterServiceProviderCollection < 3) {
-    o.items = buildUnnamed20();
+    o.items = buildUnnamed22();
   }
   buildCounterServiceProviderCollection--;
   return o;
@@ -349,7 +349,7 @@ buildServiceProviderCollection() {
 checkServiceProviderCollection(api.ServiceProviderCollection o) {
   buildCounterServiceProviderCollection++;
   if (buildCounterServiceProviderCollection < 3) {
-    checkUnnamed20(o.items);
+    checkUnnamed22(o.items);
   }
   buildCounterServiceProviderCollection--;
 }
@@ -375,32 +375,6 @@ checkServiceProviderPolicy(api.ServiceProviderPolicy o) {
   buildCounterServiceProviderPolicy--;
 }
 
-buildUnnamed21() {
-  var o = new core.List<core.String>();
-  o.add("foo");
-  o.add("foo");
-  return o;
-}
-
-checkUnnamed21(core.List<core.String> o) {
-  unittest.expect(o, unittest.hasLength(2));
-  unittest.expect(o[0], unittest.equals('foo'));
-  unittest.expect(o[1], unittest.equals('foo'));
-}
-
-buildUnnamed22() {
-  var o = new core.List<core.String>();
-  o.add("foo");
-  o.add("foo");
-  return o;
-}
-
-checkUnnamed22(core.List<core.String> o) {
-  unittest.expect(o, unittest.hasLength(2));
-  unittest.expect(o[0], unittest.equals('foo'));
-  unittest.expect(o[1], unittest.equals('foo'));
-}
-
 buildUnnamed23() {
   var o = new core.List<core.String>();
   o.add("foo");
@@ -409,6 +383,32 @@ buildUnnamed23() {
 }
 
 checkUnnamed23(core.List<core.String> o) {
+  unittest.expect(o, unittest.hasLength(2));
+  unittest.expect(o[0], unittest.equals('foo'));
+  unittest.expect(o[1], unittest.equals('foo'));
+}
+
+buildUnnamed24() {
+  var o = new core.List<core.String>();
+  o.add("foo");
+  o.add("foo");
+  return o;
+}
+
+checkUnnamed24(core.List<core.String> o) {
+  unittest.expect(o, unittest.hasLength(2));
+  unittest.expect(o[0], unittest.equals('foo'));
+  unittest.expect(o[1], unittest.equals('foo'));
+}
+
+buildUnnamed25() {
+  var o = new core.List<core.String>();
+  o.add("foo");
+  o.add("foo");
+  return o;
+}
+
+checkUnnamed25(core.List<core.String> o) {
   unittest.expect(o, unittest.hasLength(2));
   unittest.expect(o[0], unittest.equals('foo'));
   unittest.expect(o[1], unittest.equals('foo'));
@@ -492,7 +492,7 @@ main() {
       var mock = new HttpServerMock();
       api.ServiceProviderApi res = new api.ServiceProviderApi(mock);
       var arg_request = buildServiceProvider();
-      var arg_svcAreaIds = buildUnnamed21();
+      var arg_svcAreaIds = buildUnnamed23();
       var arg_$fields = "foo";
       mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
         var obj = new api.ServiceProvider.fromJson(json);
@@ -736,7 +736,7 @@ main() {
       api.ServiceProviderApi res = new api.ServiceProviderApi(mock);
       var arg_request = buildServiceProvider();
       var arg_svcProviderId = "foo";
-      var arg_svcAreaIds = buildUnnamed22();
+      var arg_svcAreaIds = buildUnnamed24();
       var arg_$fields = "foo";
       mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
         var obj = new api.ServiceProvider.fromJson(json);
@@ -799,7 +799,7 @@ main() {
       var mock = new HttpServerMock();
       api.ServiceProviderApi res = new api.ServiceProviderApi(mock);
       var arg_svcProviderId = "foo";
-      var arg_svcAreaIds = buildUnnamed23();
+      var arg_svcAreaIds = buildUnnamed25();
       var arg_$fields = "foo";
       mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
         var path = (req.url).path;
