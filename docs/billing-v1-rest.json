@@ -1,0 +1,533 @@
+{
+ "auth": {
+  "oauth2": {
+   "scopes": {
+    "https://www.googleapis.com/auth/userinfo.email": {
+     "description": "View your email address"
+    }
+   }
+  }
+ },
+ "basePath": "/_ah/api/billing/v1/serviceProviders/",
+ "baseUrl": "https://dev-dothat-api.appspot.com/_ah/api/billing/v1/serviceProviders/",
+ "batchPath": "batch",
+ "description": "API to access Billing Transactions",
+ "discoveryVersion": "v1",
+ "icons": {
+  "x16": "http://www.google.com/images/icons/product/search-16.gif",
+  "x32": "http://www.google.com/images/icons/product/search-32.gif"
+ },
+ "id": "billing:v1",
+ "kind": "discovery#restDescription",
+ "methods": {
+  "createTransaction": {
+   "httpMethod": "POST",
+   "id": "billing.createTransaction",
+   "parameterOrder": [
+    "svcProviderId",
+    "custId",
+    "acctId"
+   ],
+   "parameters": {
+    "svcProviderId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "custId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "acctId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "{svcProviderId}/customers/{custId}/accounts/{acctId}/transactions",
+   "request": {
+    "$ref": "BillingTransaction",
+    "parameterName": "resource"
+   },
+   "response": {
+    "$ref": "BillingTransaction"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "getAllTransactions": {
+   "httpMethod": "GET",
+   "id": "billing.getAllTransactions",
+   "parameterOrder": [
+    "svcProviderId",
+    "custId",
+    "acctId",
+    "reasnType",
+    "reasnId"
+   ],
+   "parameters": {
+    "svcProviderId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "custId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "acctId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "reasnType": {
+     "enum": [
+      "BALANCE",
+      "BILL",
+      "BILL_BALANCE",
+      "ORDER",
+      "ORDER_REVERSAL",
+      "PAYMENT",
+      "PAYMENT_REVERSAL",
+      "CHARGE",
+      "CREDIT",
+      "ADVANCE",
+      "TRANSFER"
+     ],
+     "enumDescriptions": [
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+     ],
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "reasnId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "{svcProviderId}/customers/{custId}/accounts/{acctId}/transactions/reasons/{reasnType}/{reasnId}",
+   "response": {
+    "$ref": "BillingTransactionCollection"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "getTransaction": {
+   "httpMethod": "GET",
+   "id": "billing.getTransaction",
+   "parameterOrder": [
+    "svcProviderId",
+    "custId",
+    "acctId",
+    "transId"
+   ],
+   "parameters": {
+    "svcProviderId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "custId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "acctId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "transId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "{svcProviderId}/customers/{custId}/accounts/{acctId}/transactions/{transId}",
+   "response": {
+    "$ref": "BillingTransaction"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "replaceTransactionsForOrder": {
+   "httpMethod": "PUT",
+   "id": "billing.replaceTransactionsForOrder",
+   "parameterOrder": [
+    "svcProviderId",
+    "custId",
+    "acctId",
+    "ordId"
+   ],
+   "parameters": {
+    "svcProviderId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "custId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "acctId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "ordId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "{svcProviderId}/customers/{custId}/accounts/{acctId}/orders/{ordId}/transactions",
+   "request": {
+    "$ref": "BillingTransactionList",
+    "parameterName": "resource"
+   },
+   "response": {
+    "$ref": "BillingTransactionList"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "updateTransaction": {
+   "httpMethod": "PUT",
+   "id": "billing.updateTransaction",
+   "parameterOrder": [
+    "svcProviderId",
+    "custId",
+    "acctId",
+    "transId"
+   ],
+   "parameters": {
+    "svcProviderId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "custId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "acctId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "transId": {
+     "format": "int64",
+     "location": "query",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "{svcProviderId}/customers/{custId}/accounts/{acctId}/transactions",
+   "request": {
+    "$ref": "BillingTransaction",
+    "parameterName": "resource"
+   },
+   "response": {
+    "$ref": "BillingTransaction"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "updateTransactionForInvoice": {
+   "httpMethod": "PUT",
+   "id": "billing.updateTransactionForInvoice",
+   "parameterOrder": [
+    "svcProviderId",
+    "custId",
+    "acctId",
+    "invId"
+   ],
+   "parameters": {
+    "svcProviderId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "custId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "acctId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "invId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "{svcProviderId}/customers/{custId}/accounts/{acctId}/invoices/{invId}/transactions",
+   "request": {
+    "$ref": "BillingTransactionList",
+    "parameterName": "resource"
+   },
+   "response": {
+    "$ref": "BillingTransactionList"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  }
+ },
+ "name": "billing",
+ "canonicalName": "BillingAPI",
+ "ownerDomain": "api.dothat.com",
+ "ownerName": "DoThatAPI",
+ "parameters": {
+  "alt": {
+   "default": "json",
+   "description": "Data format for the response.",
+   "enum": [
+    "json"
+   ],
+   "enumDescriptions": [
+    "Responses with Content-Type of application/json"
+   ],
+   "location": "query",
+   "type": "string"
+  },
+  "fields": {
+   "description": "Selector specifying which fields to include in a partial response.",
+   "location": "query",
+   "type": "string"
+  },
+  "key": {
+   "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.",
+   "location": "query",
+   "type": "string"
+  },
+  "oauth_token": {
+   "description": "OAuth 2.0 token for the current user.",
+   "location": "query",
+   "type": "string"
+  },
+  "prettyPrint": {
+   "default": "true",
+   "description": "Returns response with indentations and line breaks.",
+   "location": "query",
+   "type": "boolean"
+  },
+  "quotaUser": {
+   "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided.",
+   "location": "query",
+   "type": "string"
+  },
+  "userIp": {
+   "description": "IP address of the site where the request originates. Use this if you want to enforce per-user limits.",
+   "location": "query",
+   "type": "string"
+  }
+ },
+ "protocol": "rest",
+ "rootUrl": "https://dev-dothat-api.appspot.com/_ah/api/",
+ "schemas": {
+  "BillingTransaction": {
+   "id": "BillingTransaction",
+   "properties": {
+    "accountId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "creationTimestamp": {
+     "format": "date-time",
+     "type": "string"
+    },
+    "customerId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "invoiceId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "modificationTimestamp": {
+     "format": "date-time",
+     "type": "string"
+    },
+    "notes": {
+     "type": "string"
+    },
+    "reasonDetailId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "reasonId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "transactionAmount": {
+     "format": "double",
+     "type": "number"
+    },
+    "transactionCurrency": {
+     "$ref": "Currency"
+    },
+    "transactionId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "transactionReason": {
+     "$ref": "TransactionReason"
+    },
+    "transactionStatus": {
+     "$ref": "TransactionStatus"
+    },
+    "transactionTimestamp": {
+     "format": "date-time",
+     "type": "string"
+    },
+    "transactionType": {
+     "$ref": "TransactionType"
+    },
+    "version": {
+     "format": "int64",
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "BillingTransactionCollection": {
+   "id": "BillingTransactionCollection",
+   "properties": {
+    "items": {
+     "items": {
+      "$ref": "BillingTransaction"
+     },
+     "type": "array"
+    }
+   },
+   "type": "object"
+  },
+  "BillingTransactionList": {
+   "id": "BillingTransactionList",
+   "properties": {
+    "transactions": {
+     "items": {
+      "$ref": "BillingTransaction"
+     },
+     "type": "array"
+    }
+   },
+   "type": "object"
+  },
+  "Currency": {
+   "enum": [
+    "INR",
+    "USD"
+   ],
+   "enumDescriptions": [
+    "",
+    ""
+   ],
+   "id": "Currency",
+   "type": "string"
+  },
+  "TransactionReason": {
+   "enum": [
+    "BALANCE",
+    "BILL",
+    "BILL_BALANCE",
+    "ORDER",
+    "ORDER_REVERSAL",
+    "PAYMENT",
+    "PAYMENT_REVERSAL",
+    "CHARGE",
+    "CREDIT",
+    "ADVANCE",
+    "TRANSFER"
+   ],
+   "enumDescriptions": [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+   ],
+   "id": "TransactionReason",
+   "type": "string"
+  },
+  "TransactionStatus": {
+   "enum": [
+    "DRAFT",
+    "FINAL"
+   ],
+   "enumDescriptions": [
+    "",
+    ""
+   ],
+   "id": "TransactionStatus",
+   "type": "string"
+  },
+  "TransactionType": {
+   "enum": [
+    "CREDIT",
+    "DEBIT"
+   ],
+   "enumDescriptions": [
+    "",
+    ""
+   ],
+   "id": "TransactionType",
+   "type": "string"
+  }
+ },
+ "servicePath": "billing/v1/serviceProviders/",
+ "version": "v1"
+}

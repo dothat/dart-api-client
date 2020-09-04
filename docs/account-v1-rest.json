@@ -8,24 +8,24 @@
    }
   }
  },
- "basePath": "/_ah/api/product/v1/serviceProviders/",
- "baseUrl": "https://dev-dothat-api.appspot.com/_ah/api/product/v1/serviceProviders/",
+ "basePath": "/_ah/api/account/v1/serviceProviders/",
+ "baseUrl": "https://dev-dothat-api.appspot.com/_ah/api/account/v1/serviceProviders/",
  "batchPath": "batch",
- "description": "API to access Products",
+ "description": "API to access Accounts",
  "discoveryVersion": "v1",
  "icons": {
   "x16": "http://www.google.com/images/icons/product/search-16.gif",
   "x32": "http://www.google.com/images/icons/product/search-32.gif"
  },
- "id": "product:v1",
+ "id": "account:v1",
  "kind": "discovery#restDescription",
  "methods": {
-  "createPriceList": {
+  "createAccount": {
    "httpMethod": "POST",
-   "id": "product.createPriceList",
+   "id": "account.createAccount",
    "parameterOrder": [
     "svcProviderId",
-    "plnId"
+    "custId"
    ],
    "parameters": {
     "svcProviderId": {
@@ -34,153 +34,28 @@
      "required": true,
      "type": "string"
     },
-    "plnId": {
+    "custId": {
      "format": "int64",
-     "location": "path",
+     "location": "query",
      "required": true,
      "type": "string"
     }
    },
-   "path": "{svcProviderId}/pricingPlans/{plnId}/priceLists",
+   "path": "{svcProviderId}/accounts",
    "request": {
-    "$ref": "PriceList",
+    "$ref": "BillingAccount",
     "parameterName": "resource"
    },
    "response": {
-    "$ref": "PriceList"
+    "$ref": "BillingAccount"
    },
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"
    ]
   },
-  "createPricingPlan": {
-   "httpMethod": "POST",
-   "id": "product.createPricingPlan",
-   "parameterOrder": [
-    "svcProviderId"
-   ],
-   "parameters": {
-    "svcProviderId": {
-     "format": "int64",
-     "location": "path",
-     "required": true,
-     "type": "string"
-    }
-   },
-   "path": "{svcProviderId}/pricingPlans",
-   "request": {
-    "$ref": "PricingPlan",
-    "parameterName": "resource"
-   },
-   "response": {
-    "$ref": "PricingPlan"
-   },
-   "scopes": [
-    "https://www.googleapis.com/auth/userinfo.email"
-   ]
-  },
-  "createProduct": {
-   "httpMethod": "POST",
-   "id": "product.createProduct",
-   "parameterOrder": [
-    "svcProviderId"
-   ],
-   "parameters": {
-    "svcProviderId": {
-     "format": "int64",
-     "location": "path",
-     "required": true,
-     "type": "string"
-    }
-   },
-   "path": "{svcProviderId}/products",
-   "request": {
-    "$ref": "Product",
-    "parameterName": "resource"
-   },
-   "response": {
-    "$ref": "Product"
-   },
-   "scopes": [
-    "https://www.googleapis.com/auth/userinfo.email"
-   ]
-  },
-  "findPriceLists": {
+  "findAccountsForCustomer": {
    "httpMethod": "GET",
-   "id": "product.findPriceLists",
-   "parameterOrder": [
-    "svcProviderId",
-    "plnId"
-   ],
-   "parameters": {
-    "svcProviderId": {
-     "format": "int64",
-     "location": "path",
-     "required": true,
-     "type": "string"
-    },
-    "plnId": {
-     "format": "int64",
-     "location": "path",
-     "required": true,
-     "type": "string"
-    }
-   },
-   "path": "{svcProviderId}/pricingPlans/{plnId}/priceLists",
-   "response": {
-    "$ref": "PriceListCollection"
-   },
-   "scopes": [
-    "https://www.googleapis.com/auth/userinfo.email"
-   ]
-  },
-  "findPricingPlans": {
-   "httpMethod": "GET",
-   "id": "product.findPricingPlans",
-   "parameterOrder": [
-    "svcProviderId"
-   ],
-   "parameters": {
-    "svcProviderId": {
-     "format": "int64",
-     "location": "path",
-     "required": true,
-     "type": "string"
-    }
-   },
-   "path": "{svcProviderId}/pricingPlans",
-   "response": {
-    "$ref": "PricingPlanCollection"
-   },
-   "scopes": [
-    "https://www.googleapis.com/auth/userinfo.email"
-   ]
-  },
-  "findProducts": {
-   "httpMethod": "GET",
-   "id": "product.findProducts",
-   "parameterOrder": [
-    "svcProviderId"
-   ],
-   "parameters": {
-    "svcProviderId": {
-     "format": "int64",
-     "location": "path",
-     "required": true,
-     "type": "string"
-    }
-   },
-   "path": "{svcProviderId}/products",
-   "response": {
-    "$ref": "ProductCollection"
-   },
-   "scopes": [
-    "https://www.googleapis.com/auth/userinfo.email"
-   ]
-  },
-  "findProductsForCustomer": {
-   "httpMethod": "GET",
-   "id": "product.findProductsForCustomer",
+   "id": "account.findAccountsForCustomer",
    "parameterOrder": [
     "svcProviderId",
     "custId"
@@ -199,21 +74,21 @@
      "type": "string"
     }
    },
-   "path": "{svcProviderId}/customers/{custId}/products",
+   "path": "{svcProviderId}/customers/{custId}/accounts",
    "response": {
-    "$ref": "ProductCollection"
+    "$ref": "BillingAccountCollection"
    },
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"
    ]
   },
-  "getPriceList": {
+  "getAccount": {
    "httpMethod": "GET",
-   "id": "product.getPriceList",
+   "id": "account.getAccount",
    "parameterOrder": [
     "svcProviderId",
-    "plnId",
-    "priceLstId"
+    "custId",
+    "acctId"
    ],
    "parameters": {
     "svcProviderId": {
@@ -222,33 +97,34 @@
      "required": true,
      "type": "string"
     },
-    "plnId": {
+    "custId": {
      "format": "int64",
      "location": "path",
      "required": true,
      "type": "string"
     },
-    "priceLstId": {
+    "acctId": {
      "format": "int64",
      "location": "path",
      "required": true,
      "type": "string"
     }
    },
-   "path": "{svcProviderId}/pricingPlans/{plnId}/priceLists/{priceLstId}",
+   "path": "{svcProviderId}/customers/{custId}/accounts/{acctId}",
    "response": {
-    "$ref": "PriceList"
+    "$ref": "BillingAccount"
    },
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"
    ]
   },
-  "getPricingPlan": {
+  "getAccountBalanceSummary": {
    "httpMethod": "GET",
-   "id": "product.getPricingPlan",
+   "id": "account.getAccountBalanceSummary",
    "parameterOrder": [
     "svcProviderId",
-    "plnId"
+    "custId",
+    "balanceDt"
    ],
    "parameters": {
     "svcProviderId": {
@@ -257,129 +133,34 @@
      "required": true,
      "type": "string"
     },
-    "plnId": {
-     "format": "int64",
-     "location": "path",
-     "required": true,
-     "type": "string"
-    }
-   },
-   "path": "{svcProviderId}/pricingPlans/{plnId}",
-   "response": {
-    "$ref": "PricingPlan"
-   },
-   "scopes": [
-    "https://www.googleapis.com/auth/userinfo.email"
-   ]
-  },
-  "getProduct": {
-   "httpMethod": "GET",
-   "id": "product.getProduct",
-   "parameterOrder": [
-    "svcProviderId",
-    "prodId"
-   ],
-   "parameters": {
-    "svcProviderId": {
+    "custId": {
      "format": "int64",
      "location": "path",
      "required": true,
      "type": "string"
     },
-    "prodId": {
-     "format": "int64",
-     "location": "path",
+    "balanceDt": {
+     "format": "date",
+     "location": "query",
      "required": true,
      "type": "string"
     }
    },
-   "path": "{svcProviderId}/products/{prodId}",
+   "path": "{svcProviderId}/customers/{custId}/accounts/balance",
    "response": {
-    "$ref": "Product"
+    "$ref": "AccountBalanceSummary"
    },
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"
    ]
   },
-  "updatePriceList": {
-   "httpMethod": "POST",
-   "id": "product.updatePriceList",
-   "parameterOrder": [
-    "svcProviderId",
-    "plnId",
-    "priceLstId"
-   ],
-   "parameters": {
-    "svcProviderId": {
-     "format": "int64",
-     "location": "path",
-     "required": true,
-     "type": "string"
-    },
-    "plnId": {
-     "format": "int64",
-     "location": "path",
-     "required": true,
-     "type": "string"
-    },
-    "priceLstId": {
-     "format": "int64",
-     "location": "path",
-     "required": true,
-     "type": "string"
-    }
-   },
-   "path": "{svcProviderId}/pricingPlans/{plnId}/priceList/{priceLstId}",
-   "request": {
-    "$ref": "PriceList",
-    "parameterName": "resource"
-   },
-   "response": {
-    "$ref": "PriceList"
-   },
-   "scopes": [
-    "https://www.googleapis.com/auth/userinfo.email"
-   ]
-  },
-  "updatePricingPlan": {
-   "httpMethod": "POST",
-   "id": "product.updatePricingPlan",
-   "parameterOrder": [
-    "svcProviderId",
-    "plnId"
-   ],
-   "parameters": {
-    "svcProviderId": {
-     "format": "int64",
-     "location": "path",
-     "required": true,
-     "type": "string"
-    },
-    "plnId": {
-     "format": "int64",
-     "location": "path",
-     "required": true,
-     "type": "string"
-    }
-   },
-   "path": "{svcProviderId}/pricingPlans/{plnId}",
-   "request": {
-    "$ref": "PricingPlan",
-    "parameterName": "resource"
-   },
-   "response": {
-    "$ref": "PricingPlan"
-   },
-   "scopes": [
-    "https://www.googleapis.com/auth/userinfo.email"
-   ]
-  },
-  "updateProduct": {
+  "updateAccount": {
    "httpMethod": "PUT",
-   "id": "product.updateProduct",
+   "id": "account.updateAccount",
    "parameterOrder": [
     "svcProviderId",
-    "prodId"
+    "custId",
+    "acctId"
    ],
    "parameters": {
     "svcProviderId": {
@@ -388,28 +169,34 @@
      "required": true,
      "type": "string"
     },
-    "prodId": {
+    "custId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "acctId": {
      "format": "int64",
      "location": "path",
      "required": true,
      "type": "string"
     }
    },
-   "path": "{svcProviderId}/products/{prodId}",
+   "path": "{svcProviderId}/customers/{custId}/accounts/{acctId}",
    "request": {
-    "$ref": "Product",
+    "$ref": "BillingAccount",
     "parameterName": "resource"
    },
    "response": {
-    "$ref": "Product"
+    "$ref": "BillingAccount"
    },
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"
    ]
   }
  },
- "name": "product",
- "canonicalName": "ProductAPI",
+ "name": "account",
+ "canonicalName": "AccountAPI",
  "ownerDomain": "api.dothat.com",
  "ownerName": "DoThatAPI",
  "parameters": {
@@ -460,6 +247,27 @@
  "protocol": "rest",
  "rootUrl": "https://dev-dothat-api.appspot.com/_ah/api/",
  "schemas": {
+  "AccountBalanceSummary": {
+   "id": "AccountBalanceSummary",
+   "properties": {
+    "balanceDate": {
+     "format": "date",
+     "type": "string"
+    },
+    "billingType": {
+     "$ref": "BillingType"
+    },
+    "unpaidBillBalance": {
+     "format": "double",
+     "type": "number"
+    },
+    "walletBalance": {
+     "format": "double",
+     "type": "number"
+    }
+   },
+   "type": "object"
+  },
   "Amount": {
    "id": "Amount",
    "properties": {
@@ -472,6 +280,120 @@
     }
    },
    "type": "object"
+  },
+  "BillingAccount": {
+   "id": "BillingAccount",
+   "properties": {
+    "accountId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "accountName": {
+     "type": "string"
+    },
+    "active": {
+     "type": "boolean"
+    },
+    "billedEntityName": {
+     "type": "string"
+    },
+    "billingAddress": {
+     "$ref": "BillingAddress"
+    },
+    "billingCurrency": {
+     "$ref": "Currency"
+    },
+    "billingType": {
+     "$ref": "BillingType"
+    },
+    "creationTimestamp": {
+     "format": "date-time",
+     "type": "string"
+    },
+    "creditLimit": {
+     "format": "double",
+     "type": "number"
+    },
+    "customerAddressUsedForBilling": {
+     "type": "boolean"
+    },
+    "customerId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "customerNameUsedForBilling": {
+     "type": "boolean"
+    },
+    "modificationTimestamp": {
+     "format": "date-time",
+     "type": "string"
+    },
+    "preferredPaymentMethod": {
+     "$ref": "PaymentMethod"
+    },
+    "preferredPaymentMethodName": {
+     "type": "string"
+    },
+    "pricingPlan": {
+     "$ref": "PricingPlan"
+    },
+    "pricingPlanId": {
+     "format": "int64",
+     "type": "string"
+    },
+    "version": {
+     "format": "int64",
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "BillingAccountCollection": {
+   "id": "BillingAccountCollection",
+   "properties": {
+    "items": {
+     "items": {
+      "$ref": "BillingAccount"
+     },
+     "type": "array"
+    }
+   },
+   "type": "object"
+  },
+  "BillingAddress": {
+   "id": "BillingAddress",
+   "properties": {
+    "addressLine1": {
+     "type": "string"
+    },
+    "addressLine2": {
+     "type": "string"
+    },
+    "addressLine3": {
+     "type": "string"
+    },
+    "city": {
+     "type": "string"
+    },
+    "state": {
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "BillingType": {
+   "enum": [
+    "PREPAID",
+    "POSTPAID",
+    "CHECKOUT"
+   ],
+   "enumDescriptions": [
+    "",
+    "",
+    ""
+   ],
+   "id": "BillingType",
+   "type": "string"
   },
   "ChangeContext": {
    "id": "ChangeContext",
@@ -583,6 +505,34 @@
    "id": "ImageType",
    "type": "string"
   },
+  "PaymentMethod": {
+   "enum": [
+    "CASH",
+    "CASH_ON_DELIVERY",
+    "CHEQUE",
+    "CREDIT_CARD",
+    "DEBIT_CARD",
+    "FUNDS_TRANSFER",
+    "WALLET",
+    "NET_BANKING",
+    "UPI",
+    "OTHER"
+   ],
+   "enumDescriptions": [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+   ],
+   "id": "PaymentMethod",
+   "type": "string"
+  },
   "PriceList": {
    "id": "PriceList",
    "properties": {
@@ -629,18 +579,6 @@
    },
    "type": "object"
   },
-  "PriceListCollection": {
-   "id": "PriceListCollection",
-   "properties": {
-    "items": {
-     "items": {
-      "$ref": "PriceList"
-     },
-     "type": "array"
-    }
-   },
-   "type": "object"
-  },
   "PricingPlan": {
    "id": "PricingPlan",
    "properties": {
@@ -674,18 +612,6 @@
     "version": {
      "format": "int64",
      "type": "string"
-    }
-   },
-   "type": "object"
-  },
-  "PricingPlanCollection": {
-   "id": "PricingPlanCollection",
-   "properties": {
-    "items": {
-     "items": {
-      "$ref": "PricingPlan"
-     },
-     "type": "array"
     }
    },
    "type": "object"
@@ -792,18 +718,6 @@
     },
     "schedule": {
      "$ref": "Schedule"
-    }
-   },
-   "type": "object"
-  },
-  "ProductCollection": {
-   "id": "ProductCollection",
-   "properties": {
-    "items": {
-     "items": {
-      "$ref": "Product"
-     },
-     "type": "array"
     }
    },
    "type": "object"
@@ -981,6 +895,6 @@
    "type": "string"
   }
  },
- "servicePath": "product/v1/serviceProviders/",
+ "servicePath": "account/v1/serviceProviders/",
  "version": "v1"
 }
