@@ -1013,6 +1013,13 @@
      },
      "type": "array"
     },
+    "product": {
+     "$ref": "Product"
+    },
+    "productId": {
+     "format": "int64",
+     "type": "string"
+    },
     "startDate": {
      "format": "date",
      "type": "string"
