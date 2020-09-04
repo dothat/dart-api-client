@@ -1423,6 +1423,8 @@ class ProductPrice {
 class ProductPriceList {
   core.DateTime endDate;
   core.List<ProductPrice> prices;
+  Product product;
+  core.String productId;
   core.DateTime startDate;
 
   ProductPriceList();
@@ -1435,6 +1437,12 @@ class ProductPriceList {
       prices = (_json["prices"] as core.List)
           .map<ProductPrice>((value) => new ProductPrice.fromJson(value))
           .toList();
+    }
+    if (_json.containsKey("product")) {
+      product = new Product.fromJson(_json["product"]);
+    }
+    if (_json.containsKey("productId")) {
+      productId = _json["productId"];
     }
     if (_json.containsKey("startDate")) {
       startDate = core.DateTime.parse(_json["startDate"]);
@@ -1450,6 +1458,12 @@ class ProductPriceList {
     }
     if (prices != null) {
       _json["prices"] = prices.map((value) => (value).toJson()).toList();
+    }
+    if (product != null) {
+      _json["product"] = (product).toJson();
+    }
+    if (productId != null) {
+      _json["productId"] = productId;
     }
     if (startDate != null) {
       _json["startDate"] =
