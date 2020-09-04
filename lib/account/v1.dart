@@ -2,7 +2,7 @@
 
 // ignore_for_file: unnecessary_cast
 
-library dothatapis.product.v1;
+library dothatapis.account.v1;
 
 import 'dart:core' as core;
 import 'dart:async' as async;
@@ -14,19 +14,19 @@ import 'package:http/http.dart' as http;
 export 'package:_discoveryapis_commons/_discoveryapis_commons.dart'
     show ApiRequestError, DetailedApiRequestError;
 
-const core.String USER_AGENT = 'dart-api-client product/v1';
+const core.String USER_AGENT = 'dart-api-client account/v1';
 
-/// API to access Products
-class ProductApi {
+/// API to access Accounts
+class AccountApi {
   /// View your email address
   static const UserinfoEmailScope =
       "https://www.googleapis.com/auth/userinfo.email";
 
   final commons.ApiRequester _requester;
 
-  ProductApi(http.Client client,
+  AccountApi(http.Client client,
       {core.String rootUrl: "https://dev-dothat-api.appspot.com/_ah/api/",
-      core.String servicePath: "product/v1/serviceProviders/"})
+      core.String servicePath: "account/v1/serviceProviders/"})
       : _requester =
             new commons.ApiRequester(client, rootUrl, servicePath, USER_AGENT);
 
@@ -36,20 +36,20 @@ class ProductApi {
   ///
   /// [svcProviderId] - null
   ///
-  /// [plnId] - null
+  /// [custId] - null
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
-  /// Completes with a [PriceList].
+  /// Completes with a [BillingAccount].
   ///
   /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
   /// error.
   ///
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
-  async.Future<PriceList> createPriceList(
-      PriceList request, core.String svcProviderId, core.String plnId,
+  async.Future<BillingAccount> createAccount(
+      BillingAccount request, core.String svcProviderId, core.String custId,
       {core.String $fields}) {
     var _url = null;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -64,17 +64,15 @@ class ProductApi {
     if (svcProviderId == null) {
       throw new core.ArgumentError("Parameter svcProviderId is required.");
     }
-    if (plnId == null) {
-      throw new core.ArgumentError("Parameter plnId is required.");
+    if (custId == null) {
+      throw new core.ArgumentError("Parameter custId is required.");
     }
+    _queryParams["custId"] = [custId];
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
     }
 
-    _url = commons.Escaper.ecapeVariable('$svcProviderId') +
-        '/pricingPlans/' +
-        commons.Escaper.ecapeVariable('$plnId') +
-        '/priceLists';
+    _url = commons.Escaper.ecapeVariable('$svcProviderId') + '/accounts';
 
     var _response = _requester.request(_url, "POST",
         body: _body,
@@ -82,234 +80,7 @@ class ProductApi {
         uploadOptions: _uploadOptions,
         uploadMedia: _uploadMedia,
         downloadOptions: _downloadOptions);
-    return _response.then((data) => new PriceList.fromJson(data));
-  }
-
-  /// [request] - The metadata request object.
-  ///
-  /// Request parameters:
-  ///
-  /// [svcProviderId] - null
-  ///
-  /// [$fields] - Selector specifying which fields to include in a partial
-  /// response.
-  ///
-  /// Completes with a [PricingPlan].
-  ///
-  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
-  /// error.
-  ///
-  /// If the used [http.Client] completes with an error when making a REST call,
-  /// this method will complete with the same error.
-  async.Future<PricingPlan> createPricingPlan(
-      PricingPlan request, core.String svcProviderId,
-      {core.String $fields}) {
-    var _url = null;
-    var _queryParams = new core.Map<core.String, core.List<core.String>>();
-    var _uploadMedia = null;
-    var _uploadOptions = null;
-    var _downloadOptions = commons.DownloadOptions.Metadata;
-    var _body = null;
-
-    if (request != null) {
-      _body = convert.json.encode((request).toJson());
-    }
-    if (svcProviderId == null) {
-      throw new core.ArgumentError("Parameter svcProviderId is required.");
-    }
-    if ($fields != null) {
-      _queryParams["fields"] = [$fields];
-    }
-
-    _url = commons.Escaper.ecapeVariable('$svcProviderId') + '/pricingPlans';
-
-    var _response = _requester.request(_url, "POST",
-        body: _body,
-        queryParams: _queryParams,
-        uploadOptions: _uploadOptions,
-        uploadMedia: _uploadMedia,
-        downloadOptions: _downloadOptions);
-    return _response.then((data) => new PricingPlan.fromJson(data));
-  }
-
-  /// [request] - The metadata request object.
-  ///
-  /// Request parameters:
-  ///
-  /// [svcProviderId] - null
-  ///
-  /// [$fields] - Selector specifying which fields to include in a partial
-  /// response.
-  ///
-  /// Completes with a [Product].
-  ///
-  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
-  /// error.
-  ///
-  /// If the used [http.Client] completes with an error when making a REST call,
-  /// this method will complete with the same error.
-  async.Future<Product> createProduct(
-      Product request, core.String svcProviderId,
-      {core.String $fields}) {
-    var _url = null;
-    var _queryParams = new core.Map<core.String, core.List<core.String>>();
-    var _uploadMedia = null;
-    var _uploadOptions = null;
-    var _downloadOptions = commons.DownloadOptions.Metadata;
-    var _body = null;
-
-    if (request != null) {
-      _body = convert.json.encode((request).toJson());
-    }
-    if (svcProviderId == null) {
-      throw new core.ArgumentError("Parameter svcProviderId is required.");
-    }
-    if ($fields != null) {
-      _queryParams["fields"] = [$fields];
-    }
-
-    _url = commons.Escaper.ecapeVariable('$svcProviderId') + '/products';
-
-    var _response = _requester.request(_url, "POST",
-        body: _body,
-        queryParams: _queryParams,
-        uploadOptions: _uploadOptions,
-        uploadMedia: _uploadMedia,
-        downloadOptions: _downloadOptions);
-    return _response.then((data) => new Product.fromJson(data));
-  }
-
-  /// Request parameters:
-  ///
-  /// [svcProviderId] - null
-  ///
-  /// [plnId] - null
-  ///
-  /// [$fields] - Selector specifying which fields to include in a partial
-  /// response.
-  ///
-  /// Completes with a [PriceListCollection].
-  ///
-  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
-  /// error.
-  ///
-  /// If the used [http.Client] completes with an error when making a REST call,
-  /// this method will complete with the same error.
-  async.Future<PriceListCollection> findPriceLists(
-      core.String svcProviderId, core.String plnId,
-      {core.String $fields}) {
-    var _url = null;
-    var _queryParams = new core.Map<core.String, core.List<core.String>>();
-    var _uploadMedia = null;
-    var _uploadOptions = null;
-    var _downloadOptions = commons.DownloadOptions.Metadata;
-    var _body = null;
-
-    if (svcProviderId == null) {
-      throw new core.ArgumentError("Parameter svcProviderId is required.");
-    }
-    if (plnId == null) {
-      throw new core.ArgumentError("Parameter plnId is required.");
-    }
-    if ($fields != null) {
-      _queryParams["fields"] = [$fields];
-    }
-
-    _url = commons.Escaper.ecapeVariable('$svcProviderId') +
-        '/pricingPlans/' +
-        commons.Escaper.ecapeVariable('$plnId') +
-        '/priceLists';
-
-    var _response = _requester.request(_url, "GET",
-        body: _body,
-        queryParams: _queryParams,
-        uploadOptions: _uploadOptions,
-        uploadMedia: _uploadMedia,
-        downloadOptions: _downloadOptions);
-    return _response.then((data) => new PriceListCollection.fromJson(data));
-  }
-
-  /// Request parameters:
-  ///
-  /// [svcProviderId] - null
-  ///
-  /// [$fields] - Selector specifying which fields to include in a partial
-  /// response.
-  ///
-  /// Completes with a [PricingPlanCollection].
-  ///
-  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
-  /// error.
-  ///
-  /// If the used [http.Client] completes with an error when making a REST call,
-  /// this method will complete with the same error.
-  async.Future<PricingPlanCollection> findPricingPlans(
-      core.String svcProviderId,
-      {core.String $fields}) {
-    var _url = null;
-    var _queryParams = new core.Map<core.String, core.List<core.String>>();
-    var _uploadMedia = null;
-    var _uploadOptions = null;
-    var _downloadOptions = commons.DownloadOptions.Metadata;
-    var _body = null;
-
-    if (svcProviderId == null) {
-      throw new core.ArgumentError("Parameter svcProviderId is required.");
-    }
-    if ($fields != null) {
-      _queryParams["fields"] = [$fields];
-    }
-
-    _url = commons.Escaper.ecapeVariable('$svcProviderId') + '/pricingPlans';
-
-    var _response = _requester.request(_url, "GET",
-        body: _body,
-        queryParams: _queryParams,
-        uploadOptions: _uploadOptions,
-        uploadMedia: _uploadMedia,
-        downloadOptions: _downloadOptions);
-    return _response.then((data) => new PricingPlanCollection.fromJson(data));
-  }
-
-  /// Request parameters:
-  ///
-  /// [svcProviderId] - null
-  ///
-  /// [$fields] - Selector specifying which fields to include in a partial
-  /// response.
-  ///
-  /// Completes with a [ProductCollection].
-  ///
-  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
-  /// error.
-  ///
-  /// If the used [http.Client] completes with an error when making a REST call,
-  /// this method will complete with the same error.
-  async.Future<ProductCollection> findProducts(core.String svcProviderId,
-      {core.String $fields}) {
-    var _url = null;
-    var _queryParams = new core.Map<core.String, core.List<core.String>>();
-    var _uploadMedia = null;
-    var _uploadOptions = null;
-    var _downloadOptions = commons.DownloadOptions.Metadata;
-    var _body = null;
-
-    if (svcProviderId == null) {
-      throw new core.ArgumentError("Parameter svcProviderId is required.");
-    }
-    if ($fields != null) {
-      _queryParams["fields"] = [$fields];
-    }
-
-    _url = commons.Escaper.ecapeVariable('$svcProviderId') + '/products';
-
-    var _response = _requester.request(_url, "GET",
-        body: _body,
-        queryParams: _queryParams,
-        uploadOptions: _uploadOptions,
-        uploadMedia: _uploadMedia,
-        downloadOptions: _downloadOptions);
-    return _response.then((data) => new ProductCollection.fromJson(data));
+    return _response.then((data) => new BillingAccount.fromJson(data));
   }
 
   /// Request parameters:
@@ -321,14 +92,14 @@ class ProductApi {
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
-  /// Completes with a [ProductCollection].
+  /// Completes with a [BillingAccountCollection].
   ///
   /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
   /// error.
   ///
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
-  async.Future<ProductCollection> findProductsForCustomer(
+  async.Future<BillingAccountCollection> findAccountsForCustomer(
       core.String svcProviderId, core.String custId,
       {core.String $fields}) {
     var _url = null;
@@ -351,7 +122,7 @@ class ProductApi {
     _url = commons.Escaper.ecapeVariable('$svcProviderId') +
         '/customers/' +
         commons.Escaper.ecapeVariable('$custId') +
-        '/products';
+        '/accounts';
 
     var _response = _requester.request(_url, "GET",
         body: _body,
@@ -359,29 +130,30 @@ class ProductApi {
         uploadOptions: _uploadOptions,
         uploadMedia: _uploadMedia,
         downloadOptions: _downloadOptions);
-    return _response.then((data) => new ProductCollection.fromJson(data));
+    return _response
+        .then((data) => new BillingAccountCollection.fromJson(data));
   }
 
   /// Request parameters:
   ///
   /// [svcProviderId] - null
   ///
-  /// [plnId] - null
+  /// [custId] - null
   ///
-  /// [priceLstId] - null
+  /// [acctId] - null
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
-  /// Completes with a [PriceList].
+  /// Completes with a [BillingAccount].
   ///
   /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
   /// error.
   ///
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
-  async.Future<PriceList> getPriceList(
-      core.String svcProviderId, core.String plnId, core.String priceLstId,
+  async.Future<BillingAccount> getAccount(
+      core.String svcProviderId, core.String custId, core.String acctId,
       {core.String $fields}) {
     var _url = null;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -393,21 +165,21 @@ class ProductApi {
     if (svcProviderId == null) {
       throw new core.ArgumentError("Parameter svcProviderId is required.");
     }
-    if (plnId == null) {
-      throw new core.ArgumentError("Parameter plnId is required.");
+    if (custId == null) {
+      throw new core.ArgumentError("Parameter custId is required.");
     }
-    if (priceLstId == null) {
-      throw new core.ArgumentError("Parameter priceLstId is required.");
+    if (acctId == null) {
+      throw new core.ArgumentError("Parameter acctId is required.");
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
     }
 
     _url = commons.Escaper.ecapeVariable('$svcProviderId') +
-        '/pricingPlans/' +
-        commons.Escaper.ecapeVariable('$plnId') +
-        '/priceLists/' +
-        commons.Escaper.ecapeVariable('$priceLstId');
+        '/customers/' +
+        commons.Escaper.ecapeVariable('$custId') +
+        '/accounts/' +
+        commons.Escaper.ecapeVariable('$acctId');
 
     var _response = _requester.request(_url, "GET",
         body: _body,
@@ -415,27 +187,29 @@ class ProductApi {
         uploadOptions: _uploadOptions,
         uploadMedia: _uploadMedia,
         downloadOptions: _downloadOptions);
-    return _response.then((data) => new PriceList.fromJson(data));
+    return _response.then((data) => new BillingAccount.fromJson(data));
   }
 
   /// Request parameters:
   ///
   /// [svcProviderId] - null
   ///
-  /// [plnId] - null
+  /// [custId] - null
+  ///
+  /// [balanceDt] - null
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
-  /// Completes with a [PricingPlan].
+  /// Completes with a [AccountBalanceSummary].
   ///
   /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
   /// error.
   ///
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
-  async.Future<PricingPlan> getPricingPlan(
-      core.String svcProviderId, core.String plnId,
+  async.Future<AccountBalanceSummary> getAccountBalanceSummary(
+      core.String svcProviderId, core.String custId, core.DateTime balanceDt,
       {core.String $fields}) {
     var _url = null;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -447,16 +221,23 @@ class ProductApi {
     if (svcProviderId == null) {
       throw new core.ArgumentError("Parameter svcProviderId is required.");
     }
-    if (plnId == null) {
-      throw new core.ArgumentError("Parameter plnId is required.");
+    if (custId == null) {
+      throw new core.ArgumentError("Parameter custId is required.");
     }
+    if (balanceDt == null) {
+      throw new core.ArgumentError("Parameter balanceDt is required.");
+    }
+    _queryParams["balanceDt"] = [
+      "${(balanceDt).year.toString().padLeft(4, '0')}-${(balanceDt).month.toString().padLeft(2, '0')}-${(balanceDt).day.toString().padLeft(2, '0')}"
+    ];
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
     }
 
     _url = commons.Escaper.ecapeVariable('$svcProviderId') +
-        '/pricingPlans/' +
-        commons.Escaper.ecapeVariable('$plnId');
+        '/customers/' +
+        commons.Escaper.ecapeVariable('$custId') +
+        '/accounts/balance';
 
     var _response = _requester.request(_url, "GET",
         body: _body,
@@ -464,56 +245,7 @@ class ProductApi {
         uploadOptions: _uploadOptions,
         uploadMedia: _uploadMedia,
         downloadOptions: _downloadOptions);
-    return _response.then((data) => new PricingPlan.fromJson(data));
-  }
-
-  /// Request parameters:
-  ///
-  /// [svcProviderId] - null
-  ///
-  /// [prodId] - null
-  ///
-  /// [$fields] - Selector specifying which fields to include in a partial
-  /// response.
-  ///
-  /// Completes with a [Product].
-  ///
-  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
-  /// error.
-  ///
-  /// If the used [http.Client] completes with an error when making a REST call,
-  /// this method will complete with the same error.
-  async.Future<Product> getProduct(
-      core.String svcProviderId, core.String prodId,
-      {core.String $fields}) {
-    var _url = null;
-    var _queryParams = new core.Map<core.String, core.List<core.String>>();
-    var _uploadMedia = null;
-    var _uploadOptions = null;
-    var _downloadOptions = commons.DownloadOptions.Metadata;
-    var _body = null;
-
-    if (svcProviderId == null) {
-      throw new core.ArgumentError("Parameter svcProviderId is required.");
-    }
-    if (prodId == null) {
-      throw new core.ArgumentError("Parameter prodId is required.");
-    }
-    if ($fields != null) {
-      _queryParams["fields"] = [$fields];
-    }
-
-    _url = commons.Escaper.ecapeVariable('$svcProviderId') +
-        '/products/' +
-        commons.Escaper.ecapeVariable('$prodId');
-
-    var _response = _requester.request(_url, "GET",
-        body: _body,
-        queryParams: _queryParams,
-        uploadOptions: _uploadOptions,
-        uploadMedia: _uploadMedia,
-        downloadOptions: _downloadOptions);
-    return _response.then((data) => new Product.fromJson(data));
+    return _response.then((data) => new AccountBalanceSummary.fromJson(data));
   }
 
   /// [request] - The metadata request object.
@@ -522,22 +254,22 @@ class ProductApi {
   ///
   /// [svcProviderId] - null
   ///
-  /// [plnId] - null
+  /// [custId] - null
   ///
-  /// [priceLstId] - null
+  /// [acctId] - null
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
-  /// Completes with a [PriceList].
+  /// Completes with a [BillingAccount].
   ///
   /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
   /// error.
   ///
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
-  async.Future<PriceList> updatePriceList(PriceList request,
-      core.String svcProviderId, core.String plnId, core.String priceLstId,
+  async.Future<BillingAccount> updateAccount(BillingAccount request,
+      core.String svcProviderId, core.String custId, core.String acctId,
       {core.String $fields}) {
     var _url = null;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -552,129 +284,21 @@ class ProductApi {
     if (svcProviderId == null) {
       throw new core.ArgumentError("Parameter svcProviderId is required.");
     }
-    if (plnId == null) {
-      throw new core.ArgumentError("Parameter plnId is required.");
+    if (custId == null) {
+      throw new core.ArgumentError("Parameter custId is required.");
     }
-    if (priceLstId == null) {
-      throw new core.ArgumentError("Parameter priceLstId is required.");
-    }
-    if ($fields != null) {
-      _queryParams["fields"] = [$fields];
-    }
-
-    _url = commons.Escaper.ecapeVariable('$svcProviderId') +
-        '/pricingPlans/' +
-        commons.Escaper.ecapeVariable('$plnId') +
-        '/priceList/' +
-        commons.Escaper.ecapeVariable('$priceLstId');
-
-    var _response = _requester.request(_url, "POST",
-        body: _body,
-        queryParams: _queryParams,
-        uploadOptions: _uploadOptions,
-        uploadMedia: _uploadMedia,
-        downloadOptions: _downloadOptions);
-    return _response.then((data) => new PriceList.fromJson(data));
-  }
-
-  /// [request] - The metadata request object.
-  ///
-  /// Request parameters:
-  ///
-  /// [svcProviderId] - null
-  ///
-  /// [plnId] - null
-  ///
-  /// [$fields] - Selector specifying which fields to include in a partial
-  /// response.
-  ///
-  /// Completes with a [PricingPlan].
-  ///
-  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
-  /// error.
-  ///
-  /// If the used [http.Client] completes with an error when making a REST call,
-  /// this method will complete with the same error.
-  async.Future<PricingPlan> updatePricingPlan(
-      PricingPlan request, core.String svcProviderId, core.String plnId,
-      {core.String $fields}) {
-    var _url = null;
-    var _queryParams = new core.Map<core.String, core.List<core.String>>();
-    var _uploadMedia = null;
-    var _uploadOptions = null;
-    var _downloadOptions = commons.DownloadOptions.Metadata;
-    var _body = null;
-
-    if (request != null) {
-      _body = convert.json.encode((request).toJson());
-    }
-    if (svcProviderId == null) {
-      throw new core.ArgumentError("Parameter svcProviderId is required.");
-    }
-    if (plnId == null) {
-      throw new core.ArgumentError("Parameter plnId is required.");
+    if (acctId == null) {
+      throw new core.ArgumentError("Parameter acctId is required.");
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
     }
 
     _url = commons.Escaper.ecapeVariable('$svcProviderId') +
-        '/pricingPlans/' +
-        commons.Escaper.ecapeVariable('$plnId');
-
-    var _response = _requester.request(_url, "POST",
-        body: _body,
-        queryParams: _queryParams,
-        uploadOptions: _uploadOptions,
-        uploadMedia: _uploadMedia,
-        downloadOptions: _downloadOptions);
-    return _response.then((data) => new PricingPlan.fromJson(data));
-  }
-
-  /// [request] - The metadata request object.
-  ///
-  /// Request parameters:
-  ///
-  /// [svcProviderId] - null
-  ///
-  /// [prodId] - null
-  ///
-  /// [$fields] - Selector specifying which fields to include in a partial
-  /// response.
-  ///
-  /// Completes with a [Product].
-  ///
-  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
-  /// error.
-  ///
-  /// If the used [http.Client] completes with an error when making a REST call,
-  /// this method will complete with the same error.
-  async.Future<Product> updateProduct(
-      Product request, core.String svcProviderId, core.String prodId,
-      {core.String $fields}) {
-    var _url = null;
-    var _queryParams = new core.Map<core.String, core.List<core.String>>();
-    var _uploadMedia = null;
-    var _uploadOptions = null;
-    var _downloadOptions = commons.DownloadOptions.Metadata;
-    var _body = null;
-
-    if (request != null) {
-      _body = convert.json.encode((request).toJson());
-    }
-    if (svcProviderId == null) {
-      throw new core.ArgumentError("Parameter svcProviderId is required.");
-    }
-    if (prodId == null) {
-      throw new core.ArgumentError("Parameter prodId is required.");
-    }
-    if ($fields != null) {
-      _queryParams["fields"] = [$fields];
-    }
-
-    _url = commons.Escaper.ecapeVariable('$svcProviderId') +
-        '/products/' +
-        commons.Escaper.ecapeVariable('$prodId');
+        '/customers/' +
+        commons.Escaper.ecapeVariable('$custId') +
+        '/accounts/' +
+        commons.Escaper.ecapeVariable('$acctId');
 
     var _response = _requester.request(_url, "PUT",
         body: _body,
@@ -682,7 +306,50 @@ class ProductApi {
         uploadOptions: _uploadOptions,
         uploadMedia: _uploadMedia,
         downloadOptions: _downloadOptions);
-    return _response.then((data) => new Product.fromJson(data));
+    return _response.then((data) => new BillingAccount.fromJson(data));
+  }
+}
+
+class AccountBalanceSummary {
+  core.DateTime balanceDate;
+  core.String billingType;
+  core.double unpaidBillBalance;
+  core.double walletBalance;
+
+  AccountBalanceSummary();
+
+  AccountBalanceSummary.fromJson(core.Map _json) {
+    if (_json.containsKey("balanceDate")) {
+      balanceDate = core.DateTime.parse(_json["balanceDate"]);
+    }
+    if (_json.containsKey("billingType")) {
+      billingType = _json["billingType"];
+    }
+    if (_json.containsKey("unpaidBillBalance")) {
+      unpaidBillBalance = _json["unpaidBillBalance"].toDouble();
+    }
+    if (_json.containsKey("walletBalance")) {
+      walletBalance = _json["walletBalance"].toDouble();
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (balanceDate != null) {
+      _json["balanceDate"] =
+          "${(balanceDate).year.toString().padLeft(4, '0')}-${(balanceDate).month.toString().padLeft(2, '0')}-${(balanceDate).day.toString().padLeft(2, '0')}";
+    }
+    if (billingType != null) {
+      _json["billingType"] = billingType;
+    }
+    if (unpaidBillBalance != null) {
+      _json["unpaidBillBalance"] = unpaidBillBalance;
+    }
+    if (walletBalance != null) {
+      _json["walletBalance"] = walletBalance;
+    }
+    return _json;
   }
 }
 
@@ -709,6 +376,220 @@ class Amount {
     }
     if (value != null) {
       _json["value"] = value;
+    }
+    return _json;
+  }
+}
+
+class BillingAccount {
+  core.String accountId;
+  core.String accountName;
+  core.bool active;
+  core.String billedEntityName;
+  BillingAddress billingAddress;
+  core.String billingCurrency;
+  core.String billingType;
+  core.DateTime creationTimestamp;
+  core.double creditLimit;
+  core.bool customerAddressUsedForBilling;
+  core.String customerId;
+  core.bool customerNameUsedForBilling;
+  core.DateTime modificationTimestamp;
+  core.String preferredPaymentMethod;
+  core.String preferredPaymentMethodName;
+  PricingPlan pricingPlan;
+  core.String pricingPlanId;
+  core.String version;
+
+  BillingAccount();
+
+  BillingAccount.fromJson(core.Map _json) {
+    if (_json.containsKey("accountId")) {
+      accountId = _json["accountId"];
+    }
+    if (_json.containsKey("accountName")) {
+      accountName = _json["accountName"];
+    }
+    if (_json.containsKey("active")) {
+      active = _json["active"];
+    }
+    if (_json.containsKey("billedEntityName")) {
+      billedEntityName = _json["billedEntityName"];
+    }
+    if (_json.containsKey("billingAddress")) {
+      billingAddress = new BillingAddress.fromJson(_json["billingAddress"]);
+    }
+    if (_json.containsKey("billingCurrency")) {
+      billingCurrency = _json["billingCurrency"];
+    }
+    if (_json.containsKey("billingType")) {
+      billingType = _json["billingType"];
+    }
+    if (_json.containsKey("creationTimestamp")) {
+      creationTimestamp = core.DateTime.parse(_json["creationTimestamp"]);
+    }
+    if (_json.containsKey("creditLimit")) {
+      creditLimit = _json["creditLimit"].toDouble();
+    }
+    if (_json.containsKey("customerAddressUsedForBilling")) {
+      customerAddressUsedForBilling = _json["customerAddressUsedForBilling"];
+    }
+    if (_json.containsKey("customerId")) {
+      customerId = _json["customerId"];
+    }
+    if (_json.containsKey("customerNameUsedForBilling")) {
+      customerNameUsedForBilling = _json["customerNameUsedForBilling"];
+    }
+    if (_json.containsKey("modificationTimestamp")) {
+      modificationTimestamp =
+          core.DateTime.parse(_json["modificationTimestamp"]);
+    }
+    if (_json.containsKey("preferredPaymentMethod")) {
+      preferredPaymentMethod = _json["preferredPaymentMethod"];
+    }
+    if (_json.containsKey("preferredPaymentMethodName")) {
+      preferredPaymentMethodName = _json["preferredPaymentMethodName"];
+    }
+    if (_json.containsKey("pricingPlan")) {
+      pricingPlan = new PricingPlan.fromJson(_json["pricingPlan"]);
+    }
+    if (_json.containsKey("pricingPlanId")) {
+      pricingPlanId = _json["pricingPlanId"];
+    }
+    if (_json.containsKey("version")) {
+      version = _json["version"];
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (accountId != null) {
+      _json["accountId"] = accountId;
+    }
+    if (accountName != null) {
+      _json["accountName"] = accountName;
+    }
+    if (active != null) {
+      _json["active"] = active;
+    }
+    if (billedEntityName != null) {
+      _json["billedEntityName"] = billedEntityName;
+    }
+    if (billingAddress != null) {
+      _json["billingAddress"] = (billingAddress).toJson();
+    }
+    if (billingCurrency != null) {
+      _json["billingCurrency"] = billingCurrency;
+    }
+    if (billingType != null) {
+      _json["billingType"] = billingType;
+    }
+    if (creationTimestamp != null) {
+      _json["creationTimestamp"] = (creationTimestamp).toIso8601String();
+    }
+    if (creditLimit != null) {
+      _json["creditLimit"] = creditLimit;
+    }
+    if (customerAddressUsedForBilling != null) {
+      _json["customerAddressUsedForBilling"] = customerAddressUsedForBilling;
+    }
+    if (customerId != null) {
+      _json["customerId"] = customerId;
+    }
+    if (customerNameUsedForBilling != null) {
+      _json["customerNameUsedForBilling"] = customerNameUsedForBilling;
+    }
+    if (modificationTimestamp != null) {
+      _json["modificationTimestamp"] =
+          (modificationTimestamp).toIso8601String();
+    }
+    if (preferredPaymentMethod != null) {
+      _json["preferredPaymentMethod"] = preferredPaymentMethod;
+    }
+    if (preferredPaymentMethodName != null) {
+      _json["preferredPaymentMethodName"] = preferredPaymentMethodName;
+    }
+    if (pricingPlan != null) {
+      _json["pricingPlan"] = (pricingPlan).toJson();
+    }
+    if (pricingPlanId != null) {
+      _json["pricingPlanId"] = pricingPlanId;
+    }
+    if (version != null) {
+      _json["version"] = version;
+    }
+    return _json;
+  }
+}
+
+class BillingAccountCollection {
+  core.List<BillingAccount> items;
+
+  BillingAccountCollection();
+
+  BillingAccountCollection.fromJson(core.Map _json) {
+    if (_json.containsKey("items")) {
+      items = (_json["items"] as core.List)
+          .map<BillingAccount>((value) => new BillingAccount.fromJson(value))
+          .toList();
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (items != null) {
+      _json["items"] = items.map((value) => (value).toJson()).toList();
+    }
+    return _json;
+  }
+}
+
+class BillingAddress {
+  core.String addressLine1;
+  core.String addressLine2;
+  core.String addressLine3;
+  core.String city;
+  core.String state;
+
+  BillingAddress();
+
+  BillingAddress.fromJson(core.Map _json) {
+    if (_json.containsKey("addressLine1")) {
+      addressLine1 = _json["addressLine1"];
+    }
+    if (_json.containsKey("addressLine2")) {
+      addressLine2 = _json["addressLine2"];
+    }
+    if (_json.containsKey("addressLine3")) {
+      addressLine3 = _json["addressLine3"];
+    }
+    if (_json.containsKey("city")) {
+      city = _json["city"];
+    }
+    if (_json.containsKey("state")) {
+      state = _json["state"];
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (addressLine1 != null) {
+      _json["addressLine1"] = addressLine1;
+    }
+    if (addressLine2 != null) {
+      _json["addressLine2"] = addressLine2;
+    }
+    if (addressLine3 != null) {
+      _json["addressLine3"] = addressLine3;
+    }
+    if (city != null) {
+      _json["city"] = city;
+    }
+    if (state != null) {
+      _json["state"] = state;
     }
     return _json;
   }
@@ -841,29 +722,6 @@ class PriceList {
   }
 }
 
-class PriceListCollection {
-  core.List<PriceList> items;
-
-  PriceListCollection();
-
-  PriceListCollection.fromJson(core.Map _json) {
-    if (_json.containsKey("items")) {
-      items = (_json["items"] as core.List)
-          .map<PriceList>((value) => new PriceList.fromJson(value))
-          .toList();
-    }
-  }
-
-  core.Map<core.String, core.Object> toJson() {
-    final core.Map<core.String, core.Object> _json =
-        new core.Map<core.String, core.Object>();
-    if (items != null) {
-      _json["items"] = items.map((value) => (value).toJson()).toList();
-    }
-    return _json;
-  }
-}
-
 class PricingPlan {
   ChangeContext changeContext;
   core.DateTime creationTimestamp;
@@ -934,29 +792,6 @@ class PricingPlan {
     }
     if (version != null) {
       _json["version"] = version;
-    }
-    return _json;
-  }
-}
-
-class PricingPlanCollection {
-  core.List<PricingPlan> items;
-
-  PricingPlanCollection();
-
-  PricingPlanCollection.fromJson(core.Map _json) {
-    if (_json.containsKey("items")) {
-      items = (_json["items"] as core.List)
-          .map<PricingPlan>((value) => new PricingPlan.fromJson(value))
-          .toList();
-    }
-  }
-
-  core.Map<core.String, core.Object> toJson() {
-    final core.Map<core.String, core.Object> _json =
-        new core.Map<core.String, core.Object>();
-    if (items != null) {
-      _json["items"] = items.map((value) => (value).toJson()).toList();
     }
     return _json;
   }
@@ -1177,29 +1012,6 @@ class ProductAvailability {
     }
     if (schedule != null) {
       _json["schedule"] = (schedule).toJson();
-    }
-    return _json;
-  }
-}
-
-class ProductCollection {
-  core.List<Product> items;
-
-  ProductCollection();
-
-  ProductCollection.fromJson(core.Map _json) {
-    if (_json.containsKey("items")) {
-      items = (_json["items"] as core.List)
-          .map<Product>((value) => new Product.fromJson(value))
-          .toList();
-    }
-  }
-
-  core.Map<core.String, core.Object> toJson() {
-    final core.Map<core.String, core.Object> _json =
-        new core.Map<core.String, core.Object>();
-    if (items != null) {
-      _json["items"] = items.map((value) => (value).toJson()).toList();
     }
     return _json;
   }

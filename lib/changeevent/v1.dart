@@ -231,6 +231,7 @@ class ChangeEvent {
   core.String targetId;
   core.String targetType;
   core.String targetVersion;
+  core.String userIdentifier;
 
   ChangeEvent();
 
@@ -270,6 +271,9 @@ class ChangeEvent {
     }
     if (_json.containsKey("targetVersion")) {
       targetVersion = _json["targetVersion"];
+    }
+    if (_json.containsKey("userIdentifier")) {
+      userIdentifier = _json["userIdentifier"];
     }
   }
 
@@ -311,6 +315,9 @@ class ChangeEvent {
     }
     if (targetVersion != null) {
       _json["targetVersion"] = targetVersion;
+    }
+    if (userIdentifier != null) {
+      _json["userIdentifier"] = userIdentifier;
     }
     return _json;
   }
