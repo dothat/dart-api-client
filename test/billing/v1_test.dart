@@ -1,4 +1,4 @@
-library dothatapis.packaging.v1.test;
+library dothatapis.billing.v1.test;
 
 import "dart:core" as core;
 import "dart:async" as async;
@@ -7,7 +7,7 @@ import "dart:convert" as convert;
 import 'package:http/http.dart' as http;
 import 'package:test/test.dart' as unittest;
 
-import 'package:dothatapis/packaging/v1.dart' as api;
+import 'package:dothatapis/billing/v1.dart' as api;
 
 class HttpServerMock extends http.BaseClient {
   core.Function _callback;
@@ -50,100 +50,159 @@ http.StreamedResponse stringResponse(core.int status,
   return new http.StreamedResponse(stream, status, headers: headers);
 }
 
-core.int buildCounterPackaging = 0;
-buildPackaging() {
-  var o = new api.Packaging();
-  buildCounterPackaging++;
-  if (buildCounterPackaging < 3) {
-    o.active = true;
+core.int buildCounterBillingTransaction = 0;
+buildBillingTransaction() {
+  var o = new api.BillingTransaction();
+  buildCounterBillingTransaction++;
+  if (buildCounterBillingTransaction < 3) {
+    o.accountId = "foo";
     o.creationTimestamp = core.DateTime.parse("2002-02-27T14:01:02");
-    o.deleted = true;
+    o.customerId = "foo";
+    o.invoiceId = "foo";
     o.modificationTimestamp = core.DateTime.parse("2002-02-27T14:01:02");
-    o.name = "foo";
-    o.packagingCode = "foo";
-    o.packagingId = "foo";
+    o.notes = "foo";
+    o.reasonDetailId = "foo";
+    o.reasonId = "foo";
+    o.transactionAmount = 42.0;
+    o.transactionCurrency = "foo";
+    o.transactionId = "foo";
+    o.transactionReason = "foo";
+    o.transactionStatus = "foo";
+    o.transactionTimestamp = core.DateTime.parse("2002-02-27T14:01:02");
+    o.transactionType = "foo";
     o.version = "foo";
   }
-  buildCounterPackaging--;
+  buildCounterBillingTransaction--;
   return o;
 }
 
-checkPackaging(api.Packaging o) {
-  buildCounterPackaging++;
-  if (buildCounterPackaging < 3) {
-    unittest.expect(o.active, unittest.isTrue);
+checkBillingTransaction(api.BillingTransaction o) {
+  buildCounterBillingTransaction++;
+  if (buildCounterBillingTransaction < 3) {
+    unittest.expect(o.accountId, unittest.equals('foo'));
     unittest.expect(o.creationTimestamp,
         unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")));
-    unittest.expect(o.deleted, unittest.isTrue);
+    unittest.expect(o.customerId, unittest.equals('foo'));
+    unittest.expect(o.invoiceId, unittest.equals('foo'));
     unittest.expect(o.modificationTimestamp,
         unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")));
-    unittest.expect(o.name, unittest.equals('foo'));
-    unittest.expect(o.packagingCode, unittest.equals('foo'));
-    unittest.expect(o.packagingId, unittest.equals('foo'));
+    unittest.expect(o.notes, unittest.equals('foo'));
+    unittest.expect(o.reasonDetailId, unittest.equals('foo'));
+    unittest.expect(o.reasonId, unittest.equals('foo'));
+    unittest.expect(o.transactionAmount, unittest.equals(42.0));
+    unittest.expect(o.transactionCurrency, unittest.equals('foo'));
+    unittest.expect(o.transactionId, unittest.equals('foo'));
+    unittest.expect(o.transactionReason, unittest.equals('foo'));
+    unittest.expect(o.transactionStatus, unittest.equals('foo'));
+    unittest.expect(o.transactionTimestamp,
+        unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")));
+    unittest.expect(o.transactionType, unittest.equals('foo'));
     unittest.expect(o.version, unittest.equals('foo'));
   }
-  buildCounterPackaging--;
+  buildCounterBillingTransaction--;
 }
 
-buildUnnamed31() {
-  var o = new core.List<api.Packaging>();
-  o.add(buildPackaging());
-  o.add(buildPackaging());
+buildUnnamed13() {
+  var o = new core.List<api.BillingTransaction>();
+  o.add(buildBillingTransaction());
+  o.add(buildBillingTransaction());
   return o;
 }
 
-checkUnnamed31(core.List<api.Packaging> o) {
+checkUnnamed13(core.List<api.BillingTransaction> o) {
   unittest.expect(o, unittest.hasLength(2));
-  checkPackaging(o[0]);
-  checkPackaging(o[1]);
+  checkBillingTransaction(o[0]);
+  checkBillingTransaction(o[1]);
 }
 
-core.int buildCounterPackagingCollection = 0;
-buildPackagingCollection() {
-  var o = new api.PackagingCollection();
-  buildCounterPackagingCollection++;
-  if (buildCounterPackagingCollection < 3) {
-    o.items = buildUnnamed31();
+core.int buildCounterBillingTransactionCollection = 0;
+buildBillingTransactionCollection() {
+  var o = new api.BillingTransactionCollection();
+  buildCounterBillingTransactionCollection++;
+  if (buildCounterBillingTransactionCollection < 3) {
+    o.items = buildUnnamed13();
   }
-  buildCounterPackagingCollection--;
+  buildCounterBillingTransactionCollection--;
   return o;
 }
 
-checkPackagingCollection(api.PackagingCollection o) {
-  buildCounterPackagingCollection++;
-  if (buildCounterPackagingCollection < 3) {
-    checkUnnamed31(o.items);
+checkBillingTransactionCollection(api.BillingTransactionCollection o) {
+  buildCounterBillingTransactionCollection++;
+  if (buildCounterBillingTransactionCollection < 3) {
+    checkUnnamed13(o.items);
   }
-  buildCounterPackagingCollection--;
+  buildCounterBillingTransactionCollection--;
+}
+
+buildUnnamed14() {
+  var o = new core.List<api.BillingTransaction>();
+  o.add(buildBillingTransaction());
+  o.add(buildBillingTransaction());
+  return o;
+}
+
+checkUnnamed14(core.List<api.BillingTransaction> o) {
+  unittest.expect(o, unittest.hasLength(2));
+  checkBillingTransaction(o[0]);
+  checkBillingTransaction(o[1]);
+}
+
+core.int buildCounterBillingTransactionList = 0;
+buildBillingTransactionList() {
+  var o = new api.BillingTransactionList();
+  buildCounterBillingTransactionList++;
+  if (buildCounterBillingTransactionList < 3) {
+    o.transactions = buildUnnamed14();
+  }
+  buildCounterBillingTransactionList--;
+  return o;
+}
+
+checkBillingTransactionList(api.BillingTransactionList o) {
+  buildCounterBillingTransactionList++;
+  if (buildCounterBillingTransactionList < 3) {
+    checkUnnamed14(o.transactions);
+  }
+  buildCounterBillingTransactionList--;
 }
 
 main() {
-  unittest.group("obj-schema-Packaging", () {
+  unittest.group("obj-schema-BillingTransaction", () {
     unittest.test("to-json--from-json", () {
-      var o = buildPackaging();
-      var od = new api.Packaging.fromJson(o.toJson());
-      checkPackaging(od);
+      var o = buildBillingTransaction();
+      var od = new api.BillingTransaction.fromJson(o.toJson());
+      checkBillingTransaction(od);
     });
   });
 
-  unittest.group("obj-schema-PackagingCollection", () {
+  unittest.group("obj-schema-BillingTransactionCollection", () {
     unittest.test("to-json--from-json", () {
-      var o = buildPackagingCollection();
-      var od = new api.PackagingCollection.fromJson(o.toJson());
-      checkPackagingCollection(od);
+      var o = buildBillingTransactionCollection();
+      var od = new api.BillingTransactionCollection.fromJson(o.toJson());
+      checkBillingTransactionCollection(od);
     });
   });
 
-  unittest.group("resource-PackagingApi", () {
-    unittest.test("method--createPackaging", () {
+  unittest.group("obj-schema-BillingTransactionList", () {
+    unittest.test("to-json--from-json", () {
+      var o = buildBillingTransactionList();
+      var od = new api.BillingTransactionList.fromJson(o.toJson());
+      checkBillingTransactionList(od);
+    });
+  });
+
+  unittest.group("resource-BillingApi", () {
+    unittest.test("method--createTransaction", () {
       var mock = new HttpServerMock();
-      api.PackagingApi res = new api.PackagingApi(mock);
-      var arg_request = buildPackaging();
+      api.BillingApi res = new api.BillingApi(mock);
+      var arg_request = buildBillingTransaction();
       var arg_svcProviderId = "foo";
+      var arg_custId = "foo";
+      var arg_acctId = "foo";
       var arg_$fields = "foo";
       mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
-        var obj = new api.Packaging.fromJson(json);
-        checkPackaging(obj);
+        var obj = new api.BillingTransaction.fromJson(json);
+        checkBillingTransaction(obj);
 
         var path = (req.url).path;
         var pathOffset = 0;
@@ -176,24 +235,192 @@ main() {
         var h = {
           "content-type": "application/json; charset=utf-8",
         };
-        var resp = convert.json.encode(buildPackaging());
+        var resp = convert.json.encode(buildBillingTransaction());
         return new async.Future.value(stringResponse(200, h, resp));
       }), true);
       res
-          .createPackaging(arg_request, arg_svcProviderId, $fields: arg_$fields)
+          .createTransaction(
+              arg_request, arg_svcProviderId, arg_custId, arg_acctId,
+              $fields: arg_$fields)
           .then(unittest.expectAsync1(((response) {
-        checkPackaging(response);
+        checkBillingTransaction(response);
       })));
     });
 
-    unittest.test("method--deletePackaging", () {
+    unittest.test("method--getAllTransactions", () {
       var mock = new HttpServerMock();
-      api.PackagingApi res = new api.PackagingApi(mock);
+      api.BillingApi res = new api.BillingApi(mock);
       var arg_svcProviderId = "foo";
-      var arg_pkgId = "foo";
-      var arg_expunge = true;
+      var arg_custId = "foo";
+      var arg_acctId = "foo";
+      var arg_reasnType = "foo";
+      var arg_reasnId = "foo";
       var arg_$fields = "foo";
       mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
+        var path = (req.url).path;
+        var pathOffset = 0;
+        var index;
+        var subPart;
+        unittest.expect(path.substring(pathOffset, pathOffset + 9),
+            unittest.equals("/_ah/api/"));
+        pathOffset += 9;
+
+        var query = (req.url).query;
+        var queryOffset = 0;
+        var queryMap = <core.String, core.List<core.String>>{};
+        addQueryParam(n, v) => queryMap.putIfAbsent(n, () => []).add(v);
+        parseBool(n) {
+          if (n == "true") return true;
+          if (n == "false") return false;
+          if (n == null) return null;
+          throw new core.ArgumentError("Invalid boolean: $n");
+        }
+
+        if (query.length > 0) {
+          for (var part in query.split("&")) {
+            var keyvalue = part.split("=");
+            addQueryParam(core.Uri.decodeQueryComponent(keyvalue[0]),
+                core.Uri.decodeQueryComponent(keyvalue[1]));
+          }
+        }
+        unittest.expect(queryMap["fields"].first, unittest.equals(arg_$fields));
+
+        var h = {
+          "content-type": "application/json; charset=utf-8",
+        };
+        var resp = convert.json.encode(buildBillingTransactionCollection());
+        return new async.Future.value(stringResponse(200, h, resp));
+      }), true);
+      res
+          .getAllTransactions(arg_svcProviderId, arg_custId, arg_acctId,
+              arg_reasnType, arg_reasnId,
+              $fields: arg_$fields)
+          .then(unittest.expectAsync1(((response) {
+        checkBillingTransactionCollection(response);
+      })));
+    });
+
+    unittest.test("method--getTransaction", () {
+      var mock = new HttpServerMock();
+      api.BillingApi res = new api.BillingApi(mock);
+      var arg_svcProviderId = "foo";
+      var arg_custId = "foo";
+      var arg_acctId = "foo";
+      var arg_transId = "foo";
+      var arg_$fields = "foo";
+      mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
+        var path = (req.url).path;
+        var pathOffset = 0;
+        var index;
+        var subPart;
+        unittest.expect(path.substring(pathOffset, pathOffset + 9),
+            unittest.equals("/_ah/api/"));
+        pathOffset += 9;
+
+        var query = (req.url).query;
+        var queryOffset = 0;
+        var queryMap = <core.String, core.List<core.String>>{};
+        addQueryParam(n, v) => queryMap.putIfAbsent(n, () => []).add(v);
+        parseBool(n) {
+          if (n == "true") return true;
+          if (n == "false") return false;
+          if (n == null) return null;
+          throw new core.ArgumentError("Invalid boolean: $n");
+        }
+
+        if (query.length > 0) {
+          for (var part in query.split("&")) {
+            var keyvalue = part.split("=");
+            addQueryParam(core.Uri.decodeQueryComponent(keyvalue[0]),
+                core.Uri.decodeQueryComponent(keyvalue[1]));
+          }
+        }
+        unittest.expect(queryMap["fields"].first, unittest.equals(arg_$fields));
+
+        var h = {
+          "content-type": "application/json; charset=utf-8",
+        };
+        var resp = convert.json.encode(buildBillingTransaction());
+        return new async.Future.value(stringResponse(200, h, resp));
+      }), true);
+      res
+          .getTransaction(
+              arg_svcProviderId, arg_custId, arg_acctId, arg_transId,
+              $fields: arg_$fields)
+          .then(unittest.expectAsync1(((response) {
+        checkBillingTransaction(response);
+      })));
+    });
+
+    unittest.test("method--replaceTransactionsForOrder", () {
+      var mock = new HttpServerMock();
+      api.BillingApi res = new api.BillingApi(mock);
+      var arg_request = buildBillingTransactionList();
+      var arg_svcProviderId = "foo";
+      var arg_custId = "foo";
+      var arg_acctId = "foo";
+      var arg_ordId = "foo";
+      var arg_$fields = "foo";
+      mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
+        var obj = new api.BillingTransactionList.fromJson(json);
+        checkBillingTransactionList(obj);
+
+        var path = (req.url).path;
+        var pathOffset = 0;
+        var index;
+        var subPart;
+        unittest.expect(path.substring(pathOffset, pathOffset + 9),
+            unittest.equals("/_ah/api/"));
+        pathOffset += 9;
+
+        var query = (req.url).query;
+        var queryOffset = 0;
+        var queryMap = <core.String, core.List<core.String>>{};
+        addQueryParam(n, v) => queryMap.putIfAbsent(n, () => []).add(v);
+        parseBool(n) {
+          if (n == "true") return true;
+          if (n == "false") return false;
+          if (n == null) return null;
+          throw new core.ArgumentError("Invalid boolean: $n");
+        }
+
+        if (query.length > 0) {
+          for (var part in query.split("&")) {
+            var keyvalue = part.split("=");
+            addQueryParam(core.Uri.decodeQueryComponent(keyvalue[0]),
+                core.Uri.decodeQueryComponent(keyvalue[1]));
+          }
+        }
+        unittest.expect(queryMap["fields"].first, unittest.equals(arg_$fields));
+
+        var h = {
+          "content-type": "application/json; charset=utf-8",
+        };
+        var resp = convert.json.encode(buildBillingTransactionList());
+        return new async.Future.value(stringResponse(200, h, resp));
+      }), true);
+      res
+          .replaceTransactionsForOrder(
+              arg_request, arg_svcProviderId, arg_custId, arg_acctId, arg_ordId,
+              $fields: arg_$fields)
+          .then(unittest.expectAsync1(((response) {
+        checkBillingTransactionList(response);
+      })));
+    });
+
+    unittest.test("method--updateTransaction", () {
+      var mock = new HttpServerMock();
+      api.BillingApi res = new api.BillingApi(mock);
+      var arg_request = buildBillingTransaction();
+      var arg_svcProviderId = "foo";
+      var arg_custId = "foo";
+      var arg_acctId = "foo";
+      var arg_transId = "foo";
+      var arg_$fields = "foo";
+      mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
+        var obj = new api.BillingTransaction.fromJson(json);
+        checkBillingTransaction(obj);
+
         var path = (req.url).path;
         var pathOffset = 0;
         var index;
@@ -221,166 +448,77 @@ main() {
           }
         }
         unittest.expect(
-            queryMap["expunge"].first, unittest.equals("$arg_expunge"));
+            queryMap["transId"].first, unittest.equals(arg_transId));
         unittest.expect(queryMap["fields"].first, unittest.equals(arg_$fields));
 
         var h = {
           "content-type": "application/json; charset=utf-8",
         };
-        var resp = "";
+        var resp = convert.json.encode(buildBillingTransaction());
         return new async.Future.value(stringResponse(200, h, resp));
       }), true);
       res
-          .deletePackaging(arg_svcProviderId, arg_pkgId,
-              expunge: arg_expunge, $fields: arg_$fields)
-          .then(unittest.expectAsync1((_) {}));
-    });
-
-    unittest.test("method--findPackagings", () {
-      var mock = new HttpServerMock();
-      api.PackagingApi res = new api.PackagingApi(mock);
-      var arg_svcProviderId = "foo";
-      var arg_$fields = "foo";
-      mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
-        var path = (req.url).path;
-        var pathOffset = 0;
-        var index;
-        var subPart;
-        unittest.expect(path.substring(pathOffset, pathOffset + 9),
-            unittest.equals("/_ah/api/"));
-        pathOffset += 9;
-
-        var query = (req.url).query;
-        var queryOffset = 0;
-        var queryMap = <core.String, core.List<core.String>>{};
-        addQueryParam(n, v) => queryMap.putIfAbsent(n, () => []).add(v);
-        parseBool(n) {
-          if (n == "true") return true;
-          if (n == "false") return false;
-          if (n == null) return null;
-          throw new core.ArgumentError("Invalid boolean: $n");
-        }
-
-        if (query.length > 0) {
-          for (var part in query.split("&")) {
-            var keyvalue = part.split("=");
-            addQueryParam(core.Uri.decodeQueryComponent(keyvalue[0]),
-                core.Uri.decodeQueryComponent(keyvalue[1]));
-          }
-        }
-        unittest.expect(queryMap["fields"].first, unittest.equals(arg_$fields));
-
-        var h = {
-          "content-type": "application/json; charset=utf-8",
-        };
-        var resp = convert.json.encode(buildPackagingCollection());
-        return new async.Future.value(stringResponse(200, h, resp));
-      }), true);
-      res
-          .findPackagings(arg_svcProviderId, $fields: arg_$fields)
-          .then(unittest.expectAsync1(((response) {
-        checkPackagingCollection(response);
-      })));
-    });
-
-    unittest.test("method--getPackaging", () {
-      var mock = new HttpServerMock();
-      api.PackagingApi res = new api.PackagingApi(mock);
-      var arg_svcProviderId = "foo";
-      var arg_pkgId = "foo";
-      var arg_$fields = "foo";
-      mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
-        var path = (req.url).path;
-        var pathOffset = 0;
-        var index;
-        var subPart;
-        unittest.expect(path.substring(pathOffset, pathOffset + 9),
-            unittest.equals("/_ah/api/"));
-        pathOffset += 9;
-
-        var query = (req.url).query;
-        var queryOffset = 0;
-        var queryMap = <core.String, core.List<core.String>>{};
-        addQueryParam(n, v) => queryMap.putIfAbsent(n, () => []).add(v);
-        parseBool(n) {
-          if (n == "true") return true;
-          if (n == "false") return false;
-          if (n == null) return null;
-          throw new core.ArgumentError("Invalid boolean: $n");
-        }
-
-        if (query.length > 0) {
-          for (var part in query.split("&")) {
-            var keyvalue = part.split("=");
-            addQueryParam(core.Uri.decodeQueryComponent(keyvalue[0]),
-                core.Uri.decodeQueryComponent(keyvalue[1]));
-          }
-        }
-        unittest.expect(queryMap["fields"].first, unittest.equals(arg_$fields));
-
-        var h = {
-          "content-type": "application/json; charset=utf-8",
-        };
-        var resp = convert.json.encode(buildPackaging());
-        return new async.Future.value(stringResponse(200, h, resp));
-      }), true);
-      res
-          .getPackaging(arg_svcProviderId, arg_pkgId, $fields: arg_$fields)
-          .then(unittest.expectAsync1(((response) {
-        checkPackaging(response);
-      })));
-    });
-
-    unittest.test("method--updatePackaging", () {
-      var mock = new HttpServerMock();
-      api.PackagingApi res = new api.PackagingApi(mock);
-      var arg_request = buildPackaging();
-      var arg_svcProviderId = "foo";
-      var arg_pkgId = "foo";
-      var arg_$fields = "foo";
-      mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
-        var obj = new api.Packaging.fromJson(json);
-        checkPackaging(obj);
-
-        var path = (req.url).path;
-        var pathOffset = 0;
-        var index;
-        var subPart;
-        unittest.expect(path.substring(pathOffset, pathOffset + 9),
-            unittest.equals("/_ah/api/"));
-        pathOffset += 9;
-
-        var query = (req.url).query;
-        var queryOffset = 0;
-        var queryMap = <core.String, core.List<core.String>>{};
-        addQueryParam(n, v) => queryMap.putIfAbsent(n, () => []).add(v);
-        parseBool(n) {
-          if (n == "true") return true;
-          if (n == "false") return false;
-          if (n == null) return null;
-          throw new core.ArgumentError("Invalid boolean: $n");
-        }
-
-        if (query.length > 0) {
-          for (var part in query.split("&")) {
-            var keyvalue = part.split("=");
-            addQueryParam(core.Uri.decodeQueryComponent(keyvalue[0]),
-                core.Uri.decodeQueryComponent(keyvalue[1]));
-          }
-        }
-        unittest.expect(queryMap["fields"].first, unittest.equals(arg_$fields));
-
-        var h = {
-          "content-type": "application/json; charset=utf-8",
-        };
-        var resp = convert.json.encode(buildPackaging());
-        return new async.Future.value(stringResponse(200, h, resp));
-      }), true);
-      res
-          .updatePackaging(arg_request, arg_svcProviderId, arg_pkgId,
+          .updateTransaction(arg_request, arg_svcProviderId, arg_custId,
+              arg_acctId, arg_transId,
               $fields: arg_$fields)
           .then(unittest.expectAsync1(((response) {
-        checkPackaging(response);
+        checkBillingTransaction(response);
+      })));
+    });
+
+    unittest.test("method--updateTransactionForInvoice", () {
+      var mock = new HttpServerMock();
+      api.BillingApi res = new api.BillingApi(mock);
+      var arg_request = buildBillingTransactionList();
+      var arg_svcProviderId = "foo";
+      var arg_custId = "foo";
+      var arg_acctId = "foo";
+      var arg_invId = "foo";
+      var arg_$fields = "foo";
+      mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
+        var obj = new api.BillingTransactionList.fromJson(json);
+        checkBillingTransactionList(obj);
+
+        var path = (req.url).path;
+        var pathOffset = 0;
+        var index;
+        var subPart;
+        unittest.expect(path.substring(pathOffset, pathOffset + 9),
+            unittest.equals("/_ah/api/"));
+        pathOffset += 9;
+
+        var query = (req.url).query;
+        var queryOffset = 0;
+        var queryMap = <core.String, core.List<core.String>>{};
+        addQueryParam(n, v) => queryMap.putIfAbsent(n, () => []).add(v);
+        parseBool(n) {
+          if (n == "true") return true;
+          if (n == "false") return false;
+          if (n == null) return null;
+          throw new core.ArgumentError("Invalid boolean: $n");
+        }
+
+        if (query.length > 0) {
+          for (var part in query.split("&")) {
+            var keyvalue = part.split("=");
+            addQueryParam(core.Uri.decodeQueryComponent(keyvalue[0]),
+                core.Uri.decodeQueryComponent(keyvalue[1]));
+          }
+        }
+        unittest.expect(queryMap["fields"].first, unittest.equals(arg_$fields));
+
+        var h = {
+          "content-type": "application/json; charset=utf-8",
+        };
+        var resp = convert.json.encode(buildBillingTransactionList());
+        return new async.Future.value(stringResponse(200, h, resp));
+      }), true);
+      res
+          .updateTransactionForInvoice(
+              arg_request, arg_svcProviderId, arg_custId, arg_acctId, arg_invId,
+              $fields: arg_$fields)
+          .then(unittest.expectAsync1(((response) {
+        checkBillingTransactionList(response);
       })));
     });
   });

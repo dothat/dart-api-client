@@ -146,27 +146,27 @@ checkChangeContext(api.ChangeContext o) {
   buildCounterChangeContext--;
 }
 
-buildUnnamed34() {
+buildUnnamed36() {
   var o = new core.List<api.CustomerAddress>();
   o.add(buildCustomerAddress());
   o.add(buildCustomerAddress());
   return o;
 }
 
-checkUnnamed34(core.List<api.CustomerAddress> o) {
+checkUnnamed36(core.List<api.CustomerAddress> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkCustomerAddress(o[0]);
   checkCustomerAddress(o[1]);
 }
 
-buildUnnamed35() {
+buildUnnamed37() {
   var o = new core.List<api.CustomerContact>();
   o.add(buildCustomerContact());
   o.add(buildCustomerContact());
   return o;
 }
 
-checkUnnamed35(core.List<api.CustomerContact> o) {
+checkUnnamed37(core.List<api.CustomerContact> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkCustomerContact(o[0]);
   checkCustomerContact(o[1]);
@@ -178,10 +178,10 @@ buildCustomer() {
   buildCounterCustomer++;
   if (buildCounterCustomer < 3) {
     o.active = true;
-    o.addresses = buildUnnamed34();
+    o.addresses = buildUnnamed36();
     o.businessName = "foo";
     o.changeContext = buildChangeContext();
-    o.contacts = buildUnnamed35();
+    o.contacts = buildUnnamed37();
     o.creationTimestamp = core.DateTime.parse("2002-02-27T14:01:02");
     o.customerId = "foo";
     o.deleted = true;
@@ -197,10 +197,10 @@ checkCustomer(api.Customer o) {
   buildCounterCustomer++;
   if (buildCounterCustomer < 3) {
     unittest.expect(o.active, unittest.isTrue);
-    checkUnnamed34(o.addresses);
+    checkUnnamed36(o.addresses);
     unittest.expect(o.businessName, unittest.equals('foo'));
     checkChangeContext(o.changeContext);
-    checkUnnamed35(o.contacts);
+    checkUnnamed37(o.contacts);
     unittest.expect(o.creationTimestamp,
         unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")));
     unittest.expect(o.customerId, unittest.equals('foo'));
@@ -292,27 +292,27 @@ checkCustomerAddress(api.CustomerAddress o) {
   buildCounterCustomerAddress--;
 }
 
-buildUnnamed36() {
+buildUnnamed38() {
   var o = new core.List<api.EmailAddress>();
   o.add(buildEmailAddress());
   o.add(buildEmailAddress());
   return o;
 }
 
-checkUnnamed36(core.List<api.EmailAddress> o) {
+checkUnnamed38(core.List<api.EmailAddress> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkEmailAddress(o[0]);
   checkEmailAddress(o[1]);
 }
 
-buildUnnamed37() {
+buildUnnamed39() {
   var o = new core.List<api.PhoneNumber>();
   o.add(buildPhoneNumber());
   o.add(buildPhoneNumber());
   return o;
 }
 
-checkUnnamed37(core.List<api.PhoneNumber> o) {
+checkUnnamed39(core.List<api.PhoneNumber> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkPhoneNumber(o[0]);
   checkPhoneNumber(o[1]);
@@ -327,11 +327,11 @@ buildCustomerContact() {
     o.contactId = "foo";
     o.creationTimestamp = core.DateTime.parse("2002-02-27T14:01:02");
     o.deleted = true;
-    o.emailAddresses = buildUnnamed36();
+    o.emailAddresses = buildUnnamed38();
     o.label = "foo";
     o.modificationTimestamp = core.DateTime.parse("2002-02-27T14:01:02");
     o.name = "foo";
-    o.phoneNumbers = buildUnnamed37();
+    o.phoneNumbers = buildUnnamed39();
     o.primary = true;
     o.verificationStatus = "foo";
     o.version = "foo";
@@ -348,12 +348,12 @@ checkCustomerContact(api.CustomerContact o) {
     unittest.expect(o.creationTimestamp,
         unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")));
     unittest.expect(o.deleted, unittest.isTrue);
-    checkUnnamed36(o.emailAddresses);
+    checkUnnamed38(o.emailAddresses);
     unittest.expect(o.label, unittest.equals('foo'));
     unittest.expect(o.modificationTimestamp,
         unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")));
     unittest.expect(o.name, unittest.equals('foo'));
-    checkUnnamed37(o.phoneNumbers);
+    checkUnnamed39(o.phoneNumbers);
     unittest.expect(o.primary, unittest.isTrue);
     unittest.expect(o.verificationStatus, unittest.equals('foo'));
     unittest.expect(o.version, unittest.equals('foo'));
@@ -390,27 +390,27 @@ checkEmailAddress(api.EmailAddress o) {
   buildCounterEmailAddress--;
 }
 
-buildUnnamed38() {
+buildUnnamed40() {
   var o = new core.List<api.InvoiceAttribute>();
   o.add(buildInvoiceAttribute());
   o.add(buildInvoiceAttribute());
   return o;
 }
 
-checkUnnamed38(core.List<api.InvoiceAttribute> o) {
+checkUnnamed40(core.List<api.InvoiceAttribute> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkInvoiceAttribute(o[0]);
   checkInvoiceAttribute(o[1]);
 }
 
-buildUnnamed39() {
+buildUnnamed41() {
   var o = new core.List<api.InvoiceLineItem>();
   o.add(buildInvoiceLineItem());
   o.add(buildInvoiceLineItem());
   return o;
 }
 
-checkUnnamed39(core.List<api.InvoiceLineItem> o) {
+checkUnnamed41(core.List<api.InvoiceLineItem> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkInvoiceLineItem(o[0]);
   checkInvoiceLineItem(o[1]);
@@ -422,7 +422,7 @@ buildInvoice() {
   buildCounterInvoice++;
   if (buildCounterInvoice < 3) {
     o.accountName = "foo";
-    o.attributes = buildUnnamed38();
+    o.attributes = buildUnnamed40();
     o.billingAddress = buildBillingAddress();
     o.billingPeriod = buildBillingPeriod();
     o.creationTimestamp = core.DateTime.parse("2002-02-27T14:01:02");
@@ -436,7 +436,7 @@ buildInvoice() {
     o.invoiceState = "foo";
     o.invoiceStatus = "foo";
     o.invoiceType = "foo";
-    o.lineItems = buildUnnamed39();
+    o.lineItems = buildUnnamed41();
     o.modificationTimestamp = core.DateTime.parse("2002-02-27T14:01:02");
     o.paymentStatus = "foo";
     o.shortUrlCode = "foo";
@@ -450,7 +450,7 @@ checkInvoice(api.Invoice o) {
   buildCounterInvoice++;
   if (buildCounterInvoice < 3) {
     unittest.expect(o.accountName, unittest.equals('foo'));
-    checkUnnamed38(o.attributes);
+    checkUnnamed40(o.attributes);
     checkBillingAddress(o.billingAddress);
     checkBillingPeriod(o.billingPeriod);
     unittest.expect(o.creationTimestamp,
@@ -467,7 +467,7 @@ checkInvoice(api.Invoice o) {
     unittest.expect(o.invoiceState, unittest.equals('foo'));
     unittest.expect(o.invoiceStatus, unittest.equals('foo'));
     unittest.expect(o.invoiceType, unittest.equals('foo'));
-    checkUnnamed39(o.lineItems);
+    checkUnnamed41(o.lineItems);
     unittest.expect(o.modificationTimestamp,
         unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")));
     unittest.expect(o.paymentStatus, unittest.equals('foo'));
@@ -504,14 +504,14 @@ checkInvoiceAttribute(api.InvoiceAttribute o) {
   buildCounterInvoiceAttribute--;
 }
 
-buildUnnamed40() {
+buildUnnamed42() {
   var o = new core.List<api.Invoice>();
   o.add(buildInvoice());
   o.add(buildInvoice());
   return o;
 }
 
-checkUnnamed40(core.List<api.Invoice> o) {
+checkUnnamed42(core.List<api.Invoice> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkInvoice(o[0]);
   checkInvoice(o[1]);
@@ -522,7 +522,7 @@ buildInvoiceCollection() {
   var o = new api.InvoiceCollection();
   buildCounterInvoiceCollection++;
   if (buildCounterInvoiceCollection < 3) {
-    o.items = buildUnnamed40();
+    o.items = buildUnnamed42();
   }
   buildCounterInvoiceCollection--;
   return o;
@@ -531,19 +531,19 @@ buildInvoiceCollection() {
 checkInvoiceCollection(api.InvoiceCollection o) {
   buildCounterInvoiceCollection++;
   if (buildCounterInvoiceCollection < 3) {
-    checkUnnamed40(o.items);
+    checkUnnamed42(o.items);
   }
   buildCounterInvoiceCollection--;
 }
 
-buildUnnamed41() {
+buildUnnamed43() {
   var o = new core.List<api.InvoiceAttribute>();
   o.add(buildInvoiceAttribute());
   o.add(buildInvoiceAttribute());
   return o;
 }
 
-checkUnnamed41(core.List<api.InvoiceAttribute> o) {
+checkUnnamed43(core.List<api.InvoiceAttribute> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkInvoiceAttribute(o[0]);
   checkInvoiceAttribute(o[1]);
@@ -555,7 +555,7 @@ buildInvoiceLineItem() {
   buildCounterInvoiceLineItem++;
   if (buildCounterInvoiceLineItem < 3) {
     o.amount = 42.0;
-    o.attributes = buildUnnamed41();
+    o.attributes = buildUnnamed43();
     o.category = "foo";
     o.countLabel = "foo";
     o.creationTimestamp = core.DateTime.parse("2002-02-27T14:01:02");
@@ -580,7 +580,7 @@ checkInvoiceLineItem(api.InvoiceLineItem o) {
   buildCounterInvoiceLineItem++;
   if (buildCounterInvoiceLineItem < 3) {
     unittest.expect(o.amount, unittest.equals(42.0));
-    checkUnnamed41(o.attributes);
+    checkUnnamed43(o.attributes);
     unittest.expect(o.category, unittest.equals('foo'));
     unittest.expect(o.countLabel, unittest.equals('foo'));
     unittest.expect(o.creationTimestamp,
@@ -784,14 +784,14 @@ checkServicedAddress(api.ServicedAddress o) {
   buildCounterServicedAddress--;
 }
 
-buildUnnamed42() {
+buildUnnamed44() {
   var o = new core.List<core.String>();
   o.add("foo");
   o.add("foo");
   return o;
 }
 
-checkUnnamed42(core.List<core.String> o) {
+checkUnnamed44(core.List<core.String> o) {
   unittest.expect(o, unittest.hasLength(2));
   unittest.expect(o[0], unittest.equals('foo'));
   unittest.expect(o[1], unittest.equals('foo'));
@@ -1095,7 +1095,7 @@ main() {
       var arg_minEndDate = core.DateTime.parse("2002-02-27T14:01:02Z");
       var arg_maxEndDate = core.DateTime.parse("2002-02-27T14:01:02Z");
       var arg_filterType = "foo";
-      var arg_filterValue = buildUnnamed42();
+      var arg_filterValue = buildUnnamed44();
       var arg_$fields = "foo";
       mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
         var path = (req.url).path;

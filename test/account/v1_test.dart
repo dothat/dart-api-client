@@ -1,4 +1,4 @@
-library dothatapis.product.v1.test;
+library dothatapis.account.v1.test;
 
 import "dart:core" as core;
 import "dart:async" as async;
@@ -7,7 +7,7 @@ import "dart:convert" as convert;
 import 'package:http/http.dart' as http;
 import 'package:test/test.dart' as unittest;
 
-import 'package:dothatapis/product/v1.dart' as api;
+import 'package:dothatapis/account/v1.dart' as api;
 
 class HttpServerMock extends http.BaseClient {
   core.Function _callback;
@@ -50,6 +50,32 @@ http.StreamedResponse stringResponse(core.int status,
   return new http.StreamedResponse(stream, status, headers: headers);
 }
 
+core.int buildCounterAccountBalanceSummary = 0;
+buildAccountBalanceSummary() {
+  var o = new api.AccountBalanceSummary();
+  buildCounterAccountBalanceSummary++;
+  if (buildCounterAccountBalanceSummary < 3) {
+    o.balanceDate = core.DateTime.parse("2002-02-27T14:01:02Z");
+    o.billingType = "foo";
+    o.unpaidBillBalance = 42.0;
+    o.walletBalance = 42.0;
+  }
+  buildCounterAccountBalanceSummary--;
+  return o;
+}
+
+checkAccountBalanceSummary(api.AccountBalanceSummary o) {
+  buildCounterAccountBalanceSummary++;
+  if (buildCounterAccountBalanceSummary < 3) {
+    unittest.expect(o.balanceDate,
+        unittest.equals(core.DateTime.parse("2002-02-27T00:00:00")));
+    unittest.expect(o.billingType, unittest.equals('foo'));
+    unittest.expect(o.unpaidBillBalance, unittest.equals(42.0));
+    unittest.expect(o.walletBalance, unittest.equals(42.0));
+  }
+  buildCounterAccountBalanceSummary--;
+}
+
 core.int buildCounterAmount = 0;
 buildAmount() {
   var o = new api.Amount();
@@ -69,6 +95,120 @@ checkAmount(api.Amount o) {
     unittest.expect(o.value, unittest.equals(42.0));
   }
   buildCounterAmount--;
+}
+
+core.int buildCounterBillingAccount = 0;
+buildBillingAccount() {
+  var o = new api.BillingAccount();
+  buildCounterBillingAccount++;
+  if (buildCounterBillingAccount < 3) {
+    o.accountId = "foo";
+    o.accountName = "foo";
+    o.active = true;
+    o.billedEntityName = "foo";
+    o.billingAddress = buildBillingAddress();
+    o.billingCurrency = "foo";
+    o.billingType = "foo";
+    o.creationTimestamp = core.DateTime.parse("2002-02-27T14:01:02");
+    o.creditLimit = 42.0;
+    o.customerAddressUsedForBilling = true;
+    o.customerId = "foo";
+    o.customerNameUsedForBilling = true;
+    o.modificationTimestamp = core.DateTime.parse("2002-02-27T14:01:02");
+    o.preferredPaymentMethod = "foo";
+    o.preferredPaymentMethodName = "foo";
+    o.pricingPlan = buildPricingPlan();
+    o.pricingPlanId = "foo";
+    o.version = "foo";
+  }
+  buildCounterBillingAccount--;
+  return o;
+}
+
+checkBillingAccount(api.BillingAccount o) {
+  buildCounterBillingAccount++;
+  if (buildCounterBillingAccount < 3) {
+    unittest.expect(o.accountId, unittest.equals('foo'));
+    unittest.expect(o.accountName, unittest.equals('foo'));
+    unittest.expect(o.active, unittest.isTrue);
+    unittest.expect(o.billedEntityName, unittest.equals('foo'));
+    checkBillingAddress(o.billingAddress);
+    unittest.expect(o.billingCurrency, unittest.equals('foo'));
+    unittest.expect(o.billingType, unittest.equals('foo'));
+    unittest.expect(o.creationTimestamp,
+        unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")));
+    unittest.expect(o.creditLimit, unittest.equals(42.0));
+    unittest.expect(o.customerAddressUsedForBilling, unittest.isTrue);
+    unittest.expect(o.customerId, unittest.equals('foo'));
+    unittest.expect(o.customerNameUsedForBilling, unittest.isTrue);
+    unittest.expect(o.modificationTimestamp,
+        unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")));
+    unittest.expect(o.preferredPaymentMethod, unittest.equals('foo'));
+    unittest.expect(o.preferredPaymentMethodName, unittest.equals('foo'));
+    checkPricingPlan(o.pricingPlan);
+    unittest.expect(o.pricingPlanId, unittest.equals('foo'));
+    unittest.expect(o.version, unittest.equals('foo'));
+  }
+  buildCounterBillingAccount--;
+}
+
+buildUnnamed74() {
+  var o = new core.List<api.BillingAccount>();
+  o.add(buildBillingAccount());
+  o.add(buildBillingAccount());
+  return o;
+}
+
+checkUnnamed74(core.List<api.BillingAccount> o) {
+  unittest.expect(o, unittest.hasLength(2));
+  checkBillingAccount(o[0]);
+  checkBillingAccount(o[1]);
+}
+
+core.int buildCounterBillingAccountCollection = 0;
+buildBillingAccountCollection() {
+  var o = new api.BillingAccountCollection();
+  buildCounterBillingAccountCollection++;
+  if (buildCounterBillingAccountCollection < 3) {
+    o.items = buildUnnamed74();
+  }
+  buildCounterBillingAccountCollection--;
+  return o;
+}
+
+checkBillingAccountCollection(api.BillingAccountCollection o) {
+  buildCounterBillingAccountCollection++;
+  if (buildCounterBillingAccountCollection < 3) {
+    checkUnnamed74(o.items);
+  }
+  buildCounterBillingAccountCollection--;
+}
+
+core.int buildCounterBillingAddress = 0;
+buildBillingAddress() {
+  var o = new api.BillingAddress();
+  buildCounterBillingAddress++;
+  if (buildCounterBillingAddress < 3) {
+    o.addressLine1 = "foo";
+    o.addressLine2 = "foo";
+    o.addressLine3 = "foo";
+    o.city = "foo";
+    o.state = "foo";
+  }
+  buildCounterBillingAddress--;
+  return o;
+}
+
+checkBillingAddress(api.BillingAddress o) {
+  buildCounterBillingAddress++;
+  if (buildCounterBillingAddress < 3) {
+    unittest.expect(o.addressLine1, unittest.equals('foo'));
+    unittest.expect(o.addressLine2, unittest.equals('foo'));
+    unittest.expect(o.addressLine3, unittest.equals('foo'));
+    unittest.expect(o.city, unittest.equals('foo'));
+    unittest.expect(o.state, unittest.equals('foo'));
+  }
+  buildCounterBillingAddress--;
 }
 
 core.int buildCounterChangeContext = 0;
@@ -94,14 +234,14 @@ checkChangeContext(api.ChangeContext o) {
   buildCounterChangeContext--;
 }
 
-buildUnnamed45() {
+buildUnnamed75() {
   var o = new core.List<api.ProductPriceList>();
   o.add(buildProductPriceList());
   o.add(buildProductPriceList());
   return o;
 }
 
-checkUnnamed45(core.List<api.ProductPriceList> o) {
+checkUnnamed75(core.List<api.ProductPriceList> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkProductPriceList(o[0]);
   checkProductPriceList(o[1]);
@@ -119,7 +259,7 @@ buildPriceList() {
     o.priceListId = "foo";
     o.pricingPlan = buildPricingPlan();
     o.pricingPlanId = "foo";
-    o.productPriceLists = buildUnnamed45();
+    o.productPriceLists = buildUnnamed75();
     o.startDate = core.DateTime.parse("2002-02-27T14:01:02Z");
     o.version = "foo";
   }
@@ -140,7 +280,7 @@ checkPriceList(api.PriceList o) {
     unittest.expect(o.priceListId, unittest.equals('foo'));
     checkPricingPlan(o.pricingPlan);
     unittest.expect(o.pricingPlanId, unittest.equals('foo'));
-    checkUnnamed45(o.productPriceLists);
+    checkUnnamed75(o.productPriceLists);
     unittest.expect(o.startDate,
         unittest.equals(core.DateTime.parse("2002-02-27T00:00:00")));
     unittest.expect(o.version, unittest.equals('foo'));
@@ -148,46 +288,14 @@ checkPriceList(api.PriceList o) {
   buildCounterPriceList--;
 }
 
-buildUnnamed46() {
+buildUnnamed76() {
   var o = new core.List<api.PriceList>();
   o.add(buildPriceList());
   o.add(buildPriceList());
   return o;
 }
 
-checkUnnamed46(core.List<api.PriceList> o) {
-  unittest.expect(o, unittest.hasLength(2));
-  checkPriceList(o[0]);
-  checkPriceList(o[1]);
-}
-
-core.int buildCounterPriceListCollection = 0;
-buildPriceListCollection() {
-  var o = new api.PriceListCollection();
-  buildCounterPriceListCollection++;
-  if (buildCounterPriceListCollection < 3) {
-    o.items = buildUnnamed46();
-  }
-  buildCounterPriceListCollection--;
-  return o;
-}
-
-checkPriceListCollection(api.PriceListCollection o) {
-  buildCounterPriceListCollection++;
-  if (buildCounterPriceListCollection < 3) {
-    checkUnnamed46(o.items);
-  }
-  buildCounterPriceListCollection--;
-}
-
-buildUnnamed47() {
-  var o = new core.List<api.PriceList>();
-  o.add(buildPriceList());
-  o.add(buildPriceList());
-  return o;
-}
-
-checkUnnamed47(core.List<api.PriceList> o) {
+checkUnnamed76(core.List<api.PriceList> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkPriceList(o[0]);
   checkPriceList(o[1]);
@@ -204,7 +312,7 @@ buildPricingPlan() {
     o.planCode = "foo";
     o.planId = "foo";
     o.planName = "foo";
-    o.priceLists = buildUnnamed47();
+    o.priceLists = buildUnnamed76();
     o.version = "foo";
   }
   buildCounterPricingPlan--;
@@ -222,65 +330,33 @@ checkPricingPlan(api.PricingPlan o) {
     unittest.expect(o.planCode, unittest.equals('foo'));
     unittest.expect(o.planId, unittest.equals('foo'));
     unittest.expect(o.planName, unittest.equals('foo'));
-    checkUnnamed47(o.priceLists);
+    checkUnnamed76(o.priceLists);
     unittest.expect(o.version, unittest.equals('foo'));
   }
   buildCounterPricingPlan--;
 }
 
-buildUnnamed48() {
-  var o = new core.List<api.PricingPlan>();
-  o.add(buildPricingPlan());
-  o.add(buildPricingPlan());
-  return o;
-}
-
-checkUnnamed48(core.List<api.PricingPlan> o) {
-  unittest.expect(o, unittest.hasLength(2));
-  checkPricingPlan(o[0]);
-  checkPricingPlan(o[1]);
-}
-
-core.int buildCounterPricingPlanCollection = 0;
-buildPricingPlanCollection() {
-  var o = new api.PricingPlanCollection();
-  buildCounterPricingPlanCollection++;
-  if (buildCounterPricingPlanCollection < 3) {
-    o.items = buildUnnamed48();
-  }
-  buildCounterPricingPlanCollection--;
-  return o;
-}
-
-checkPricingPlanCollection(api.PricingPlanCollection o) {
-  buildCounterPricingPlanCollection++;
-  if (buildCounterPricingPlanCollection < 3) {
-    checkUnnamed48(o.items);
-  }
-  buildCounterPricingPlanCollection--;
-}
-
-buildUnnamed49() {
+buildUnnamed77() {
   var o = new core.List<api.ProductImage>();
   o.add(buildProductImage());
   o.add(buildProductImage());
   return o;
 }
 
-checkUnnamed49(core.List<api.ProductImage> o) {
+checkUnnamed77(core.List<api.ProductImage> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkProductImage(o[0]);
   checkProductImage(o[1]);
 }
 
-buildUnnamed50() {
+buildUnnamed78() {
   var o = new core.List<api.ProductPriceList>();
   o.add(buildProductPriceList());
   o.add(buildProductPriceList());
   return o;
 }
 
-checkUnnamed50(core.List<api.ProductPriceList> o) {
+checkUnnamed78(core.List<api.ProductPriceList> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkProductPriceList(o[0]);
   checkProductPriceList(o[1]);
@@ -299,12 +375,12 @@ buildProduct() {
     o.deleted = true;
     o.description = "foo";
     o.displayRank = 42;
-    o.images = buildUnnamed49();
+    o.images = buildUnnamed77();
     o.measurementQuantity = 42.0;
     o.measurementUnit = "foo";
     o.modificationTimestamp = core.DateTime.parse("2002-02-27T14:01:02");
     o.name = "foo";
-    o.priceLists = buildUnnamed50();
+    o.priceLists = buildUnnamed78();
     o.productCode = "foo";
     o.productGroup = buildProductGroup();
     o.productId = "foo";
@@ -331,13 +407,13 @@ checkProduct(api.Product o) {
     unittest.expect(o.deleted, unittest.isTrue);
     unittest.expect(o.description, unittest.equals('foo'));
     unittest.expect(o.displayRank, unittest.equals(42));
-    checkUnnamed49(o.images);
+    checkUnnamed77(o.images);
     unittest.expect(o.measurementQuantity, unittest.equals(42.0));
     unittest.expect(o.measurementUnit, unittest.equals('foo'));
     unittest.expect(o.modificationTimestamp,
         unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")));
     unittest.expect(o.name, unittest.equals('foo'));
-    checkUnnamed50(o.priceLists);
+    checkUnnamed78(o.priceLists);
     unittest.expect(o.productCode, unittest.equals('foo'));
     checkProductGroup(o.productGroup);
     unittest.expect(o.productId, unittest.equals('foo'));
@@ -376,46 +452,14 @@ checkProductAvailability(api.ProductAvailability o) {
   buildCounterProductAvailability--;
 }
 
-buildUnnamed51() {
-  var o = new core.List<api.Product>();
-  o.add(buildProduct());
-  o.add(buildProduct());
-  return o;
-}
-
-checkUnnamed51(core.List<api.Product> o) {
-  unittest.expect(o, unittest.hasLength(2));
-  checkProduct(o[0]);
-  checkProduct(o[1]);
-}
-
-core.int buildCounterProductCollection = 0;
-buildProductCollection() {
-  var o = new api.ProductCollection();
-  buildCounterProductCollection++;
-  if (buildCounterProductCollection < 3) {
-    o.items = buildUnnamed51();
-  }
-  buildCounterProductCollection--;
-  return o;
-}
-
-checkProductCollection(api.ProductCollection o) {
-  buildCounterProductCollection++;
-  if (buildCounterProductCollection < 3) {
-    checkUnnamed51(o.items);
-  }
-  buildCounterProductCollection--;
-}
-
-buildUnnamed52() {
+buildUnnamed79() {
   var o = new core.List<api.ProductImage>();
   o.add(buildProductImage());
   o.add(buildProductImage());
   return o;
 }
 
-checkUnnamed52(core.List<api.ProductImage> o) {
+checkUnnamed79(core.List<api.ProductImage> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkProductImage(o[0]);
   checkProductImage(o[1]);
@@ -428,7 +472,7 @@ buildProductGroup() {
   if (buildCounterProductGroup < 3) {
     o.groupDescription = "foo";
     o.groupName = "foo";
-    o.images = buildUnnamed52();
+    o.images = buildUnnamed79();
   }
   buildCounterProductGroup--;
   return o;
@@ -439,7 +483,7 @@ checkProductGroup(api.ProductGroup o) {
   if (buildCounterProductGroup < 3) {
     unittest.expect(o.groupDescription, unittest.equals('foo'));
     unittest.expect(o.groupName, unittest.equals('foo'));
-    checkUnnamed52(o.images);
+    checkUnnamed79(o.images);
   }
   buildCounterProductGroup--;
 }
@@ -492,14 +536,14 @@ checkProductPrice(api.ProductPrice o) {
   buildCounterProductPrice--;
 }
 
-buildUnnamed53() {
+buildUnnamed80() {
   var o = new core.List<api.ProductPrice>();
   o.add(buildProductPrice());
   o.add(buildProductPrice());
   return o;
 }
 
-checkUnnamed53(core.List<api.ProductPrice> o) {
+checkUnnamed80(core.List<api.ProductPrice> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkProductPrice(o[0]);
   checkProductPrice(o[1]);
@@ -511,7 +555,7 @@ buildProductPriceList() {
   buildCounterProductPriceList++;
   if (buildCounterProductPriceList < 3) {
     o.endDate = core.DateTime.parse("2002-02-27T14:01:02Z");
-    o.prices = buildUnnamed53();
+    o.prices = buildUnnamed80();
     o.product = buildProduct();
     o.productId = "foo";
     o.startDate = core.DateTime.parse("2002-02-27T14:01:02Z");
@@ -525,7 +569,7 @@ checkProductPriceList(api.ProductPriceList o) {
   if (buildCounterProductPriceList < 3) {
     unittest.expect(
         o.endDate, unittest.equals(core.DateTime.parse("2002-02-27T00:00:00")));
-    checkUnnamed53(o.prices);
+    checkUnnamed80(o.prices);
     checkProduct(o.product);
     unittest.expect(o.productId, unittest.equals('foo'));
     unittest.expect(o.startDate,
@@ -555,27 +599,27 @@ checkProductVisibility(api.ProductVisibility o) {
   buildCounterProductVisibility--;
 }
 
-buildUnnamed54() {
+buildUnnamed81() {
   var o = new core.List<core.String>();
   o.add("foo");
   o.add("foo");
   return o;
 }
 
-checkUnnamed54(core.List<core.String> o) {
+checkUnnamed81(core.List<core.String> o) {
   unittest.expect(o, unittest.hasLength(2));
   unittest.expect(o[0], unittest.equals('foo'));
   unittest.expect(o[1], unittest.equals('foo'));
 }
 
-buildUnnamed55() {
+buildUnnamed82() {
   var o = new core.List<api.ScheduleRestriction>();
   o.add(buildScheduleRestriction());
   o.add(buildScheduleRestriction());
   return o;
 }
 
-checkUnnamed55(core.List<api.ScheduleRestriction> o) {
+checkUnnamed82(core.List<api.ScheduleRestriction> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkScheduleRestriction(o[0]);
   checkScheduleRestriction(o[1]);
@@ -586,10 +630,10 @@ buildSchedule() {
   var o = new api.Schedule();
   buildCounterSchedule++;
   if (buildCounterSchedule < 3) {
-    o.daysOfWeek = buildUnnamed54();
+    o.daysOfWeek = buildUnnamed81();
     o.frequency = 42;
     o.frequencyType = "foo";
-    o.restrictions = buildUnnamed55();
+    o.restrictions = buildUnnamed82();
     o.scheduleType = "foo";
   }
   buildCounterSchedule--;
@@ -599,23 +643,23 @@ buildSchedule() {
 checkSchedule(api.Schedule o) {
   buildCounterSchedule++;
   if (buildCounterSchedule < 3) {
-    checkUnnamed54(o.daysOfWeek);
+    checkUnnamed81(o.daysOfWeek);
     unittest.expect(o.frequency, unittest.equals(42));
     unittest.expect(o.frequencyType, unittest.equals('foo'));
-    checkUnnamed55(o.restrictions);
+    checkUnnamed82(o.restrictions);
     unittest.expect(o.scheduleType, unittest.equals('foo'));
   }
   buildCounterSchedule--;
 }
 
-buildUnnamed56() {
+buildUnnamed83() {
   var o = new core.List<core.String>();
   o.add("foo");
   o.add("foo");
   return o;
 }
 
-checkUnnamed56(core.List<core.String> o) {
+checkUnnamed83(core.List<core.String> o) {
   unittest.expect(o, unittest.hasLength(2));
   unittest.expect(o[0], unittest.equals('foo'));
   unittest.expect(o[1], unittest.equals('foo'));
@@ -626,7 +670,7 @@ buildScheduleRestriction() {
   var o = new api.ScheduleRestriction();
   buildCounterScheduleRestriction++;
   if (buildCounterScheduleRestriction < 3) {
-    o.daysOfWeek = buildUnnamed56();
+    o.daysOfWeek = buildUnnamed83();
     o.scheduleType = "foo";
   }
   buildCounterScheduleRestriction--;
@@ -636,18 +680,50 @@ buildScheduleRestriction() {
 checkScheduleRestriction(api.ScheduleRestriction o) {
   buildCounterScheduleRestriction++;
   if (buildCounterScheduleRestriction < 3) {
-    checkUnnamed56(o.daysOfWeek);
+    checkUnnamed83(o.daysOfWeek);
     unittest.expect(o.scheduleType, unittest.equals('foo'));
   }
   buildCounterScheduleRestriction--;
 }
 
 main() {
+  unittest.group("obj-schema-AccountBalanceSummary", () {
+    unittest.test("to-json--from-json", () {
+      var o = buildAccountBalanceSummary();
+      var od = new api.AccountBalanceSummary.fromJson(o.toJson());
+      checkAccountBalanceSummary(od);
+    });
+  });
+
   unittest.group("obj-schema-Amount", () {
     unittest.test("to-json--from-json", () {
       var o = buildAmount();
       var od = new api.Amount.fromJson(o.toJson());
       checkAmount(od);
+    });
+  });
+
+  unittest.group("obj-schema-BillingAccount", () {
+    unittest.test("to-json--from-json", () {
+      var o = buildBillingAccount();
+      var od = new api.BillingAccount.fromJson(o.toJson());
+      checkBillingAccount(od);
+    });
+  });
+
+  unittest.group("obj-schema-BillingAccountCollection", () {
+    unittest.test("to-json--from-json", () {
+      var o = buildBillingAccountCollection();
+      var od = new api.BillingAccountCollection.fromJson(o.toJson());
+      checkBillingAccountCollection(od);
+    });
+  });
+
+  unittest.group("obj-schema-BillingAddress", () {
+    unittest.test("to-json--from-json", () {
+      var o = buildBillingAddress();
+      var od = new api.BillingAddress.fromJson(o.toJson());
+      checkBillingAddress(od);
     });
   });
 
@@ -667,27 +743,11 @@ main() {
     });
   });
 
-  unittest.group("obj-schema-PriceListCollection", () {
-    unittest.test("to-json--from-json", () {
-      var o = buildPriceListCollection();
-      var od = new api.PriceListCollection.fromJson(o.toJson());
-      checkPriceListCollection(od);
-    });
-  });
-
   unittest.group("obj-schema-PricingPlan", () {
     unittest.test("to-json--from-json", () {
       var o = buildPricingPlan();
       var od = new api.PricingPlan.fromJson(o.toJson());
       checkPricingPlan(od);
-    });
-  });
-
-  unittest.group("obj-schema-PricingPlanCollection", () {
-    unittest.test("to-json--from-json", () {
-      var o = buildPricingPlanCollection();
-      var od = new api.PricingPlanCollection.fromJson(o.toJson());
-      checkPricingPlanCollection(od);
     });
   });
 
@@ -704,14 +764,6 @@ main() {
       var o = buildProductAvailability();
       var od = new api.ProductAvailability.fromJson(o.toJson());
       checkProductAvailability(od);
-    });
-  });
-
-  unittest.group("obj-schema-ProductCollection", () {
-    unittest.test("to-json--from-json", () {
-      var o = buildProductCollection();
-      var od = new api.ProductCollection.fromJson(o.toJson());
-      checkProductCollection(od);
     });
   });
 
@@ -771,17 +823,17 @@ main() {
     });
   });
 
-  unittest.group("resource-ProductApi", () {
-    unittest.test("method--createPriceList", () {
+  unittest.group("resource-AccountApi", () {
+    unittest.test("method--createAccount", () {
       var mock = new HttpServerMock();
-      api.ProductApi res = new api.ProductApi(mock);
-      var arg_request = buildPriceList();
+      api.AccountApi res = new api.AccountApi(mock);
+      var arg_request = buildBillingAccount();
       var arg_svcProviderId = "foo";
-      var arg_plnId = "foo";
+      var arg_custId = "foo";
       var arg_$fields = "foo";
       mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
-        var obj = new api.PriceList.fromJson(json);
-        checkPriceList(obj);
+        var obj = new api.BillingAccount.fromJson(json);
+        checkBillingAccount(obj);
 
         var path = (req.url).path;
         var pathOffset = 0;
@@ -809,270 +861,26 @@ main() {
                 core.Uri.decodeQueryComponent(keyvalue[1]));
           }
         }
+        unittest.expect(queryMap["custId"].first, unittest.equals(arg_custId));
         unittest.expect(queryMap["fields"].first, unittest.equals(arg_$fields));
 
         var h = {
           "content-type": "application/json; charset=utf-8",
         };
-        var resp = convert.json.encode(buildPriceList());
+        var resp = convert.json.encode(buildBillingAccount());
         return new async.Future.value(stringResponse(200, h, resp));
       }), true);
       res
-          .createPriceList(arg_request, arg_svcProviderId, arg_plnId,
+          .createAccount(arg_request, arg_svcProviderId, arg_custId,
               $fields: arg_$fields)
           .then(unittest.expectAsync1(((response) {
-        checkPriceList(response);
+        checkBillingAccount(response);
       })));
     });
 
-    unittest.test("method--createPricingPlan", () {
+    unittest.test("method--findAccountsForCustomer", () {
       var mock = new HttpServerMock();
-      api.ProductApi res = new api.ProductApi(mock);
-      var arg_request = buildPricingPlan();
-      var arg_svcProviderId = "foo";
-      var arg_$fields = "foo";
-      mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
-        var obj = new api.PricingPlan.fromJson(json);
-        checkPricingPlan(obj);
-
-        var path = (req.url).path;
-        var pathOffset = 0;
-        var index;
-        var subPart;
-        unittest.expect(path.substring(pathOffset, pathOffset + 9),
-            unittest.equals("/_ah/api/"));
-        pathOffset += 9;
-
-        var query = (req.url).query;
-        var queryOffset = 0;
-        var queryMap = <core.String, core.List<core.String>>{};
-        addQueryParam(n, v) => queryMap.putIfAbsent(n, () => []).add(v);
-        parseBool(n) {
-          if (n == "true") return true;
-          if (n == "false") return false;
-          if (n == null) return null;
-          throw new core.ArgumentError("Invalid boolean: $n");
-        }
-
-        if (query.length > 0) {
-          for (var part in query.split("&")) {
-            var keyvalue = part.split("=");
-            addQueryParam(core.Uri.decodeQueryComponent(keyvalue[0]),
-                core.Uri.decodeQueryComponent(keyvalue[1]));
-          }
-        }
-        unittest.expect(queryMap["fields"].first, unittest.equals(arg_$fields));
-
-        var h = {
-          "content-type": "application/json; charset=utf-8",
-        };
-        var resp = convert.json.encode(buildPricingPlan());
-        return new async.Future.value(stringResponse(200, h, resp));
-      }), true);
-      res
-          .createPricingPlan(arg_request, arg_svcProviderId,
-              $fields: arg_$fields)
-          .then(unittest.expectAsync1(((response) {
-        checkPricingPlan(response);
-      })));
-    });
-
-    unittest.test("method--createProduct", () {
-      var mock = new HttpServerMock();
-      api.ProductApi res = new api.ProductApi(mock);
-      var arg_request = buildProduct();
-      var arg_svcProviderId = "foo";
-      var arg_$fields = "foo";
-      mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
-        var obj = new api.Product.fromJson(json);
-        checkProduct(obj);
-
-        var path = (req.url).path;
-        var pathOffset = 0;
-        var index;
-        var subPart;
-        unittest.expect(path.substring(pathOffset, pathOffset + 9),
-            unittest.equals("/_ah/api/"));
-        pathOffset += 9;
-
-        var query = (req.url).query;
-        var queryOffset = 0;
-        var queryMap = <core.String, core.List<core.String>>{};
-        addQueryParam(n, v) => queryMap.putIfAbsent(n, () => []).add(v);
-        parseBool(n) {
-          if (n == "true") return true;
-          if (n == "false") return false;
-          if (n == null) return null;
-          throw new core.ArgumentError("Invalid boolean: $n");
-        }
-
-        if (query.length > 0) {
-          for (var part in query.split("&")) {
-            var keyvalue = part.split("=");
-            addQueryParam(core.Uri.decodeQueryComponent(keyvalue[0]),
-                core.Uri.decodeQueryComponent(keyvalue[1]));
-          }
-        }
-        unittest.expect(queryMap["fields"].first, unittest.equals(arg_$fields));
-
-        var h = {
-          "content-type": "application/json; charset=utf-8",
-        };
-        var resp = convert.json.encode(buildProduct());
-        return new async.Future.value(stringResponse(200, h, resp));
-      }), true);
-      res
-          .createProduct(arg_request, arg_svcProviderId, $fields: arg_$fields)
-          .then(unittest.expectAsync1(((response) {
-        checkProduct(response);
-      })));
-    });
-
-    unittest.test("method--findPriceLists", () {
-      var mock = new HttpServerMock();
-      api.ProductApi res = new api.ProductApi(mock);
-      var arg_svcProviderId = "foo";
-      var arg_plnId = "foo";
-      var arg_$fields = "foo";
-      mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
-        var path = (req.url).path;
-        var pathOffset = 0;
-        var index;
-        var subPart;
-        unittest.expect(path.substring(pathOffset, pathOffset + 9),
-            unittest.equals("/_ah/api/"));
-        pathOffset += 9;
-
-        var query = (req.url).query;
-        var queryOffset = 0;
-        var queryMap = <core.String, core.List<core.String>>{};
-        addQueryParam(n, v) => queryMap.putIfAbsent(n, () => []).add(v);
-        parseBool(n) {
-          if (n == "true") return true;
-          if (n == "false") return false;
-          if (n == null) return null;
-          throw new core.ArgumentError("Invalid boolean: $n");
-        }
-
-        if (query.length > 0) {
-          for (var part in query.split("&")) {
-            var keyvalue = part.split("=");
-            addQueryParam(core.Uri.decodeQueryComponent(keyvalue[0]),
-                core.Uri.decodeQueryComponent(keyvalue[1]));
-          }
-        }
-        unittest.expect(queryMap["fields"].first, unittest.equals(arg_$fields));
-
-        var h = {
-          "content-type": "application/json; charset=utf-8",
-        };
-        var resp = convert.json.encode(buildPriceListCollection());
-        return new async.Future.value(stringResponse(200, h, resp));
-      }), true);
-      res
-          .findPriceLists(arg_svcProviderId, arg_plnId, $fields: arg_$fields)
-          .then(unittest.expectAsync1(((response) {
-        checkPriceListCollection(response);
-      })));
-    });
-
-    unittest.test("method--findPricingPlans", () {
-      var mock = new HttpServerMock();
-      api.ProductApi res = new api.ProductApi(mock);
-      var arg_svcProviderId = "foo";
-      var arg_$fields = "foo";
-      mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
-        var path = (req.url).path;
-        var pathOffset = 0;
-        var index;
-        var subPart;
-        unittest.expect(path.substring(pathOffset, pathOffset + 9),
-            unittest.equals("/_ah/api/"));
-        pathOffset += 9;
-
-        var query = (req.url).query;
-        var queryOffset = 0;
-        var queryMap = <core.String, core.List<core.String>>{};
-        addQueryParam(n, v) => queryMap.putIfAbsent(n, () => []).add(v);
-        parseBool(n) {
-          if (n == "true") return true;
-          if (n == "false") return false;
-          if (n == null) return null;
-          throw new core.ArgumentError("Invalid boolean: $n");
-        }
-
-        if (query.length > 0) {
-          for (var part in query.split("&")) {
-            var keyvalue = part.split("=");
-            addQueryParam(core.Uri.decodeQueryComponent(keyvalue[0]),
-                core.Uri.decodeQueryComponent(keyvalue[1]));
-          }
-        }
-        unittest.expect(queryMap["fields"].first, unittest.equals(arg_$fields));
-
-        var h = {
-          "content-type": "application/json; charset=utf-8",
-        };
-        var resp = convert.json.encode(buildPricingPlanCollection());
-        return new async.Future.value(stringResponse(200, h, resp));
-      }), true);
-      res
-          .findPricingPlans(arg_svcProviderId, $fields: arg_$fields)
-          .then(unittest.expectAsync1(((response) {
-        checkPricingPlanCollection(response);
-      })));
-    });
-
-    unittest.test("method--findProducts", () {
-      var mock = new HttpServerMock();
-      api.ProductApi res = new api.ProductApi(mock);
-      var arg_svcProviderId = "foo";
-      var arg_$fields = "foo";
-      mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
-        var path = (req.url).path;
-        var pathOffset = 0;
-        var index;
-        var subPart;
-        unittest.expect(path.substring(pathOffset, pathOffset + 9),
-            unittest.equals("/_ah/api/"));
-        pathOffset += 9;
-
-        var query = (req.url).query;
-        var queryOffset = 0;
-        var queryMap = <core.String, core.List<core.String>>{};
-        addQueryParam(n, v) => queryMap.putIfAbsent(n, () => []).add(v);
-        parseBool(n) {
-          if (n == "true") return true;
-          if (n == "false") return false;
-          if (n == null) return null;
-          throw new core.ArgumentError("Invalid boolean: $n");
-        }
-
-        if (query.length > 0) {
-          for (var part in query.split("&")) {
-            var keyvalue = part.split("=");
-            addQueryParam(core.Uri.decodeQueryComponent(keyvalue[0]),
-                core.Uri.decodeQueryComponent(keyvalue[1]));
-          }
-        }
-        unittest.expect(queryMap["fields"].first, unittest.equals(arg_$fields));
-
-        var h = {
-          "content-type": "application/json; charset=utf-8",
-        };
-        var resp = convert.json.encode(buildProductCollection());
-        return new async.Future.value(stringResponse(200, h, resp));
-      }), true);
-      res
-          .findProducts(arg_svcProviderId, $fields: arg_$fields)
-          .then(unittest.expectAsync1(((response) {
-        checkProductCollection(response);
-      })));
-    });
-
-    unittest.test("method--findProductsForCustomer", () {
-      var mock = new HttpServerMock();
-      api.ProductApi res = new api.ProductApi(mock);
+      api.AccountApi res = new api.AccountApi(mock);
       var arg_svcProviderId = "foo";
       var arg_custId = "foo";
       var arg_$fields = "foo";
@@ -1108,23 +916,23 @@ main() {
         var h = {
           "content-type": "application/json; charset=utf-8",
         };
-        var resp = convert.json.encode(buildProductCollection());
+        var resp = convert.json.encode(buildBillingAccountCollection());
         return new async.Future.value(stringResponse(200, h, resp));
       }), true);
       res
-          .findProductsForCustomer(arg_svcProviderId, arg_custId,
+          .findAccountsForCustomer(arg_svcProviderId, arg_custId,
               $fields: arg_$fields)
           .then(unittest.expectAsync1(((response) {
-        checkProductCollection(response);
+        checkBillingAccountCollection(response);
       })));
     });
 
-    unittest.test("method--getPriceList", () {
+    unittest.test("method--getAccount", () {
       var mock = new HttpServerMock();
-      api.ProductApi res = new api.ProductApi(mock);
+      api.AccountApi res = new api.AccountApi(mock);
       var arg_svcProviderId = "foo";
-      var arg_plnId = "foo";
-      var arg_priceLstId = "foo";
+      var arg_custId = "foo";
+      var arg_acctId = "foo";
       var arg_$fields = "foo";
       mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
         var path = (req.url).path;
@@ -1158,22 +966,23 @@ main() {
         var h = {
           "content-type": "application/json; charset=utf-8",
         };
-        var resp = convert.json.encode(buildPriceList());
+        var resp = convert.json.encode(buildBillingAccount());
         return new async.Future.value(stringResponse(200, h, resp));
       }), true);
       res
-          .getPriceList(arg_svcProviderId, arg_plnId, arg_priceLstId,
+          .getAccount(arg_svcProviderId, arg_custId, arg_acctId,
               $fields: arg_$fields)
           .then(unittest.expectAsync1(((response) {
-        checkPriceList(response);
+        checkBillingAccount(response);
       })));
     });
 
-    unittest.test("method--getPricingPlan", () {
+    unittest.test("method--getAccountBalanceSummary", () {
       var mock = new HttpServerMock();
-      api.ProductApi res = new api.ProductApi(mock);
+      api.AccountApi res = new api.AccountApi(mock);
       var arg_svcProviderId = "foo";
-      var arg_plnId = "foo";
+      var arg_custId = "foo";
+      var arg_balanceDt = core.DateTime.parse("2002-02-27T14:01:02Z");
       var arg_$fields = "foo";
       mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
         var path = (req.url).path;
@@ -1202,134 +1011,36 @@ main() {
                 core.Uri.decodeQueryComponent(keyvalue[1]));
           }
         }
+        unittest.expect(core.DateTime.parse(queryMap["balanceDt"].first),
+            unittest.equals(arg_balanceDt));
         unittest.expect(queryMap["fields"].first, unittest.equals(arg_$fields));
 
         var h = {
           "content-type": "application/json; charset=utf-8",
         };
-        var resp = convert.json.encode(buildPricingPlan());
+        var resp = convert.json.encode(buildAccountBalanceSummary());
         return new async.Future.value(stringResponse(200, h, resp));
       }), true);
       res
-          .getPricingPlan(arg_svcProviderId, arg_plnId, $fields: arg_$fields)
-          .then(unittest.expectAsync1(((response) {
-        checkPricingPlan(response);
-      })));
-    });
-
-    unittest.test("method--getProduct", () {
-      var mock = new HttpServerMock();
-      api.ProductApi res = new api.ProductApi(mock);
-      var arg_svcProviderId = "foo";
-      var arg_prodId = "foo";
-      var arg_$fields = "foo";
-      mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
-        var path = (req.url).path;
-        var pathOffset = 0;
-        var index;
-        var subPart;
-        unittest.expect(path.substring(pathOffset, pathOffset + 9),
-            unittest.equals("/_ah/api/"));
-        pathOffset += 9;
-
-        var query = (req.url).query;
-        var queryOffset = 0;
-        var queryMap = <core.String, core.List<core.String>>{};
-        addQueryParam(n, v) => queryMap.putIfAbsent(n, () => []).add(v);
-        parseBool(n) {
-          if (n == "true") return true;
-          if (n == "false") return false;
-          if (n == null) return null;
-          throw new core.ArgumentError("Invalid boolean: $n");
-        }
-
-        if (query.length > 0) {
-          for (var part in query.split("&")) {
-            var keyvalue = part.split("=");
-            addQueryParam(core.Uri.decodeQueryComponent(keyvalue[0]),
-                core.Uri.decodeQueryComponent(keyvalue[1]));
-          }
-        }
-        unittest.expect(queryMap["fields"].first, unittest.equals(arg_$fields));
-
-        var h = {
-          "content-type": "application/json; charset=utf-8",
-        };
-        var resp = convert.json.encode(buildProduct());
-        return new async.Future.value(stringResponse(200, h, resp));
-      }), true);
-      res
-          .getProduct(arg_svcProviderId, arg_prodId, $fields: arg_$fields)
-          .then(unittest.expectAsync1(((response) {
-        checkProduct(response);
-      })));
-    });
-
-    unittest.test("method--updatePriceList", () {
-      var mock = new HttpServerMock();
-      api.ProductApi res = new api.ProductApi(mock);
-      var arg_request = buildPriceList();
-      var arg_svcProviderId = "foo";
-      var arg_plnId = "foo";
-      var arg_priceLstId = "foo";
-      var arg_$fields = "foo";
-      mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
-        var obj = new api.PriceList.fromJson(json);
-        checkPriceList(obj);
-
-        var path = (req.url).path;
-        var pathOffset = 0;
-        var index;
-        var subPart;
-        unittest.expect(path.substring(pathOffset, pathOffset + 9),
-            unittest.equals("/_ah/api/"));
-        pathOffset += 9;
-
-        var query = (req.url).query;
-        var queryOffset = 0;
-        var queryMap = <core.String, core.List<core.String>>{};
-        addQueryParam(n, v) => queryMap.putIfAbsent(n, () => []).add(v);
-        parseBool(n) {
-          if (n == "true") return true;
-          if (n == "false") return false;
-          if (n == null) return null;
-          throw new core.ArgumentError("Invalid boolean: $n");
-        }
-
-        if (query.length > 0) {
-          for (var part in query.split("&")) {
-            var keyvalue = part.split("=");
-            addQueryParam(core.Uri.decodeQueryComponent(keyvalue[0]),
-                core.Uri.decodeQueryComponent(keyvalue[1]));
-          }
-        }
-        unittest.expect(queryMap["fields"].first, unittest.equals(arg_$fields));
-
-        var h = {
-          "content-type": "application/json; charset=utf-8",
-        };
-        var resp = convert.json.encode(buildPriceList());
-        return new async.Future.value(stringResponse(200, h, resp));
-      }), true);
-      res
-          .updatePriceList(
-              arg_request, arg_svcProviderId, arg_plnId, arg_priceLstId,
+          .getAccountBalanceSummary(
+              arg_svcProviderId, arg_custId, arg_balanceDt,
               $fields: arg_$fields)
           .then(unittest.expectAsync1(((response) {
-        checkPriceList(response);
+        checkAccountBalanceSummary(response);
       })));
     });
 
-    unittest.test("method--updatePricingPlan", () {
+    unittest.test("method--updateAccount", () {
       var mock = new HttpServerMock();
-      api.ProductApi res = new api.ProductApi(mock);
-      var arg_request = buildPricingPlan();
+      api.AccountApi res = new api.AccountApi(mock);
+      var arg_request = buildBillingAccount();
       var arg_svcProviderId = "foo";
-      var arg_plnId = "foo";
+      var arg_custId = "foo";
+      var arg_acctId = "foo";
       var arg_$fields = "foo";
       mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
-        var obj = new api.PricingPlan.fromJson(json);
-        checkPricingPlan(obj);
+        var obj = new api.BillingAccount.fromJson(json);
+        checkBillingAccount(obj);
 
         var path = (req.url).path;
         var pathOffset = 0;
@@ -1362,67 +1073,14 @@ main() {
         var h = {
           "content-type": "application/json; charset=utf-8",
         };
-        var resp = convert.json.encode(buildPricingPlan());
+        var resp = convert.json.encode(buildBillingAccount());
         return new async.Future.value(stringResponse(200, h, resp));
       }), true);
       res
-          .updatePricingPlan(arg_request, arg_svcProviderId, arg_plnId,
+          .updateAccount(arg_request, arg_svcProviderId, arg_custId, arg_acctId,
               $fields: arg_$fields)
           .then(unittest.expectAsync1(((response) {
-        checkPricingPlan(response);
-      })));
-    });
-
-    unittest.test("method--updateProduct", () {
-      var mock = new HttpServerMock();
-      api.ProductApi res = new api.ProductApi(mock);
-      var arg_request = buildProduct();
-      var arg_svcProviderId = "foo";
-      var arg_prodId = "foo";
-      var arg_$fields = "foo";
-      mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
-        var obj = new api.Product.fromJson(json);
-        checkProduct(obj);
-
-        var path = (req.url).path;
-        var pathOffset = 0;
-        var index;
-        var subPart;
-        unittest.expect(path.substring(pathOffset, pathOffset + 9),
-            unittest.equals("/_ah/api/"));
-        pathOffset += 9;
-
-        var query = (req.url).query;
-        var queryOffset = 0;
-        var queryMap = <core.String, core.List<core.String>>{};
-        addQueryParam(n, v) => queryMap.putIfAbsent(n, () => []).add(v);
-        parseBool(n) {
-          if (n == "true") return true;
-          if (n == "false") return false;
-          if (n == null) return null;
-          throw new core.ArgumentError("Invalid boolean: $n");
-        }
-
-        if (query.length > 0) {
-          for (var part in query.split("&")) {
-            var keyvalue = part.split("=");
-            addQueryParam(core.Uri.decodeQueryComponent(keyvalue[0]),
-                core.Uri.decodeQueryComponent(keyvalue[1]));
-          }
-        }
-        unittest.expect(queryMap["fields"].first, unittest.equals(arg_$fields));
-
-        var h = {
-          "content-type": "application/json; charset=utf-8",
-        };
-        var resp = convert.json.encode(buildProduct());
-        return new async.Future.value(stringResponse(200, h, resp));
-      }), true);
-      res
-          .updateProduct(arg_request, arg_svcProviderId, arg_prodId,
-              $fields: arg_$fields)
-          .then(unittest.expectAsync1(((response) {
-        checkProduct(response);
+        checkBillingAccount(response);
       })));
     });
   });
