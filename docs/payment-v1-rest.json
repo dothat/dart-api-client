@@ -530,6 +530,9 @@
      "format": "double",
      "type": "number"
     },
+    "apiKey": {
+     "type": "string"
+    },
     "attemptId": {
      "format": "int64",
      "type": "string"
@@ -555,6 +558,12 @@
      "format": "date-time",
      "type": "string"
     },
+    "paymentMethod": {
+     "$ref": "PaymentMethod"
+    },
+    "paymentMethodName": {
+     "type": "string"
+    },
     "paymentProvider": {
      "$ref": "PaymentSource"
     },
@@ -572,6 +581,9 @@
      "type": "string"
     },
     "providerAttemptId": {
+     "type": "string"
+    },
+    "requestHash": {
      "type": "string"
     },
     "serviceProviderId": {

@@ -787,6 +787,7 @@ class Payment {
 
 class PaymentAttempt {
   core.double amount;
+  core.String apiKey;
   core.String attemptId;
   core.DateTime creationTimestamp;
   core.String currency;
@@ -794,12 +795,15 @@ class PaymentAttempt {
   core.String externalPaymentId;
   core.String merchantTransactionId;
   core.DateTime modificationTimestamp;
+  core.String paymentMethod;
+  core.String paymentMethodName;
   core.String paymentProvider;
   core.String paymentProviderName;
   core.String paymentSignature;
   core.String paymentStatus;
   core.DateTime paymentTimestamp;
   core.String providerAttemptId;
+  core.String requestHash;
   core.String serviceProviderId;
   core.bool verified;
   core.String version;
@@ -809,6 +813,9 @@ class PaymentAttempt {
   PaymentAttempt.fromJson(core.Map _json) {
     if (_json.containsKey("amount")) {
       amount = _json["amount"].toDouble();
+    }
+    if (_json.containsKey("apiKey")) {
+      apiKey = _json["apiKey"];
     }
     if (_json.containsKey("attemptId")) {
       attemptId = _json["attemptId"];
@@ -832,6 +839,12 @@ class PaymentAttempt {
       modificationTimestamp =
           core.DateTime.parse(_json["modificationTimestamp"]);
     }
+    if (_json.containsKey("paymentMethod")) {
+      paymentMethod = _json["paymentMethod"];
+    }
+    if (_json.containsKey("paymentMethodName")) {
+      paymentMethodName = _json["paymentMethodName"];
+    }
     if (_json.containsKey("paymentProvider")) {
       paymentProvider = _json["paymentProvider"];
     }
@@ -850,6 +863,9 @@ class PaymentAttempt {
     if (_json.containsKey("providerAttemptId")) {
       providerAttemptId = _json["providerAttemptId"];
     }
+    if (_json.containsKey("requestHash")) {
+      requestHash = _json["requestHash"];
+    }
     if (_json.containsKey("serviceProviderId")) {
       serviceProviderId = _json["serviceProviderId"];
     }
@@ -866,6 +882,9 @@ class PaymentAttempt {
         new core.Map<core.String, core.Object>();
     if (amount != null) {
       _json["amount"] = amount;
+    }
+    if (apiKey != null) {
+      _json["apiKey"] = apiKey;
     }
     if (attemptId != null) {
       _json["attemptId"] = attemptId;
@@ -889,6 +908,12 @@ class PaymentAttempt {
       _json["modificationTimestamp"] =
           (modificationTimestamp).toIso8601String();
     }
+    if (paymentMethod != null) {
+      _json["paymentMethod"] = paymentMethod;
+    }
+    if (paymentMethodName != null) {
+      _json["paymentMethodName"] = paymentMethodName;
+    }
     if (paymentProvider != null) {
       _json["paymentProvider"] = paymentProvider;
     }
@@ -906,6 +931,9 @@ class PaymentAttempt {
     }
     if (providerAttemptId != null) {
       _json["providerAttemptId"] = providerAttemptId;
+    }
+    if (requestHash != null) {
+      _json["requestHash"] = requestHash;
     }
     if (serviceProviderId != null) {
       _json["serviceProviderId"] = serviceProviderId;
