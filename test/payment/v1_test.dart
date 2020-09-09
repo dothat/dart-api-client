@@ -124,6 +124,7 @@ buildPaymentAttempt() {
   buildCounterPaymentAttempt++;
   if (buildCounterPaymentAttempt < 3) {
     o.amount = 42.0;
+    o.apiKey = "foo";
     o.attemptId = "foo";
     o.creationTimestamp = core.DateTime.parse("2002-02-27T14:01:02");
     o.currency = "foo";
@@ -131,12 +132,15 @@ buildPaymentAttempt() {
     o.externalPaymentId = "foo";
     o.merchantTransactionId = "foo";
     o.modificationTimestamp = core.DateTime.parse("2002-02-27T14:01:02");
+    o.paymentMethod = "foo";
+    o.paymentMethodName = "foo";
     o.paymentProvider = "foo";
     o.paymentProviderName = "foo";
     o.paymentSignature = "foo";
     o.paymentStatus = "foo";
     o.paymentTimestamp = core.DateTime.parse("2002-02-27T14:01:02");
     o.providerAttemptId = "foo";
+    o.requestHash = "foo";
     o.serviceProviderId = "foo";
     o.verified = true;
     o.version = "foo";
@@ -149,6 +153,7 @@ checkPaymentAttempt(api.PaymentAttempt o) {
   buildCounterPaymentAttempt++;
   if (buildCounterPaymentAttempt < 3) {
     unittest.expect(o.amount, unittest.equals(42.0));
+    unittest.expect(o.apiKey, unittest.equals('foo'));
     unittest.expect(o.attemptId, unittest.equals('foo'));
     unittest.expect(o.creationTimestamp,
         unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")));
@@ -158,6 +163,8 @@ checkPaymentAttempt(api.PaymentAttempt o) {
     unittest.expect(o.merchantTransactionId, unittest.equals('foo'));
     unittest.expect(o.modificationTimestamp,
         unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")));
+    unittest.expect(o.paymentMethod, unittest.equals('foo'));
+    unittest.expect(o.paymentMethodName, unittest.equals('foo'));
     unittest.expect(o.paymentProvider, unittest.equals('foo'));
     unittest.expect(o.paymentProviderName, unittest.equals('foo'));
     unittest.expect(o.paymentSignature, unittest.equals('foo'));
@@ -165,6 +172,7 @@ checkPaymentAttempt(api.PaymentAttempt o) {
     unittest.expect(o.paymentTimestamp,
         unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")));
     unittest.expect(o.providerAttemptId, unittest.equals('foo'));
+    unittest.expect(o.requestHash, unittest.equals('foo'));
     unittest.expect(o.serviceProviderId, unittest.equals('foo'));
     unittest.expect(o.verified, unittest.isTrue);
     unittest.expect(o.version, unittest.equals('foo'));
