@@ -671,6 +671,9 @@
      },
      "type": "array"
     },
+    "productCategory": {
+     "$ref": "ProductCategory"
+    },
     "productCode": {
      "type": "string"
     },
@@ -718,6 +721,21 @@
     },
     "schedule": {
      "$ref": "Schedule"
+    }
+   },
+   "type": "object"
+  },
+  "ProductCategory": {
+   "id": "ProductCategory",
+   "properties": {
+    "categoryName": {
+     "type": "string"
+    },
+    "images": {
+     "items": {
+      "$ref": "ProductImage"
+     },
+     "type": "array"
     }
    },
    "type": "object"
