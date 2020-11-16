@@ -812,6 +812,7 @@ class Product {
   core.DateTime modificationTimestamp;
   core.String name;
   core.List<ProductPriceList> priceLists;
+  ProductCategory productCategory;
   core.String productCode;
   ProductGroup productGroup;
   core.String productId;
@@ -872,6 +873,9 @@ class Product {
           .map<ProductPriceList>(
               (value) => new ProductPriceList.fromJson(value))
           .toList();
+    }
+    if (_json.containsKey("productCategory")) {
+      productCategory = new ProductCategory.fromJson(_json["productCategory"]);
     }
     if (_json.containsKey("productCode")) {
       productCode = _json["productCode"];
@@ -949,6 +953,9 @@ class Product {
       _json["priceLists"] =
           priceLists.map((value) => (value).toJson()).toList();
     }
+    if (productCategory != null) {
+      _json["productCategory"] = (productCategory).toJson();
+    }
     if (productCode != null) {
       _json["productCode"] = productCode;
     }
@@ -1012,6 +1019,36 @@ class ProductAvailability {
     }
     if (schedule != null) {
       _json["schedule"] = (schedule).toJson();
+    }
+    return _json;
+  }
+}
+
+class ProductCategory {
+  core.String categoryName;
+  core.List<ProductImage> images;
+
+  ProductCategory();
+
+  ProductCategory.fromJson(core.Map _json) {
+    if (_json.containsKey("categoryName")) {
+      categoryName = _json["categoryName"];
+    }
+    if (_json.containsKey("images")) {
+      images = (_json["images"] as core.List)
+          .map<ProductImage>((value) => new ProductImage.fromJson(value))
+          .toList();
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (categoryName != null) {
+      _json["categoryName"] = categoryName;
+    }
+    if (images != null) {
+      _json["images"] = images.map((value) => (value).toJson()).toList();
     }
     return _json;
   }
