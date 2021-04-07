@@ -94,103 +94,27 @@ checkChangeContext(api.ChangeContext o) {
   buildCounterChangeContext--;
 }
 
-buildUnnamed45() {
-  var o = new core.List<api.ProductPriceList>();
-  o.add(buildProductPriceList());
-  o.add(buildProductPriceList());
-  return o;
-}
-
-checkUnnamed45(core.List<api.ProductPriceList> o) {
-  unittest.expect(o, unittest.hasLength(2));
-  checkProductPriceList(o[0]);
-  checkProductPriceList(o[1]);
-}
-
-core.int buildCounterPriceList = 0;
-buildPriceList() {
-  var o = new api.PriceList();
-  buildCounterPriceList++;
-  if (buildCounterPriceList < 3) {
-    o.changeContext = buildChangeContext();
-    o.creationTimestamp = core.DateTime.parse("2002-02-27T14:01:02");
-    o.endDate = core.DateTime.parse("2002-02-27T14:01:02Z");
-    o.modificationTimestamp = core.DateTime.parse("2002-02-27T14:01:02");
-    o.priceListId = "foo";
-    o.pricingPlan = buildPricingPlan();
-    o.pricingPlanId = "foo";
-    o.productPriceLists = buildUnnamed45();
-    o.startDate = core.DateTime.parse("2002-02-27T14:01:02Z");
-    o.version = "foo";
+core.int buildCounterMeasurement = 0;
+buildMeasurement() {
+  var o = new api.Measurement();
+  buildCounterMeasurement++;
+  if (buildCounterMeasurement < 3) {
+    o.quantity = 42.0;
+    o.quantityUnit = "foo";
+    o.unitName = "foo";
   }
-  buildCounterPriceList--;
+  buildCounterMeasurement--;
   return o;
 }
 
-checkPriceList(api.PriceList o) {
-  buildCounterPriceList++;
-  if (buildCounterPriceList < 3) {
-    checkChangeContext(o.changeContext);
-    unittest.expect(o.creationTimestamp,
-        unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")));
-    unittest.expect(
-        o.endDate, unittest.equals(core.DateTime.parse("2002-02-27T00:00:00")));
-    unittest.expect(o.modificationTimestamp,
-        unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")));
-    unittest.expect(o.priceListId, unittest.equals('foo'));
-    checkPricingPlan(o.pricingPlan);
-    unittest.expect(o.pricingPlanId, unittest.equals('foo'));
-    checkUnnamed45(o.productPriceLists);
-    unittest.expect(o.startDate,
-        unittest.equals(core.DateTime.parse("2002-02-27T00:00:00")));
-    unittest.expect(o.version, unittest.equals('foo'));
+checkMeasurement(api.Measurement o) {
+  buildCounterMeasurement++;
+  if (buildCounterMeasurement < 3) {
+    unittest.expect(o.quantity, unittest.equals(42.0));
+    unittest.expect(o.quantityUnit, unittest.equals('foo'));
+    unittest.expect(o.unitName, unittest.equals('foo'));
   }
-  buildCounterPriceList--;
-}
-
-buildUnnamed46() {
-  var o = new core.List<api.PriceList>();
-  o.add(buildPriceList());
-  o.add(buildPriceList());
-  return o;
-}
-
-checkUnnamed46(core.List<api.PriceList> o) {
-  unittest.expect(o, unittest.hasLength(2));
-  checkPriceList(o[0]);
-  checkPriceList(o[1]);
-}
-
-core.int buildCounterPriceListCollection = 0;
-buildPriceListCollection() {
-  var o = new api.PriceListCollection();
-  buildCounterPriceListCollection++;
-  if (buildCounterPriceListCollection < 3) {
-    o.items = buildUnnamed46();
-  }
-  buildCounterPriceListCollection--;
-  return o;
-}
-
-checkPriceListCollection(api.PriceListCollection o) {
-  buildCounterPriceListCollection++;
-  if (buildCounterPriceListCollection < 3) {
-    checkUnnamed46(o.items);
-  }
-  buildCounterPriceListCollection--;
-}
-
-buildUnnamed47() {
-  var o = new core.List<api.PriceList>();
-  o.add(buildPriceList());
-  o.add(buildPriceList());
-  return o;
-}
-
-checkUnnamed47(core.List<api.PriceList> o) {
-  unittest.expect(o, unittest.hasLength(2));
-  checkPriceList(o[0]);
-  checkPriceList(o[1]);
+  buildCounterMeasurement--;
 }
 
 core.int buildCounterPricingPlan = 0;
@@ -198,13 +122,14 @@ buildPricingPlan() {
   var o = new api.PricingPlan();
   buildCounterPricingPlan++;
   if (buildCounterPricingPlan < 3) {
+    o.active = true;
     o.changeContext = buildChangeContext();
     o.creationTimestamp = core.DateTime.parse("2002-02-27T14:01:02");
+    o.default_ = true;
     o.modificationTimestamp = core.DateTime.parse("2002-02-27T14:01:02");
     o.planCode = "foo";
     o.planId = "foo";
     o.planName = "foo";
-    o.priceLists = buildUnnamed47();
     o.version = "foo";
   }
   buildCounterPricingPlan--;
@@ -214,28 +139,29 @@ buildPricingPlan() {
 checkPricingPlan(api.PricingPlan o) {
   buildCounterPricingPlan++;
   if (buildCounterPricingPlan < 3) {
+    unittest.expect(o.active, unittest.isTrue);
     checkChangeContext(o.changeContext);
     unittest.expect(o.creationTimestamp,
         unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")));
+    unittest.expect(o.default_, unittest.isTrue);
     unittest.expect(o.modificationTimestamp,
         unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")));
     unittest.expect(o.planCode, unittest.equals('foo'));
     unittest.expect(o.planId, unittest.equals('foo'));
     unittest.expect(o.planName, unittest.equals('foo'));
-    checkUnnamed47(o.priceLists);
     unittest.expect(o.version, unittest.equals('foo'));
   }
   buildCounterPricingPlan--;
 }
 
-buildUnnamed48() {
+buildUnnamed45() {
   var o = new core.List<api.PricingPlan>();
   o.add(buildPricingPlan());
   o.add(buildPricingPlan());
   return o;
 }
 
-checkUnnamed48(core.List<api.PricingPlan> o) {
+checkUnnamed45(core.List<api.PricingPlan> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkPricingPlan(o[0]);
   checkPricingPlan(o[1]);
@@ -246,7 +172,7 @@ buildPricingPlanCollection() {
   var o = new api.PricingPlanCollection();
   buildCounterPricingPlanCollection++;
   if (buildCounterPricingPlanCollection < 3) {
-    o.items = buildUnnamed48();
+    o.items = buildUnnamed45();
   }
   buildCounterPricingPlanCollection--;
   return o;
@@ -255,35 +181,35 @@ buildPricingPlanCollection() {
 checkPricingPlanCollection(api.PricingPlanCollection o) {
   buildCounterPricingPlanCollection++;
   if (buildCounterPricingPlanCollection < 3) {
-    checkUnnamed48(o.items);
+    checkUnnamed45(o.items);
   }
   buildCounterPricingPlanCollection--;
 }
 
-buildUnnamed49() {
+buildUnnamed46() {
   var o = new core.List<api.ProductImage>();
   o.add(buildProductImage());
   o.add(buildProductImage());
   return o;
 }
 
-checkUnnamed49(core.List<api.ProductImage> o) {
+checkUnnamed46(core.List<api.ProductImage> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkProductImage(o[0]);
   checkProductImage(o[1]);
 }
 
-buildUnnamed50() {
-  var o = new core.List<api.ProductPriceList>();
-  o.add(buildProductPriceList());
-  o.add(buildProductPriceList());
+buildUnnamed47() {
+  var o = new core.List<api.ProductPrice>();
+  o.add(buildProductPrice());
+  o.add(buildProductPrice());
   return o;
 }
 
-checkUnnamed50(core.List<api.ProductPriceList> o) {
+checkUnnamed47(core.List<api.ProductPrice> o) {
   unittest.expect(o, unittest.hasLength(2));
-  checkProductPriceList(o[0]);
-  checkProductPriceList(o[1]);
+  checkProductPrice(o[0]);
+  checkProductPrice(o[1]);
 }
 
 core.int buildCounterProduct = 0;
@@ -299,12 +225,12 @@ buildProduct() {
     o.deleted = true;
     o.description = "foo";
     o.displayRank = 42;
-    o.images = buildUnnamed49();
+    o.images = buildUnnamed46();
     o.measurementQuantity = 42.0;
     o.measurementUnit = "foo";
     o.modificationTimestamp = core.DateTime.parse("2002-02-27T14:01:02");
     o.name = "foo";
-    o.priceLists = buildUnnamed50();
+    o.prices = buildUnnamed47();
     o.productCategory = buildProductCategory();
     o.productCode = "foo";
     o.productGroup = buildProductGroup();
@@ -332,13 +258,13 @@ checkProduct(api.Product o) {
     unittest.expect(o.deleted, unittest.isTrue);
     unittest.expect(o.description, unittest.equals('foo'));
     unittest.expect(o.displayRank, unittest.equals(42));
-    checkUnnamed49(o.images);
+    checkUnnamed46(o.images);
     unittest.expect(o.measurementQuantity, unittest.equals(42.0));
     unittest.expect(o.measurementUnit, unittest.equals('foo'));
     unittest.expect(o.modificationTimestamp,
         unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")));
     unittest.expect(o.name, unittest.equals('foo'));
-    checkUnnamed50(o.priceLists);
+    checkUnnamed47(o.prices);
     checkProductCategory(o.productCategory);
     unittest.expect(o.productCode, unittest.equals('foo'));
     checkProductGroup(o.productGroup);
@@ -378,14 +304,14 @@ checkProductAvailability(api.ProductAvailability o) {
   buildCounterProductAvailability--;
 }
 
-buildUnnamed51() {
+buildUnnamed48() {
   var o = new core.List<api.ProductImage>();
   o.add(buildProductImage());
   o.add(buildProductImage());
   return o;
 }
 
-checkUnnamed51(core.List<api.ProductImage> o) {
+checkUnnamed48(core.List<api.ProductImage> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkProductImage(o[0]);
   checkProductImage(o[1]);
@@ -397,7 +323,7 @@ buildProductCategory() {
   buildCounterProductCategory++;
   if (buildCounterProductCategory < 3) {
     o.categoryName = "foo";
-    o.images = buildUnnamed51();
+    o.images = buildUnnamed48();
   }
   buildCounterProductCategory--;
   return o;
@@ -407,19 +333,19 @@ checkProductCategory(api.ProductCategory o) {
   buildCounterProductCategory++;
   if (buildCounterProductCategory < 3) {
     unittest.expect(o.categoryName, unittest.equals('foo'));
-    checkUnnamed51(o.images);
+    checkUnnamed48(o.images);
   }
   buildCounterProductCategory--;
 }
 
-buildUnnamed52() {
+buildUnnamed49() {
   var o = new core.List<api.Product>();
   o.add(buildProduct());
   o.add(buildProduct());
   return o;
 }
 
-checkUnnamed52(core.List<api.Product> o) {
+checkUnnamed49(core.List<api.Product> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkProduct(o[0]);
   checkProduct(o[1]);
@@ -430,7 +356,7 @@ buildProductCollection() {
   var o = new api.ProductCollection();
   buildCounterProductCollection++;
   if (buildCounterProductCollection < 3) {
-    o.items = buildUnnamed52();
+    o.items = buildUnnamed49();
   }
   buildCounterProductCollection--;
   return o;
@@ -439,19 +365,19 @@ buildProductCollection() {
 checkProductCollection(api.ProductCollection o) {
   buildCounterProductCollection++;
   if (buildCounterProductCollection < 3) {
-    checkUnnamed52(o.items);
+    checkUnnamed49(o.items);
   }
   buildCounterProductCollection--;
 }
 
-buildUnnamed53() {
+buildUnnamed50() {
   var o = new core.List<api.ProductImage>();
   o.add(buildProductImage());
   o.add(buildProductImage());
   return o;
 }
 
-checkUnnamed53(core.List<api.ProductImage> o) {
+checkUnnamed50(core.List<api.ProductImage> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkProductImage(o[0]);
   checkProductImage(o[1]);
@@ -464,7 +390,7 @@ buildProductGroup() {
   if (buildCounterProductGroup < 3) {
     o.groupDescription = "foo";
     o.groupName = "foo";
-    o.images = buildUnnamed53();
+    o.images = buildUnnamed50();
   }
   buildCounterProductGroup--;
   return o;
@@ -475,7 +401,7 @@ checkProductGroup(api.ProductGroup o) {
   if (buildCounterProductGroup < 3) {
     unittest.expect(o.groupDescription, unittest.equals('foo'));
     unittest.expect(o.groupName, unittest.equals('foo'));
-    checkUnnamed53(o.images);
+    checkUnnamed50(o.images);
   }
   buildCounterProductGroup--;
 }
@@ -511,6 +437,7 @@ buildProductPrice() {
     o.amount = buildAmount();
     o.duration = 42.0;
     o.durationType = "foo";
+    o.measurement = buildMeasurement();
     o.schedule = buildSchedule();
   }
   buildCounterProductPrice--;
@@ -523,19 +450,20 @@ checkProductPrice(api.ProductPrice o) {
     checkAmount(o.amount);
     unittest.expect(o.duration, unittest.equals(42.0));
     unittest.expect(o.durationType, unittest.equals('foo'));
+    checkMeasurement(o.measurement);
     checkSchedule(o.schedule);
   }
   buildCounterProductPrice--;
 }
 
-buildUnnamed54() {
+buildUnnamed51() {
   var o = new core.List<api.ProductPrice>();
   o.add(buildProductPrice());
   o.add(buildProductPrice());
   return o;
 }
 
-checkUnnamed54(core.List<api.ProductPrice> o) {
+checkUnnamed51(core.List<api.ProductPrice> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkProductPrice(o[0]);
   checkProductPrice(o[1]);
@@ -546,11 +474,16 @@ buildProductPriceList() {
   var o = new api.ProductPriceList();
   buildCounterProductPriceList++;
   if (buildCounterProductPriceList < 3) {
+    o.creationTimestamp = core.DateTime.parse("2002-02-27T14:01:02");
     o.endDate = core.DateTime.parse("2002-02-27T14:01:02Z");
-    o.prices = buildUnnamed54();
+    o.modificationTimestamp = core.DateTime.parse("2002-02-27T14:01:02");
+    o.prices = buildUnnamed51();
+    o.pricingPlanId = "foo";
     o.product = buildProduct();
     o.productId = "foo";
+    o.productPriceListId = "foo";
     o.startDate = core.DateTime.parse("2002-02-27T14:01:02Z");
+    o.version = "foo";
   }
   buildCounterProductPriceList--;
   return o;
@@ -559,15 +492,54 @@ buildProductPriceList() {
 checkProductPriceList(api.ProductPriceList o) {
   buildCounterProductPriceList++;
   if (buildCounterProductPriceList < 3) {
+    unittest.expect(o.creationTimestamp,
+        unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")));
     unittest.expect(
         o.endDate, unittest.equals(core.DateTime.parse("2002-02-27T00:00:00")));
-    checkUnnamed54(o.prices);
+    unittest.expect(o.modificationTimestamp,
+        unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")));
+    checkUnnamed51(o.prices);
+    unittest.expect(o.pricingPlanId, unittest.equals('foo'));
     checkProduct(o.product);
     unittest.expect(o.productId, unittest.equals('foo'));
+    unittest.expect(o.productPriceListId, unittest.equals('foo'));
     unittest.expect(o.startDate,
         unittest.equals(core.DateTime.parse("2002-02-27T00:00:00")));
+    unittest.expect(o.version, unittest.equals('foo'));
   }
   buildCounterProductPriceList--;
+}
+
+buildUnnamed52() {
+  var o = new core.List<api.ProductPriceList>();
+  o.add(buildProductPriceList());
+  o.add(buildProductPriceList());
+  return o;
+}
+
+checkUnnamed52(core.List<api.ProductPriceList> o) {
+  unittest.expect(o, unittest.hasLength(2));
+  checkProductPriceList(o[0]);
+  checkProductPriceList(o[1]);
+}
+
+core.int buildCounterProductPriceListCollection = 0;
+buildProductPriceListCollection() {
+  var o = new api.ProductPriceListCollection();
+  buildCounterProductPriceListCollection++;
+  if (buildCounterProductPriceListCollection < 3) {
+    o.items = buildUnnamed52();
+  }
+  buildCounterProductPriceListCollection--;
+  return o;
+}
+
+checkProductPriceListCollection(api.ProductPriceListCollection o) {
+  buildCounterProductPriceListCollection++;
+  if (buildCounterProductPriceListCollection < 3) {
+    checkUnnamed52(o.items);
+  }
+  buildCounterProductPriceListCollection--;
 }
 
 core.int buildCounterProductVisibility = 0;
@@ -591,6 +563,59 @@ checkProductVisibility(api.ProductVisibility o) {
   buildCounterProductVisibility--;
 }
 
+buildUnnamed53() {
+  var o = new core.List<core.String>();
+  o.add("foo");
+  o.add("foo");
+  return o;
+}
+
+checkUnnamed53(core.List<core.String> o) {
+  unittest.expect(o, unittest.hasLength(2));
+  unittest.expect(o[0], unittest.equals('foo'));
+  unittest.expect(o[1], unittest.equals('foo'));
+}
+
+buildUnnamed54() {
+  var o = new core.List<api.ScheduleRestriction>();
+  o.add(buildScheduleRestriction());
+  o.add(buildScheduleRestriction());
+  return o;
+}
+
+checkUnnamed54(core.List<api.ScheduleRestriction> o) {
+  unittest.expect(o, unittest.hasLength(2));
+  checkScheduleRestriction(o[0]);
+  checkScheduleRestriction(o[1]);
+}
+
+core.int buildCounterSchedule = 0;
+buildSchedule() {
+  var o = new api.Schedule();
+  buildCounterSchedule++;
+  if (buildCounterSchedule < 3) {
+    o.daysOfWeek = buildUnnamed53();
+    o.frequency = 42;
+    o.frequencyType = "foo";
+    o.restrictions = buildUnnamed54();
+    o.scheduleType = "foo";
+  }
+  buildCounterSchedule--;
+  return o;
+}
+
+checkSchedule(api.Schedule o) {
+  buildCounterSchedule++;
+  if (buildCounterSchedule < 3) {
+    checkUnnamed53(o.daysOfWeek);
+    unittest.expect(o.frequency, unittest.equals(42));
+    unittest.expect(o.frequencyType, unittest.equals('foo'));
+    checkUnnamed54(o.restrictions);
+    unittest.expect(o.scheduleType, unittest.equals('foo'));
+  }
+  buildCounterSchedule--;
+}
+
 buildUnnamed55() {
   var o = new core.List<core.String>();
   o.add("foo");
@@ -604,65 +629,12 @@ checkUnnamed55(core.List<core.String> o) {
   unittest.expect(o[1], unittest.equals('foo'));
 }
 
-buildUnnamed56() {
-  var o = new core.List<api.ScheduleRestriction>();
-  o.add(buildScheduleRestriction());
-  o.add(buildScheduleRestriction());
-  return o;
-}
-
-checkUnnamed56(core.List<api.ScheduleRestriction> o) {
-  unittest.expect(o, unittest.hasLength(2));
-  checkScheduleRestriction(o[0]);
-  checkScheduleRestriction(o[1]);
-}
-
-core.int buildCounterSchedule = 0;
-buildSchedule() {
-  var o = new api.Schedule();
-  buildCounterSchedule++;
-  if (buildCounterSchedule < 3) {
-    o.daysOfWeek = buildUnnamed55();
-    o.frequency = 42;
-    o.frequencyType = "foo";
-    o.restrictions = buildUnnamed56();
-    o.scheduleType = "foo";
-  }
-  buildCounterSchedule--;
-  return o;
-}
-
-checkSchedule(api.Schedule o) {
-  buildCounterSchedule++;
-  if (buildCounterSchedule < 3) {
-    checkUnnamed55(o.daysOfWeek);
-    unittest.expect(o.frequency, unittest.equals(42));
-    unittest.expect(o.frequencyType, unittest.equals('foo'));
-    checkUnnamed56(o.restrictions);
-    unittest.expect(o.scheduleType, unittest.equals('foo'));
-  }
-  buildCounterSchedule--;
-}
-
-buildUnnamed57() {
-  var o = new core.List<core.String>();
-  o.add("foo");
-  o.add("foo");
-  return o;
-}
-
-checkUnnamed57(core.List<core.String> o) {
-  unittest.expect(o, unittest.hasLength(2));
-  unittest.expect(o[0], unittest.equals('foo'));
-  unittest.expect(o[1], unittest.equals('foo'));
-}
-
 core.int buildCounterScheduleRestriction = 0;
 buildScheduleRestriction() {
   var o = new api.ScheduleRestriction();
   buildCounterScheduleRestriction++;
   if (buildCounterScheduleRestriction < 3) {
-    o.daysOfWeek = buildUnnamed57();
+    o.daysOfWeek = buildUnnamed55();
     o.scheduleType = "foo";
   }
   buildCounterScheduleRestriction--;
@@ -672,7 +644,7 @@ buildScheduleRestriction() {
 checkScheduleRestriction(api.ScheduleRestriction o) {
   buildCounterScheduleRestriction++;
   if (buildCounterScheduleRestriction < 3) {
-    checkUnnamed57(o.daysOfWeek);
+    checkUnnamed55(o.daysOfWeek);
     unittest.expect(o.scheduleType, unittest.equals('foo'));
   }
   buildCounterScheduleRestriction--;
@@ -695,19 +667,11 @@ main() {
     });
   });
 
-  unittest.group("obj-schema-PriceList", () {
+  unittest.group("obj-schema-Measurement", () {
     unittest.test("to-json--from-json", () {
-      var o = buildPriceList();
-      var od = new api.PriceList.fromJson(o.toJson());
-      checkPriceList(od);
-    });
-  });
-
-  unittest.group("obj-schema-PriceListCollection", () {
-    unittest.test("to-json--from-json", () {
-      var o = buildPriceListCollection();
-      var od = new api.PriceListCollection.fromJson(o.toJson());
-      checkPriceListCollection(od);
+      var o = buildMeasurement();
+      var od = new api.Measurement.fromJson(o.toJson());
+      checkMeasurement(od);
     });
   });
 
@@ -791,6 +755,14 @@ main() {
     });
   });
 
+  unittest.group("obj-schema-ProductPriceListCollection", () {
+    unittest.test("to-json--from-json", () {
+      var o = buildProductPriceListCollection();
+      var od = new api.ProductPriceListCollection.fromJson(o.toJson());
+      checkProductPriceListCollection(od);
+    });
+  });
+
   unittest.group("obj-schema-ProductVisibility", () {
     unittest.test("to-json--from-json", () {
       var o = buildProductVisibility();
@@ -816,59 +788,6 @@ main() {
   });
 
   unittest.group("resource-ProductApi", () {
-    unittest.test("method--createPriceList", () {
-      var mock = new HttpServerMock();
-      api.ProductApi res = new api.ProductApi(mock);
-      var arg_request = buildPriceList();
-      var arg_svcProviderId = "foo";
-      var arg_plnId = "foo";
-      var arg_$fields = "foo";
-      mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
-        var obj = new api.PriceList.fromJson(json);
-        checkPriceList(obj);
-
-        var path = (req.url).path;
-        var pathOffset = 0;
-        var index;
-        var subPart;
-        unittest.expect(path.substring(pathOffset, pathOffset + 9),
-            unittest.equals("/_ah/api/"));
-        pathOffset += 9;
-
-        var query = (req.url).query;
-        var queryOffset = 0;
-        var queryMap = <core.String, core.List<core.String>>{};
-        addQueryParam(n, v) => queryMap.putIfAbsent(n, () => []).add(v);
-        parseBool(n) {
-          if (n == "true") return true;
-          if (n == "false") return false;
-          if (n == null) return null;
-          throw new core.ArgumentError("Invalid boolean: $n");
-        }
-
-        if (query.length > 0) {
-          for (var part in query.split("&")) {
-            var keyvalue = part.split("=");
-            addQueryParam(core.Uri.decodeQueryComponent(keyvalue[0]),
-                core.Uri.decodeQueryComponent(keyvalue[1]));
-          }
-        }
-        unittest.expect(queryMap["fields"].first, unittest.equals(arg_$fields));
-
-        var h = {
-          "content-type": "application/json; charset=utf-8",
-        };
-        var resp = convert.json.encode(buildPriceList());
-        return new async.Future.value(stringResponse(200, h, resp));
-      }), true);
-      res
-          .createPriceList(arg_request, arg_svcProviderId, arg_plnId,
-              $fields: arg_$fields)
-          .then(unittest.expectAsync1(((response) {
-        checkPriceList(response);
-      })));
-    });
-
     unittest.test("method--createPricingPlan", () {
       var mock = new HttpServerMock();
       api.ProductApi res = new api.ProductApi(mock);
@@ -972,7 +891,62 @@ main() {
       })));
     });
 
-    unittest.test("method--findPriceLists", () {
+    unittest.test("method--createProductPriceList", () {
+      var mock = new HttpServerMock();
+      api.ProductApi res = new api.ProductApi(mock);
+      var arg_request = buildProductPriceList();
+      var arg_svcProviderId = "foo";
+      var arg_plnId = "foo";
+      var arg_prodId = "foo";
+      var arg_$fields = "foo";
+      mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
+        var obj = new api.ProductPriceList.fromJson(json);
+        checkProductPriceList(obj);
+
+        var path = (req.url).path;
+        var pathOffset = 0;
+        var index;
+        var subPart;
+        unittest.expect(path.substring(pathOffset, pathOffset + 9),
+            unittest.equals("/_ah/api/"));
+        pathOffset += 9;
+
+        var query = (req.url).query;
+        var queryOffset = 0;
+        var queryMap = <core.String, core.List<core.String>>{};
+        addQueryParam(n, v) => queryMap.putIfAbsent(n, () => []).add(v);
+        parseBool(n) {
+          if (n == "true") return true;
+          if (n == "false") return false;
+          if (n == null) return null;
+          throw new core.ArgumentError("Invalid boolean: $n");
+        }
+
+        if (query.length > 0) {
+          for (var part in query.split("&")) {
+            var keyvalue = part.split("=");
+            addQueryParam(core.Uri.decodeQueryComponent(keyvalue[0]),
+                core.Uri.decodeQueryComponent(keyvalue[1]));
+          }
+        }
+        unittest.expect(queryMap["fields"].first, unittest.equals(arg_$fields));
+
+        var h = {
+          "content-type": "application/json; charset=utf-8",
+        };
+        var resp = convert.json.encode(buildProductPriceList());
+        return new async.Future.value(stringResponse(200, h, resp));
+      }), true);
+      res
+          .createProductPriceList(
+              arg_request, arg_svcProviderId, arg_plnId, arg_prodId,
+              $fields: arg_$fields)
+          .then(unittest.expectAsync1(((response) {
+        checkProductPriceList(response);
+      })));
+    });
+
+    unittest.test("method--findAllPlanProductPriceLists", () {
       var mock = new HttpServerMock();
       api.ProductApi res = new api.ProductApi(mock);
       var arg_svcProviderId = "foo";
@@ -1010,13 +984,64 @@ main() {
         var h = {
           "content-type": "application/json; charset=utf-8",
         };
-        var resp = convert.json.encode(buildPriceListCollection());
+        var resp = convert.json.encode(buildProductPriceListCollection());
         return new async.Future.value(stringResponse(200, h, resp));
       }), true);
       res
-          .findPriceLists(arg_svcProviderId, arg_plnId, $fields: arg_$fields)
+          .findAllPlanProductPriceLists(arg_svcProviderId, arg_plnId,
+              $fields: arg_$fields)
           .then(unittest.expectAsync1(((response) {
-        checkPriceListCollection(response);
+        checkProductPriceListCollection(response);
+      })));
+    });
+
+    unittest.test("method--findAllProductPriceLists", () {
+      var mock = new HttpServerMock();
+      api.ProductApi res = new api.ProductApi(mock);
+      var arg_svcProviderId = "foo";
+      var arg_plnId = "foo";
+      var arg_prodId = "foo";
+      var arg_$fields = "foo";
+      mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
+        var path = (req.url).path;
+        var pathOffset = 0;
+        var index;
+        var subPart;
+        unittest.expect(path.substring(pathOffset, pathOffset + 9),
+            unittest.equals("/_ah/api/"));
+        pathOffset += 9;
+
+        var query = (req.url).query;
+        var queryOffset = 0;
+        var queryMap = <core.String, core.List<core.String>>{};
+        addQueryParam(n, v) => queryMap.putIfAbsent(n, () => []).add(v);
+        parseBool(n) {
+          if (n == "true") return true;
+          if (n == "false") return false;
+          if (n == null) return null;
+          throw new core.ArgumentError("Invalid boolean: $n");
+        }
+
+        if (query.length > 0) {
+          for (var part in query.split("&")) {
+            var keyvalue = part.split("=");
+            addQueryParam(core.Uri.decodeQueryComponent(keyvalue[0]),
+                core.Uri.decodeQueryComponent(keyvalue[1]));
+          }
+        }
+        unittest.expect(queryMap["fields"].first, unittest.equals(arg_$fields));
+
+        var h = {
+          "content-type": "application/json; charset=utf-8",
+        };
+        var resp = convert.json.encode(buildProductPriceListCollection());
+        return new async.Future.value(stringResponse(200, h, resp));
+      }), true);
+      res
+          .findAllProductPriceLists(arg_svcProviderId, arg_plnId, arg_prodId,
+              $fields: arg_$fields)
+          .then(unittest.expectAsync1(((response) {
+        checkProductPriceListCollection(response);
       })));
     });
 
@@ -1163,56 +1188,6 @@ main() {
       })));
     });
 
-    unittest.test("method--getPriceList", () {
-      var mock = new HttpServerMock();
-      api.ProductApi res = new api.ProductApi(mock);
-      var arg_svcProviderId = "foo";
-      var arg_plnId = "foo";
-      var arg_priceLstId = "foo";
-      var arg_$fields = "foo";
-      mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
-        var path = (req.url).path;
-        var pathOffset = 0;
-        var index;
-        var subPart;
-        unittest.expect(path.substring(pathOffset, pathOffset + 9),
-            unittest.equals("/_ah/api/"));
-        pathOffset += 9;
-
-        var query = (req.url).query;
-        var queryOffset = 0;
-        var queryMap = <core.String, core.List<core.String>>{};
-        addQueryParam(n, v) => queryMap.putIfAbsent(n, () => []).add(v);
-        parseBool(n) {
-          if (n == "true") return true;
-          if (n == "false") return false;
-          if (n == null) return null;
-          throw new core.ArgumentError("Invalid boolean: $n");
-        }
-
-        if (query.length > 0) {
-          for (var part in query.split("&")) {
-            var keyvalue = part.split("=");
-            addQueryParam(core.Uri.decodeQueryComponent(keyvalue[0]),
-                core.Uri.decodeQueryComponent(keyvalue[1]));
-          }
-        }
-        unittest.expect(queryMap["fields"].first, unittest.equals(arg_$fields));
-
-        var h = {
-          "content-type": "application/json; charset=utf-8",
-        };
-        var resp = convert.json.encode(buildPriceList());
-        return new async.Future.value(stringResponse(200, h, resp));
-      }), true);
-      res
-          .getPriceList(arg_svcProviderId, arg_plnId, arg_priceLstId,
-              $fields: arg_$fields)
-          .then(unittest.expectAsync1(((response) {
-        checkPriceList(response);
-      })));
-    });
-
     unittest.test("method--getPricingPlan", () {
       var mock = new HttpServerMock();
       api.ProductApi res = new api.ProductApi(mock);
@@ -1309,18 +1284,15 @@ main() {
       })));
     });
 
-    unittest.test("method--updatePriceList", () {
+    unittest.test("method--getProductPriceList", () {
       var mock = new HttpServerMock();
       api.ProductApi res = new api.ProductApi(mock);
-      var arg_request = buildPriceList();
       var arg_svcProviderId = "foo";
       var arg_plnId = "foo";
-      var arg_priceLstId = "foo";
+      var arg_prodId = "foo";
+      var arg_prcListId = "foo";
       var arg_$fields = "foo";
       mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
-        var obj = new api.PriceList.fromJson(json);
-        checkPriceList(obj);
-
         var path = (req.url).path;
         var pathOffset = 0;
         var index;
@@ -1352,15 +1324,15 @@ main() {
         var h = {
           "content-type": "application/json; charset=utf-8",
         };
-        var resp = convert.json.encode(buildPriceList());
+        var resp = convert.json.encode(buildProductPriceList());
         return new async.Future.value(stringResponse(200, h, resp));
       }), true);
       res
-          .updatePriceList(
-              arg_request, arg_svcProviderId, arg_plnId, arg_priceLstId,
+          .getProductPriceList(
+              arg_svcProviderId, arg_plnId, arg_prodId, arg_prcListId,
               $fields: arg_$fields)
           .then(unittest.expectAsync1(((response) {
-        checkPriceList(response);
+        checkProductPriceList(response);
       })));
     });
 
@@ -1467,6 +1439,62 @@ main() {
               $fields: arg_$fields)
           .then(unittest.expectAsync1(((response) {
         checkProduct(response);
+      })));
+    });
+
+    unittest.test("method--updateProductPriceList", () {
+      var mock = new HttpServerMock();
+      api.ProductApi res = new api.ProductApi(mock);
+      var arg_request = buildProductPriceList();
+      var arg_svcProviderId = "foo";
+      var arg_plnId = "foo";
+      var arg_prodId = "foo";
+      var arg_prcListId = "foo";
+      var arg_$fields = "foo";
+      mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
+        var obj = new api.ProductPriceList.fromJson(json);
+        checkProductPriceList(obj);
+
+        var path = (req.url).path;
+        var pathOffset = 0;
+        var index;
+        var subPart;
+        unittest.expect(path.substring(pathOffset, pathOffset + 9),
+            unittest.equals("/_ah/api/"));
+        pathOffset += 9;
+
+        var query = (req.url).query;
+        var queryOffset = 0;
+        var queryMap = <core.String, core.List<core.String>>{};
+        addQueryParam(n, v) => queryMap.putIfAbsent(n, () => []).add(v);
+        parseBool(n) {
+          if (n == "true") return true;
+          if (n == "false") return false;
+          if (n == null) return null;
+          throw new core.ArgumentError("Invalid boolean: $n");
+        }
+
+        if (query.length > 0) {
+          for (var part in query.split("&")) {
+            var keyvalue = part.split("=");
+            addQueryParam(core.Uri.decodeQueryComponent(keyvalue[0]),
+                core.Uri.decodeQueryComponent(keyvalue[1]));
+          }
+        }
+        unittest.expect(queryMap["fields"].first, unittest.equals(arg_$fields));
+
+        var h = {
+          "content-type": "application/json; charset=utf-8",
+        };
+        var resp = convert.json.encode(buildProductPriceList());
+        return new async.Future.value(stringResponse(200, h, resp));
+      }), true);
+      res
+          .updateProductPriceList(arg_request, arg_svcProviderId, arg_plnId,
+              arg_prodId, arg_prcListId,
+              $fields: arg_$fields)
+          .then(unittest.expectAsync1(((response) {
+        checkProductPriceList(response);
       })));
     });
   });

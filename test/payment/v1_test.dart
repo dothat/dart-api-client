@@ -180,14 +180,14 @@ checkPaymentAttempt(api.PaymentAttempt o) {
   buildCounterPaymentAttempt--;
 }
 
-buildUnnamed58() {
+buildUnnamed56() {
   var o = new core.List<api.Payment>();
   o.add(buildPayment());
   o.add(buildPayment());
   return o;
 }
 
-checkUnnamed58(core.List<api.Payment> o) {
+checkUnnamed56(core.List<api.Payment> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkPayment(o[0]);
   checkPayment(o[1]);
@@ -198,7 +198,7 @@ buildPaymentCollection() {
   var o = new api.PaymentCollection();
   buildCounterPaymentCollection++;
   if (buildCounterPaymentCollection < 3) {
-    o.items = buildUnnamed58();
+    o.items = buildUnnamed56();
   }
   buildCounterPaymentCollection--;
   return o;
@@ -207,7 +207,7 @@ buildPaymentCollection() {
 checkPaymentCollection(api.PaymentCollection o) {
   buildCounterPaymentCollection++;
   if (buildCounterPaymentCollection < 3) {
-    checkUnnamed58(o.items);
+    checkUnnamed56(o.items);
   }
   buildCounterPaymentCollection--;
 }
