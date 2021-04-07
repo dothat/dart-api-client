@@ -11,11 +11,12 @@
  "basePath": "/_ah/api/subscription/v1/serviceProviders/",
  "baseUrl": "https://dev-dothat-api.appspot.com/_ah/api/subscription/v1/serviceProviders/",
  "batchPath": "batch",
+ "canonicalName": "SubscriptionAPI",
  "description": "API to access Subscriptions",
  "discoveryVersion": "v1",
  "icons": {
-  "x16": "http://www.google.com/images/icons/product/search-16.gif",
-  "x32": "http://www.google.com/images/icons/product/search-32.gif"
+  "x16": "https://www.gstatic.com/images/branding/product/1x/googleg_16dp.png",
+  "x32": "https://www.gstatic.com/images/branding/product/1x/googleg_32dp.png"
  },
  "id": "subscription:v1",
  "kind": "discovery#restDescription",
@@ -92,8 +93,8 @@
    "parameterOrder": [
     "svcProviderId",
     "custId",
-    "startDate",
-    "endDate"
+    "endDate",
+    "startDate"
    ],
    "parameters": {
     "svcProviderId": {
@@ -134,8 +135,8 @@
    "id": "subscription.findSubscriptionsForServiceProvider",
    "parameterOrder": [
     "svcProviderId",
-    "startDate",
-    "endDate"
+    "endDate",
+    "startDate"
    ],
    "parameters": {
     "svcProviderId": {
@@ -295,7 +296,6 @@
   }
  },
  "name": "subscription",
- "canonicalName": "SubscriptionAPI",
  "ownerDomain": "api.dothat.com",
  "ownerName": "DoThatAPI",
  "parameters": {
@@ -733,6 +733,22 @@
    "id": "InstructionType",
    "type": "string"
   },
+  "Measurement": {
+   "id": "Measurement",
+   "properties": {
+    "quantity": {
+     "format": "double",
+     "type": "number"
+    },
+    "quantityUnit": {
+     "$ref": "QuantityUnit"
+    },
+    "unitName": {
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
   "PhoneNumber": {
    "id": "PhoneNumber",
    "properties": {
@@ -806,9 +822,9 @@
     "name": {
      "type": "string"
     },
-    "priceLists": {
+    "prices": {
      "items": {
-      "$ref": "ProductPriceList"
+      "$ref": "ProductPrice"
      },
      "type": "array"
     },
@@ -927,35 +943,11 @@
     "durationType": {
      "$ref": "DurationType"
     },
+    "measurement": {
+     "$ref": "Measurement"
+    },
     "schedule": {
      "$ref": "Schedule"
-    }
-   },
-   "type": "object"
-  },
-  "ProductPriceList": {
-   "id": "ProductPriceList",
-   "properties": {
-    "endDate": {
-     "format": "date",
-     "type": "string"
-    },
-    "prices": {
-     "items": {
-      "$ref": "ProductPrice"
-     },
-     "type": "array"
-    },
-    "product": {
-     "$ref": "Product"
-    },
-    "productId": {
-     "format": "int64",
-     "type": "string"
-    },
-    "startDate": {
-     "format": "date",
-     "type": "string"
     }
    },
    "type": "object"

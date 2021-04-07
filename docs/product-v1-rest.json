@@ -11,48 +11,16 @@
  "basePath": "/_ah/api/product/v1/serviceProviders/",
  "baseUrl": "https://dev-dothat-api.appspot.com/_ah/api/product/v1/serviceProviders/",
  "batchPath": "batch",
+ "canonicalName": "ProductAPI",
  "description": "API to access Products",
  "discoveryVersion": "v1",
  "icons": {
-  "x16": "http://www.google.com/images/icons/product/search-16.gif",
-  "x32": "http://www.google.com/images/icons/product/search-32.gif"
+  "x16": "https://www.gstatic.com/images/branding/product/1x/googleg_16dp.png",
+  "x32": "https://www.gstatic.com/images/branding/product/1x/googleg_32dp.png"
  },
  "id": "product:v1",
  "kind": "discovery#restDescription",
  "methods": {
-  "createPriceList": {
-   "httpMethod": "POST",
-   "id": "product.createPriceList",
-   "parameterOrder": [
-    "svcProviderId",
-    "plnId"
-   ],
-   "parameters": {
-    "svcProviderId": {
-     "format": "int64",
-     "location": "path",
-     "required": true,
-     "type": "string"
-    },
-    "plnId": {
-     "format": "int64",
-     "location": "path",
-     "required": true,
-     "type": "string"
-    }
-   },
-   "path": "{svcProviderId}/pricingPlans/{plnId}/priceLists",
-   "request": {
-    "$ref": "PriceList",
-    "parameterName": "resource"
-   },
-   "response": {
-    "$ref": "PriceList"
-   },
-   "scopes": [
-    "https://www.googleapis.com/auth/userinfo.email"
-   ]
-  },
   "createPricingPlan": {
    "httpMethod": "POST",
    "id": "product.createPricingPlan",
@@ -105,9 +73,49 @@
     "https://www.googleapis.com/auth/userinfo.email"
    ]
   },
-  "findPriceLists": {
+  "createProductPriceList": {
+   "httpMethod": "POST",
+   "id": "product.createProductPriceList",
+   "parameterOrder": [
+    "svcProviderId",
+    "plnId",
+    "prodId"
+   ],
+   "parameters": {
+    "svcProviderId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "plnId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "prodId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "{svcProviderId}/pricingPlans/{plnId}/products/{prodId}/prices",
+   "request": {
+    "$ref": "ProductPriceList",
+    "parameterName": "resource"
+   },
+   "response": {
+    "$ref": "ProductPriceList"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "findAllPlanProductPriceLists": {
    "httpMethod": "GET",
-   "id": "product.findPriceLists",
+   "id": "product.findAllPlanProductPriceLists",
    "parameterOrder": [
     "svcProviderId",
     "plnId"
@@ -126,9 +134,45 @@
      "type": "string"
     }
    },
-   "path": "{svcProviderId}/pricingPlans/{plnId}/priceLists",
+   "path": "{svcProviderId}/pricingPlans/{plnId}/prices",
    "response": {
-    "$ref": "PriceListCollection"
+    "$ref": "ProductPriceListCollection"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "findAllProductPriceLists": {
+   "httpMethod": "GET",
+   "id": "product.findAllProductPriceLists",
+   "parameterOrder": [
+    "svcProviderId",
+    "plnId",
+    "prodId"
+   ],
+   "parameters": {
+    "svcProviderId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "plnId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "prodId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "{svcProviderId}/pricingPlans/{plnId}/products/{prodId}/prices",
+   "response": {
+    "$ref": "ProductPriceListCollection"
    },
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"
@@ -207,42 +251,6 @@
     "https://www.googleapis.com/auth/userinfo.email"
    ]
   },
-  "getPriceList": {
-   "httpMethod": "GET",
-   "id": "product.getPriceList",
-   "parameterOrder": [
-    "svcProviderId",
-    "plnId",
-    "priceLstId"
-   ],
-   "parameters": {
-    "svcProviderId": {
-     "format": "int64",
-     "location": "path",
-     "required": true,
-     "type": "string"
-    },
-    "plnId": {
-     "format": "int64",
-     "location": "path",
-     "required": true,
-     "type": "string"
-    },
-    "priceLstId": {
-     "format": "int64",
-     "location": "path",
-     "required": true,
-     "type": "string"
-    }
-   },
-   "path": "{svcProviderId}/pricingPlans/{plnId}/priceLists/{priceLstId}",
-   "response": {
-    "$ref": "PriceList"
-   },
-   "scopes": [
-    "https://www.googleapis.com/auth/userinfo.email"
-   ]
-  },
   "getPricingPlan": {
    "httpMethod": "GET",
    "id": "product.getPricingPlan",
@@ -301,13 +309,14 @@
     "https://www.googleapis.com/auth/userinfo.email"
    ]
   },
-  "updatePriceList": {
-   "httpMethod": "POST",
-   "id": "product.updatePriceList",
+  "getProductPriceList": {
+   "httpMethod": "GET",
+   "id": "product.getProductPriceList",
    "parameterOrder": [
     "svcProviderId",
     "plnId",
-    "priceLstId"
+    "prodId",
+    "prcListId"
    ],
    "parameters": {
     "svcProviderId": {
@@ -322,20 +331,22 @@
      "required": true,
      "type": "string"
     },
-    "priceLstId": {
+    "prodId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "prcListId": {
      "format": "int64",
      "location": "path",
      "required": true,
      "type": "string"
     }
    },
-   "path": "{svcProviderId}/pricingPlans/{plnId}/priceList/{priceLstId}",
-   "request": {
-    "$ref": "PriceList",
-    "parameterName": "resource"
-   },
+   "path": "{svcProviderId}/pricingPlans/{plnId}/products/{prodId}/prices/{prcListId}",
    "response": {
-    "$ref": "PriceList"
+    "$ref": "ProductPriceList"
    },
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"
@@ -406,10 +417,56 @@
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"
    ]
+  },
+  "updateProductPriceList": {
+   "httpMethod": "POST",
+   "id": "product.updateProductPriceList",
+   "parameterOrder": [
+    "svcProviderId",
+    "plnId",
+    "prodId",
+    "prcListId"
+   ],
+   "parameters": {
+    "svcProviderId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "plnId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "prodId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    },
+    "prcListId": {
+     "format": "int64",
+     "location": "path",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "path": "{svcProviderId}/pricingPlans/{plnId}/products/{prodId}/prices/{prcListId}",
+   "request": {
+    "$ref": "ProductPriceList",
+    "parameterName": "resource"
+   },
+   "response": {
+    "$ref": "ProductPriceList"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
   }
  },
  "name": "product",
- "canonicalName": "ProductAPI",
  "ownerDomain": "api.dothat.com",
  "ownerName": "DoThatAPI",
  "parameters": {
@@ -583,60 +640,18 @@
    "id": "ImageType",
    "type": "string"
   },
-  "PriceList": {
-   "id": "PriceList",
+  "Measurement": {
+   "id": "Measurement",
    "properties": {
-    "changeContext": {
-     "$ref": "ChangeContext"
+    "quantity": {
+     "format": "double",
+     "type": "number"
     },
-    "creationTimestamp": {
-     "format": "date-time",
+    "quantityUnit": {
+     "$ref": "QuantityUnit"
+    },
+    "unitName": {
      "type": "string"
-    },
-    "endDate": {
-     "format": "date",
-     "type": "string"
-    },
-    "modificationTimestamp": {
-     "format": "date-time",
-     "type": "string"
-    },
-    "priceListId": {
-     "format": "int64",
-     "type": "string"
-    },
-    "pricingPlan": {
-     "$ref": "PricingPlan"
-    },
-    "pricingPlanId": {
-     "format": "int64",
-     "type": "string"
-    },
-    "productPriceLists": {
-     "items": {
-      "$ref": "ProductPriceList"
-     },
-     "type": "array"
-    },
-    "startDate": {
-     "format": "date",
-     "type": "string"
-    },
-    "version": {
-     "format": "int64",
-     "type": "string"
-    }
-   },
-   "type": "object"
-  },
-  "PriceListCollection": {
-   "id": "PriceListCollection",
-   "properties": {
-    "items": {
-     "items": {
-      "$ref": "PriceList"
-     },
-     "type": "array"
     }
    },
    "type": "object"
@@ -644,12 +659,18 @@
   "PricingPlan": {
    "id": "PricingPlan",
    "properties": {
+    "active": {
+     "type": "boolean"
+    },
     "changeContext": {
      "$ref": "ChangeContext"
     },
     "creationTimestamp": {
      "format": "date-time",
      "type": "string"
+    },
+    "default": {
+     "type": "boolean"
     },
     "modificationTimestamp": {
      "format": "date-time",
@@ -664,12 +685,6 @@
     },
     "planName": {
      "type": "string"
-    },
-    "priceLists": {
-     "items": {
-      "$ref": "PriceList"
-     },
-     "type": "array"
     },
     "version": {
      "format": "int64",
@@ -739,9 +754,9 @@
     "name": {
      "type": "string"
     },
-    "priceLists": {
+    "prices": {
      "items": {
-      "$ref": "ProductPriceList"
+      "$ref": "ProductPrice"
      },
      "type": "array"
     },
@@ -872,6 +887,9 @@
     "durationType": {
      "$ref": "DurationType"
     },
+    "measurement": {
+     "$ref": "Measurement"
+    },
     "schedule": {
      "$ref": "Schedule"
     }
@@ -881,8 +899,16 @@
   "ProductPriceList": {
    "id": "ProductPriceList",
    "properties": {
+    "creationTimestamp": {
+     "format": "date-time",
+     "type": "string"
+    },
     "endDate": {
      "format": "date",
+     "type": "string"
+    },
+    "modificationTimestamp": {
+     "format": "date-time",
      "type": "string"
     },
     "prices": {
@@ -891,6 +917,10 @@
      },
      "type": "array"
     },
+    "pricingPlanId": {
+     "format": "int64",
+     "type": "string"
+    },
     "product": {
      "$ref": "Product"
     },
@@ -898,9 +928,29 @@
      "format": "int64",
      "type": "string"
     },
+    "productPriceListId": {
+     "format": "int64",
+     "type": "string"
+    },
     "startDate": {
      "format": "date",
      "type": "string"
+    },
+    "version": {
+     "format": "int64",
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "ProductPriceListCollection": {
+   "id": "ProductPriceListCollection",
+   "properties": {
+    "items": {
+     "items": {
+      "$ref": "ProductPriceList"
+     },
+     "type": "array"
     }
    },
    "type": "object"
