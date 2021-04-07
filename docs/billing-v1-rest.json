@@ -11,11 +11,12 @@
  "basePath": "/_ah/api/billing/v1/serviceProviders/",
  "baseUrl": "https://dev-dothat-api.appspot.com/_ah/api/billing/v1/serviceProviders/",
  "batchPath": "batch",
+ "canonicalName": "BillingAPI",
  "description": "API to access Billing Transactions",
  "discoveryVersion": "v1",
  "icons": {
-  "x16": "http://www.google.com/images/icons/product/search-16.gif",
-  "x32": "http://www.google.com/images/icons/product/search-32.gif"
+  "x16": "https://www.gstatic.com/images/branding/product/1x/googleg_16dp.png",
+  "x32": "https://www.gstatic.com/images/branding/product/1x/googleg_32dp.png"
  },
  "id": "billing:v1",
  "kind": "discovery#restDescription",
@@ -321,7 +322,6 @@
   }
  },
  "name": "billing",
- "canonicalName": "BillingAPI",
  "ownerDomain": "api.dothat.com",
  "ownerName": "DoThatAPI",
  "parameters": {

@@ -11,11 +11,12 @@
  "basePath": "/_ah/api/account/v1/serviceProviders/",
  "baseUrl": "https://dev-dothat-api.appspot.com/_ah/api/account/v1/serviceProviders/",
  "batchPath": "batch",
+ "canonicalName": "AccountAPI",
  "description": "API to access Accounts",
  "discoveryVersion": "v1",
  "icons": {
-  "x16": "http://www.google.com/images/icons/product/search-16.gif",
-  "x32": "http://www.google.com/images/icons/product/search-32.gif"
+  "x16": "https://www.gstatic.com/images/branding/product/1x/googleg_16dp.png",
+  "x32": "https://www.gstatic.com/images/branding/product/1x/googleg_32dp.png"
  },
  "id": "account:v1",
  "kind": "discovery#restDescription",
@@ -196,7 +197,6 @@
   }
  },
  "name": "account",
- "canonicalName": "AccountAPI",
  "ownerDomain": "api.dothat.com",
  "ownerName": "DoThatAPI",
  "parameters": {
@@ -262,19 +262,6 @@
      "type": "number"
     },
     "walletBalance": {
-     "format": "double",
-     "type": "number"
-    }
-   },
-   "type": "object"
-  },
-  "Amount": {
-   "id": "Amount",
-   "properties": {
-    "currency": {
-     "$ref": "Currency"
-    },
-    "value": {
      "format": "double",
      "type": "number"
     }
@@ -445,66 +432,6 @@
    "id": "Currency",
    "type": "string"
   },
-  "DayOfWeek": {
-   "enum": [
-    "MON",
-    "TUE",
-    "WED",
-    "THU",
-    "FRI",
-    "SAT",
-    "SUN"
-   ],
-   "enumDescriptions": [
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    ""
-   ],
-   "id": "DayOfWeek",
-   "type": "string"
-  },
-  "DurationType": {
-   "enum": [
-    "DAY",
-    "WEEK",
-    "MONTH"
-   ],
-   "enumDescriptions": [
-    "",
-    "",
-    ""
-   ],
-   "id": "DurationType",
-   "type": "string"
-  },
-  "FrequencyType": {
-   "enum": [
-    "DAY",
-    "WEEK"
-   ],
-   "enumDescriptions": [
-    "",
-    ""
-   ],
-   "id": "FrequencyType",
-   "type": "string"
-  },
-  "ImageType": {
-   "enum": [
-    "FULL_SIZE",
-    "THUMBNAIL"
-   ],
-   "enumDescriptions": [
-    "",
-    ""
-   ],
-   "id": "ImageType",
-   "type": "string"
-  },
   "PaymentMethod": {
    "enum": [
     "CASH",
@@ -533,61 +460,21 @@
    "id": "PaymentMethod",
    "type": "string"
   },
-  "PriceList": {
-   "id": "PriceList",
-   "properties": {
-    "changeContext": {
-     "$ref": "ChangeContext"
-    },
-    "creationTimestamp": {
-     "format": "date-time",
-     "type": "string"
-    },
-    "endDate": {
-     "format": "date",
-     "type": "string"
-    },
-    "modificationTimestamp": {
-     "format": "date-time",
-     "type": "string"
-    },
-    "priceListId": {
-     "format": "int64",
-     "type": "string"
-    },
-    "pricingPlan": {
-     "$ref": "PricingPlan"
-    },
-    "pricingPlanId": {
-     "format": "int64",
-     "type": "string"
-    },
-    "productPriceLists": {
-     "items": {
-      "$ref": "ProductPriceList"
-     },
-     "type": "array"
-    },
-    "startDate": {
-     "format": "date",
-     "type": "string"
-    },
-    "version": {
-     "format": "int64",
-     "type": "string"
-    }
-   },
-   "type": "object"
-  },
   "PricingPlan": {
    "id": "PricingPlan",
    "properties": {
+    "active": {
+     "type": "boolean"
+    },
     "changeContext": {
      "$ref": "ChangeContext"
     },
     "creationTimestamp": {
      "format": "date-time",
      "type": "string"
+    },
+    "default": {
+     "type": "boolean"
     },
     "modificationTimestamp": {
      "format": "date-time",
@@ -603,314 +490,12 @@
     "planName": {
      "type": "string"
     },
-    "priceLists": {
-     "items": {
-      "$ref": "PriceList"
-     },
-     "type": "array"
-    },
     "version": {
      "format": "int64",
      "type": "string"
     }
    },
    "type": "object"
-  },
-  "Product": {
-   "id": "Product",
-   "properties": {
-    "active": {
-     "type": "boolean"
-    },
-    "availability": {
-     "$ref": "ProductAvailability"
-    },
-    "category": {
-     "type": "string"
-    },
-    "changeContext": {
-     "$ref": "ChangeContext"
-    },
-    "creationTimestamp": {
-     "format": "date-time",
-     "type": "string"
-    },
-    "deleted": {
-     "type": "boolean"
-    },
-    "description": {
-     "type": "string"
-    },
-    "displayRank": {
-     "format": "int32",
-     "type": "integer"
-    },
-    "images": {
-     "items": {
-      "$ref": "ProductImage"
-     },
-     "type": "array"
-    },
-    "measurementQuantity": {
-     "format": "double",
-     "type": "number"
-    },
-    "measurementUnit": {
-     "$ref": "QuantityUnit"
-    },
-    "modificationTimestamp": {
-     "format": "date-time",
-     "type": "string"
-    },
-    "name": {
-     "type": "string"
-    },
-    "priceLists": {
-     "items": {
-      "$ref": "ProductPriceList"
-     },
-     "type": "array"
-    },
-    "productCategory": {
-     "$ref": "ProductCategory"
-    },
-    "productCode": {
-     "type": "string"
-    },
-    "productGroup": {
-     "$ref": "ProductGroup"
-    },
-    "productId": {
-     "format": "int64",
-     "type": "string"
-    },
-    "quantity": {
-     "format": "double",
-     "type": "number"
-    },
-    "quantityLabel": {
-     "type": "string"
-    },
-    "quantityUnit": {
-     "$ref": "QuantityUnit"
-    },
-    "serviceProviderId": {
-     "format": "int64",
-     "type": "string"
-    },
-    "version": {
-     "format": "int64",
-     "type": "string"
-    },
-    "visibility": {
-     "$ref": "ProductVisibility"
-    }
-   },
-   "type": "object"
-  },
-  "ProductAvailability": {
-   "id": "ProductAvailability",
-   "properties": {
-    "availableFrom": {
-     "format": "date",
-     "type": "string"
-    },
-    "availableUntil": {
-     "format": "date",
-     "type": "string"
-    },
-    "schedule": {
-     "$ref": "Schedule"
-    }
-   },
-   "type": "object"
-  },
-  "ProductCategory": {
-   "id": "ProductCategory",
-   "properties": {
-    "categoryName": {
-     "type": "string"
-    },
-    "images": {
-     "items": {
-      "$ref": "ProductImage"
-     },
-     "type": "array"
-    }
-   },
-   "type": "object"
-  },
-  "ProductGroup": {
-   "id": "ProductGroup",
-   "properties": {
-    "groupDescription": {
-     "type": "string"
-    },
-    "groupName": {
-     "type": "string"
-    },
-    "images": {
-     "items": {
-      "$ref": "ProductImage"
-     },
-     "type": "array"
-    }
-   },
-   "type": "object"
-  },
-  "ProductImage": {
-   "id": "ProductImage",
-   "properties": {
-    "assetName": {
-     "type": "string"
-    },
-    "imageType": {
-     "$ref": "ImageType"
-    },
-    "imageUrl": {
-     "type": "string"
-    }
-   },
-   "type": "object"
-  },
-  "ProductPrice": {
-   "id": "ProductPrice",
-   "properties": {
-    "amount": {
-     "$ref": "Amount"
-    },
-    "duration": {
-     "format": "double",
-     "type": "number"
-    },
-    "durationType": {
-     "$ref": "DurationType"
-    },
-    "schedule": {
-     "$ref": "Schedule"
-    }
-   },
-   "type": "object"
-  },
-  "ProductPriceList": {
-   "id": "ProductPriceList",
-   "properties": {
-    "endDate": {
-     "format": "date",
-     "type": "string"
-    },
-    "prices": {
-     "items": {
-      "$ref": "ProductPrice"
-     },
-     "type": "array"
-    },
-    "product": {
-     "$ref": "Product"
-    },
-    "productId": {
-     "format": "int64",
-     "type": "string"
-    },
-    "startDate": {
-     "format": "date",
-     "type": "string"
-    }
-   },
-   "type": "object"
-  },
-  "ProductVisibility": {
-   "id": "ProductVisibility",
-   "properties": {
-    "visibleOnlyForServiceProvider": {
-     "type": "boolean"
-    },
-    "visibleOnlyForWhiteListedCustomers": {
-     "type": "boolean"
-    }
-   },
-   "type": "object"
-  },
-  "QuantityUnit": {
-   "enum": [
-    "KGS",
-    "GRAMS",
-    "LTRS",
-    "MLS",
-    "ITEMS"
-   ],
-   "enumDescriptions": [
-    "",
-    "",
-    "",
-    "",
-    ""
-   ],
-   "id": "QuantityUnit",
-   "type": "string"
-  },
-  "Schedule": {
-   "id": "Schedule",
-   "properties": {
-    "daysOfWeek": {
-     "items": {
-      "$ref": "DayOfWeek"
-     },
-     "type": "array"
-    },
-    "frequency": {
-     "format": "int32",
-     "type": "integer"
-    },
-    "frequencyType": {
-     "$ref": "FrequencyType"
-    },
-    "restrictions": {
-     "items": {
-      "$ref": "ScheduleRestriction"
-     },
-     "type": "array"
-    },
-    "scheduleType": {
-     "$ref": "ScheduleType"
-    }
-   },
-   "type": "object"
-  },
-  "ScheduleRestriction": {
-   "id": "ScheduleRestriction",
-   "properties": {
-    "daysOfWeek": {
-     "items": {
-      "$ref": "DayOfWeek"
-     },
-     "type": "array"
-    },
-    "scheduleType": {
-     "$ref": "ScheduleType"
-    }
-   },
-   "type": "object"
-  },
-  "ScheduleType": {
-   "enum": [
-    "EVERYDAY",
-    "ALTERNATE_DAY",
-    "EVERY_N_DAYS",
-    "EVERY_N_WEEKS",
-    "DAY_OF_WEEK",
-    "WEEK_OF_MONTH"
-   ],
-   "enumDescriptions": [
-    "",
-    "",
-    "",
-    "",
-    "",
-    ""
-   ],
-   "id": "ScheduleType",
-   "type": "string"
   }
  },
  "servicePath": "account/v1/serviceProviders/",

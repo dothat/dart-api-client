@@ -11,11 +11,12 @@
  "basePath": "/_ah/api/route/v1/serviceProviders/",
  "baseUrl": "https://dev-dothat-api.appspot.com/_ah/api/route/v1/serviceProviders/",
  "batchPath": "batch",
+ "canonicalName": "RouteAPI",
  "description": "API to access Routes",
  "discoveryVersion": "v1",
  "icons": {
-  "x16": "http://www.google.com/images/icons/product/search-16.gif",
-  "x32": "http://www.google.com/images/icons/product/search-32.gif"
+  "x16": "https://www.gstatic.com/images/branding/product/1x/googleg_16dp.png",
+  "x32": "https://www.gstatic.com/images/branding/product/1x/googleg_32dp.png"
  },
  "id": "route:v1",
  "kind": "discovery#restDescription",
@@ -194,7 +195,6 @@
   }
  },
  "name": "route",
- "canonicalName": "RouteAPI",
  "ownerDomain": "api.dothat.com",
  "ownerName": "DoThatAPI",
  "parameters": {

@@ -11,11 +11,12 @@
  "basePath": "/_ah/api/serviceProvider/v1/",
  "baseUrl": "https://dev-dothat-api.appspot.com/_ah/api/serviceProvider/v1/",
  "batchPath": "batch",
+ "canonicalName": "ServiceProviderAPI",
  "description": "API to access Service Providers",
  "discoveryVersion": "v1",
  "icons": {
-  "x16": "http://www.google.com/images/icons/product/search-16.gif",
-  "x32": "http://www.google.com/images/icons/product/search-32.gif"
+  "x16": "https://www.gstatic.com/images/branding/product/1x/googleg_16dp.png",
+  "x32": "https://www.gstatic.com/images/branding/product/1x/googleg_32dp.png"
  },
  "id": "serviceProvider:v1",
  "kind": "discovery#restDescription",
@@ -23,9 +24,6 @@
   "createServiceProvider": {
    "httpMethod": "POST",
    "id": "serviceProvider.createServiceProvider",
-   "parameterOrder": [
-    "svcAreaIds"
-   ],
    "parameters": {
     "svcAreaIds": {
      "format": "int64",
@@ -49,11 +47,6 @@
   "findServiceProviders": {
    "httpMethod": "GET",
    "id": "serviceProvider.findServiceProviders",
-   "parameterOrder": [
-    "svcAreaId",
-    "svcType",
-    "query"
-   ],
    "parameters": {
     "svcAreaId": {
      "format": "int64",
@@ -137,8 +130,7 @@
    "httpMethod": "PUT",
    "id": "serviceProvider.updateServiceProvider",
    "parameterOrder": [
-    "svcProviderId",
-    "svcAreaIds"
+    "svcProviderId"
    ],
    "parameters": {
     "svcProviderId": {
@@ -224,7 +216,6 @@
   }
  },
  "name": "serviceProvider",
- "canonicalName": "ServiceProviderAPI",
  "ownerDomain": "api.dothat.com",
  "ownerName": "DoThatAPI",
  "parameters": {

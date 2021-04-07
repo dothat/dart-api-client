@@ -11,11 +11,12 @@
  "basePath": "/_ah/api/serviceArea/v1/",
  "baseUrl": "https://dev-dothat-api.appspot.com/_ah/api/serviceArea/v1/",
  "batchPath": "batch",
+ "canonicalName": "ServiceAreaAPI",
  "description": "API to access Service Areas and Serviced Addresses",
  "discoveryVersion": "v1",
  "icons": {
-  "x16": "http://www.google.com/images/icons/product/search-16.gif",
-  "x32": "http://www.google.com/images/icons/product/search-32.gif"
+  "x16": "https://www.gstatic.com/images/branding/product/1x/googleg_16dp.png",
+  "x32": "https://www.gstatic.com/images/branding/product/1x/googleg_32dp.png"
  },
  "id": "serviceArea:v1",
  "kind": "discovery#restDescription",
@@ -126,9 +127,6 @@
   "findUnassignedServiceAreas": {
    "httpMethod": "GET",
    "id": "serviceArea.findUnassignedServiceAreas",
-   "parameterOrder": [
-    "serviceProviderId"
-   ],
    "parameters": {
     "serviceProviderId": {
      "format": "int64",
@@ -228,9 +226,7 @@
    "httpMethod": "GET",
    "id": "serviceArea.searchServiceAddresses",
    "parameterOrder": [
-    "areaId",
-    "businessName",
-    "houseNumber"
+    "areaId"
    ],
    "parameters": {
     "areaId": {
@@ -259,12 +255,6 @@
   "searchServiceArea": {
    "httpMethod": "GET",
    "id": "serviceArea.searchServiceArea",
-   "parameterOrder": [
-    "country",
-    "state",
-    "city",
-    "searchQuery"
-   ],
    "parameters": {
     "country": {
      "location": "query",
@@ -392,7 +382,6 @@
   }
  },
  "name": "serviceArea",
- "canonicalName": "ServiceAreaAPI",
  "ownerDomain": "api.dothat.com",
  "ownerName": "DoThatAPI",
  "parameters": {

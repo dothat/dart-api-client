@@ -11,11 +11,12 @@
  "basePath": "/_ah/api/",
  "baseUrl": "https://dev-dothat-api.appspot.com/_ah/api/",
  "batchPath": "batch",
+ "canonicalName": "ChangeEventAPI",
  "description": "API to access Change Events",
  "discoveryVersion": "v1",
  "icons": {
-  "x16": "http://www.google.com/images/icons/product/search-16.gif",
-  "x32": "http://www.google.com/images/icons/product/search-32.gif"
+  "x16": "https://www.gstatic.com/images/branding/product/1x/googleg_16dp.png",
+  "x32": "https://www.gstatic.com/images/branding/product/1x/googleg_32dp.png"
  },
  "id": "changeEvent:v1",
  "kind": "discovery#restDescription",
@@ -25,10 +26,7 @@
    "id": "changeEvent.getChangeEvents",
    "parameterOrder": [
     "svcProviderId",
-    "startDate",
-    "targetType",
-    "numItems",
-    "pageToken"
+    "startDate"
    ],
    "parameters": {
     "svcProviderId": {
@@ -89,10 +87,7 @@
    "httpMethod": "GET",
    "id": "changeEvent.getUniversalChangeEvents",
    "parameterOrder": [
-    "startDate",
-    "targetType",
-    "numItems",
-    "pageToken"
+    "startDate"
    ],
    "parameters": {
     "startDate": {
@@ -145,7 +140,6 @@
   }
  },
  "name": "changeEvent",
- "canonicalName": "ChangeEventAPI",
  "ownerDomain": "api.dothat.com",
  "ownerName": "DoThatAPI",
  "parameters": {
