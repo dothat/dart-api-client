@@ -76,27 +76,6 @@ checkAccountBalanceSummary(api.AccountBalanceSummary o) {
   buildCounterAccountBalanceSummary--;
 }
 
-core.int buildCounterAmount = 0;
-buildAmount() {
-  var o = new api.Amount();
-  buildCounterAmount++;
-  if (buildCounterAmount < 3) {
-    o.currency = "foo";
-    o.value = 42.0;
-  }
-  buildCounterAmount--;
-  return o;
-}
-
-checkAmount(api.Amount o) {
-  buildCounterAmount++;
-  if (buildCounterAmount < 3) {
-    unittest.expect(o.currency, unittest.equals('foo'));
-    unittest.expect(o.value, unittest.equals(42.0));
-  }
-  buildCounterAmount--;
-}
-
 core.int buildCounterBillingAccount = 0;
 buildBillingAccount() {
   var o = new api.BillingAccount();
@@ -152,14 +131,14 @@ checkBillingAccount(api.BillingAccount o) {
   buildCounterBillingAccount--;
 }
 
-buildUnnamed76() {
+buildUnnamed73() {
   var o = new core.List<api.BillingAccount>();
   o.add(buildBillingAccount());
   o.add(buildBillingAccount());
   return o;
 }
 
-checkUnnamed76(core.List<api.BillingAccount> o) {
+checkUnnamed73(core.List<api.BillingAccount> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkBillingAccount(o[0]);
   checkBillingAccount(o[1]);
@@ -170,7 +149,7 @@ buildBillingAccountCollection() {
   var o = new api.BillingAccountCollection();
   buildCounterBillingAccountCollection++;
   if (buildCounterBillingAccountCollection < 3) {
-    o.items = buildUnnamed76();
+    o.items = buildUnnamed73();
   }
   buildCounterBillingAccountCollection--;
   return o;
@@ -179,7 +158,7 @@ buildBillingAccountCollection() {
 checkBillingAccountCollection(api.BillingAccountCollection o) {
   buildCounterBillingAccountCollection++;
   if (buildCounterBillingAccountCollection < 3) {
-    checkUnnamed76(o.items);
+    checkUnnamed73(o.items);
   }
   buildCounterBillingAccountCollection--;
 }
@@ -234,85 +213,19 @@ checkChangeContext(api.ChangeContext o) {
   buildCounterChangeContext--;
 }
 
-buildUnnamed77() {
-  var o = new core.List<api.ProductPriceList>();
-  o.add(buildProductPriceList());
-  o.add(buildProductPriceList());
-  return o;
-}
-
-checkUnnamed77(core.List<api.ProductPriceList> o) {
-  unittest.expect(o, unittest.hasLength(2));
-  checkProductPriceList(o[0]);
-  checkProductPriceList(o[1]);
-}
-
-core.int buildCounterPriceList = 0;
-buildPriceList() {
-  var o = new api.PriceList();
-  buildCounterPriceList++;
-  if (buildCounterPriceList < 3) {
-    o.changeContext = buildChangeContext();
-    o.creationTimestamp = core.DateTime.parse("2002-02-27T14:01:02");
-    o.endDate = core.DateTime.parse("2002-02-27T14:01:02Z");
-    o.modificationTimestamp = core.DateTime.parse("2002-02-27T14:01:02");
-    o.priceListId = "foo";
-    o.pricingPlan = buildPricingPlan();
-    o.pricingPlanId = "foo";
-    o.productPriceLists = buildUnnamed77();
-    o.startDate = core.DateTime.parse("2002-02-27T14:01:02Z");
-    o.version = "foo";
-  }
-  buildCounterPriceList--;
-  return o;
-}
-
-checkPriceList(api.PriceList o) {
-  buildCounterPriceList++;
-  if (buildCounterPriceList < 3) {
-    checkChangeContext(o.changeContext);
-    unittest.expect(o.creationTimestamp,
-        unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")));
-    unittest.expect(
-        o.endDate, unittest.equals(core.DateTime.parse("2002-02-27T00:00:00")));
-    unittest.expect(o.modificationTimestamp,
-        unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")));
-    unittest.expect(o.priceListId, unittest.equals('foo'));
-    checkPricingPlan(o.pricingPlan);
-    unittest.expect(o.pricingPlanId, unittest.equals('foo'));
-    checkUnnamed77(o.productPriceLists);
-    unittest.expect(o.startDate,
-        unittest.equals(core.DateTime.parse("2002-02-27T00:00:00")));
-    unittest.expect(o.version, unittest.equals('foo'));
-  }
-  buildCounterPriceList--;
-}
-
-buildUnnamed78() {
-  var o = new core.List<api.PriceList>();
-  o.add(buildPriceList());
-  o.add(buildPriceList());
-  return o;
-}
-
-checkUnnamed78(core.List<api.PriceList> o) {
-  unittest.expect(o, unittest.hasLength(2));
-  checkPriceList(o[0]);
-  checkPriceList(o[1]);
-}
-
 core.int buildCounterPricingPlan = 0;
 buildPricingPlan() {
   var o = new api.PricingPlan();
   buildCounterPricingPlan++;
   if (buildCounterPricingPlan < 3) {
+    o.active = true;
     o.changeContext = buildChangeContext();
     o.creationTimestamp = core.DateTime.parse("2002-02-27T14:01:02");
+    o.default_ = true;
     o.modificationTimestamp = core.DateTime.parse("2002-02-27T14:01:02");
     o.planCode = "foo";
     o.planId = "foo";
     o.planName = "foo";
-    o.priceLists = buildUnnamed78();
     o.version = "foo";
   }
   buildCounterPricingPlan--;
@@ -322,404 +235,19 @@ buildPricingPlan() {
 checkPricingPlan(api.PricingPlan o) {
   buildCounterPricingPlan++;
   if (buildCounterPricingPlan < 3) {
+    unittest.expect(o.active, unittest.isTrue);
     checkChangeContext(o.changeContext);
     unittest.expect(o.creationTimestamp,
         unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")));
+    unittest.expect(o.default_, unittest.isTrue);
     unittest.expect(o.modificationTimestamp,
         unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")));
     unittest.expect(o.planCode, unittest.equals('foo'));
     unittest.expect(o.planId, unittest.equals('foo'));
     unittest.expect(o.planName, unittest.equals('foo'));
-    checkUnnamed78(o.priceLists);
     unittest.expect(o.version, unittest.equals('foo'));
   }
   buildCounterPricingPlan--;
-}
-
-buildUnnamed79() {
-  var o = new core.List<api.ProductImage>();
-  o.add(buildProductImage());
-  o.add(buildProductImage());
-  return o;
-}
-
-checkUnnamed79(core.List<api.ProductImage> o) {
-  unittest.expect(o, unittest.hasLength(2));
-  checkProductImage(o[0]);
-  checkProductImage(o[1]);
-}
-
-buildUnnamed80() {
-  var o = new core.List<api.ProductPriceList>();
-  o.add(buildProductPriceList());
-  o.add(buildProductPriceList());
-  return o;
-}
-
-checkUnnamed80(core.List<api.ProductPriceList> o) {
-  unittest.expect(o, unittest.hasLength(2));
-  checkProductPriceList(o[0]);
-  checkProductPriceList(o[1]);
-}
-
-core.int buildCounterProduct = 0;
-buildProduct() {
-  var o = new api.Product();
-  buildCounterProduct++;
-  if (buildCounterProduct < 3) {
-    o.active = true;
-    o.availability = buildProductAvailability();
-    o.category = "foo";
-    o.changeContext = buildChangeContext();
-    o.creationTimestamp = core.DateTime.parse("2002-02-27T14:01:02");
-    o.deleted = true;
-    o.description = "foo";
-    o.displayRank = 42;
-    o.images = buildUnnamed79();
-    o.measurementQuantity = 42.0;
-    o.measurementUnit = "foo";
-    o.modificationTimestamp = core.DateTime.parse("2002-02-27T14:01:02");
-    o.name = "foo";
-    o.priceLists = buildUnnamed80();
-    o.productCategory = buildProductCategory();
-    o.productCode = "foo";
-    o.productGroup = buildProductGroup();
-    o.productId = "foo";
-    o.quantity = 42.0;
-    o.quantityLabel = "foo";
-    o.quantityUnit = "foo";
-    o.serviceProviderId = "foo";
-    o.version = "foo";
-    o.visibility = buildProductVisibility();
-  }
-  buildCounterProduct--;
-  return o;
-}
-
-checkProduct(api.Product o) {
-  buildCounterProduct++;
-  if (buildCounterProduct < 3) {
-    unittest.expect(o.active, unittest.isTrue);
-    checkProductAvailability(o.availability);
-    unittest.expect(o.category, unittest.equals('foo'));
-    checkChangeContext(o.changeContext);
-    unittest.expect(o.creationTimestamp,
-        unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")));
-    unittest.expect(o.deleted, unittest.isTrue);
-    unittest.expect(o.description, unittest.equals('foo'));
-    unittest.expect(o.displayRank, unittest.equals(42));
-    checkUnnamed79(o.images);
-    unittest.expect(o.measurementQuantity, unittest.equals(42.0));
-    unittest.expect(o.measurementUnit, unittest.equals('foo'));
-    unittest.expect(o.modificationTimestamp,
-        unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")));
-    unittest.expect(o.name, unittest.equals('foo'));
-    checkUnnamed80(o.priceLists);
-    checkProductCategory(o.productCategory);
-    unittest.expect(o.productCode, unittest.equals('foo'));
-    checkProductGroup(o.productGroup);
-    unittest.expect(o.productId, unittest.equals('foo'));
-    unittest.expect(o.quantity, unittest.equals(42.0));
-    unittest.expect(o.quantityLabel, unittest.equals('foo'));
-    unittest.expect(o.quantityUnit, unittest.equals('foo'));
-    unittest.expect(o.serviceProviderId, unittest.equals('foo'));
-    unittest.expect(o.version, unittest.equals('foo'));
-    checkProductVisibility(o.visibility);
-  }
-  buildCounterProduct--;
-}
-
-core.int buildCounterProductAvailability = 0;
-buildProductAvailability() {
-  var o = new api.ProductAvailability();
-  buildCounterProductAvailability++;
-  if (buildCounterProductAvailability < 3) {
-    o.availableFrom = core.DateTime.parse("2002-02-27T14:01:02Z");
-    o.availableUntil = core.DateTime.parse("2002-02-27T14:01:02Z");
-    o.schedule = buildSchedule();
-  }
-  buildCounterProductAvailability--;
-  return o;
-}
-
-checkProductAvailability(api.ProductAvailability o) {
-  buildCounterProductAvailability++;
-  if (buildCounterProductAvailability < 3) {
-    unittest.expect(o.availableFrom,
-        unittest.equals(core.DateTime.parse("2002-02-27T00:00:00")));
-    unittest.expect(o.availableUntil,
-        unittest.equals(core.DateTime.parse("2002-02-27T00:00:00")));
-    checkSchedule(o.schedule);
-  }
-  buildCounterProductAvailability--;
-}
-
-buildUnnamed81() {
-  var o = new core.List<api.ProductImage>();
-  o.add(buildProductImage());
-  o.add(buildProductImage());
-  return o;
-}
-
-checkUnnamed81(core.List<api.ProductImage> o) {
-  unittest.expect(o, unittest.hasLength(2));
-  checkProductImage(o[0]);
-  checkProductImage(o[1]);
-}
-
-core.int buildCounterProductCategory = 0;
-buildProductCategory() {
-  var o = new api.ProductCategory();
-  buildCounterProductCategory++;
-  if (buildCounterProductCategory < 3) {
-    o.categoryName = "foo";
-    o.images = buildUnnamed81();
-  }
-  buildCounterProductCategory--;
-  return o;
-}
-
-checkProductCategory(api.ProductCategory o) {
-  buildCounterProductCategory++;
-  if (buildCounterProductCategory < 3) {
-    unittest.expect(o.categoryName, unittest.equals('foo'));
-    checkUnnamed81(o.images);
-  }
-  buildCounterProductCategory--;
-}
-
-buildUnnamed82() {
-  var o = new core.List<api.ProductImage>();
-  o.add(buildProductImage());
-  o.add(buildProductImage());
-  return o;
-}
-
-checkUnnamed82(core.List<api.ProductImage> o) {
-  unittest.expect(o, unittest.hasLength(2));
-  checkProductImage(o[0]);
-  checkProductImage(o[1]);
-}
-
-core.int buildCounterProductGroup = 0;
-buildProductGroup() {
-  var o = new api.ProductGroup();
-  buildCounterProductGroup++;
-  if (buildCounterProductGroup < 3) {
-    o.groupDescription = "foo";
-    o.groupName = "foo";
-    o.images = buildUnnamed82();
-  }
-  buildCounterProductGroup--;
-  return o;
-}
-
-checkProductGroup(api.ProductGroup o) {
-  buildCounterProductGroup++;
-  if (buildCounterProductGroup < 3) {
-    unittest.expect(o.groupDescription, unittest.equals('foo'));
-    unittest.expect(o.groupName, unittest.equals('foo'));
-    checkUnnamed82(o.images);
-  }
-  buildCounterProductGroup--;
-}
-
-core.int buildCounterProductImage = 0;
-buildProductImage() {
-  var o = new api.ProductImage();
-  buildCounterProductImage++;
-  if (buildCounterProductImage < 3) {
-    o.assetName = "foo";
-    o.imageType = "foo";
-    o.imageUrl = "foo";
-  }
-  buildCounterProductImage--;
-  return o;
-}
-
-checkProductImage(api.ProductImage o) {
-  buildCounterProductImage++;
-  if (buildCounterProductImage < 3) {
-    unittest.expect(o.assetName, unittest.equals('foo'));
-    unittest.expect(o.imageType, unittest.equals('foo'));
-    unittest.expect(o.imageUrl, unittest.equals('foo'));
-  }
-  buildCounterProductImage--;
-}
-
-core.int buildCounterProductPrice = 0;
-buildProductPrice() {
-  var o = new api.ProductPrice();
-  buildCounterProductPrice++;
-  if (buildCounterProductPrice < 3) {
-    o.amount = buildAmount();
-    o.duration = 42.0;
-    o.durationType = "foo";
-    o.schedule = buildSchedule();
-  }
-  buildCounterProductPrice--;
-  return o;
-}
-
-checkProductPrice(api.ProductPrice o) {
-  buildCounterProductPrice++;
-  if (buildCounterProductPrice < 3) {
-    checkAmount(o.amount);
-    unittest.expect(o.duration, unittest.equals(42.0));
-    unittest.expect(o.durationType, unittest.equals('foo'));
-    checkSchedule(o.schedule);
-  }
-  buildCounterProductPrice--;
-}
-
-buildUnnamed83() {
-  var o = new core.List<api.ProductPrice>();
-  o.add(buildProductPrice());
-  o.add(buildProductPrice());
-  return o;
-}
-
-checkUnnamed83(core.List<api.ProductPrice> o) {
-  unittest.expect(o, unittest.hasLength(2));
-  checkProductPrice(o[0]);
-  checkProductPrice(o[1]);
-}
-
-core.int buildCounterProductPriceList = 0;
-buildProductPriceList() {
-  var o = new api.ProductPriceList();
-  buildCounterProductPriceList++;
-  if (buildCounterProductPriceList < 3) {
-    o.endDate = core.DateTime.parse("2002-02-27T14:01:02Z");
-    o.prices = buildUnnamed83();
-    o.product = buildProduct();
-    o.productId = "foo";
-    o.startDate = core.DateTime.parse("2002-02-27T14:01:02Z");
-  }
-  buildCounterProductPriceList--;
-  return o;
-}
-
-checkProductPriceList(api.ProductPriceList o) {
-  buildCounterProductPriceList++;
-  if (buildCounterProductPriceList < 3) {
-    unittest.expect(
-        o.endDate, unittest.equals(core.DateTime.parse("2002-02-27T00:00:00")));
-    checkUnnamed83(o.prices);
-    checkProduct(o.product);
-    unittest.expect(o.productId, unittest.equals('foo'));
-    unittest.expect(o.startDate,
-        unittest.equals(core.DateTime.parse("2002-02-27T00:00:00")));
-  }
-  buildCounterProductPriceList--;
-}
-
-core.int buildCounterProductVisibility = 0;
-buildProductVisibility() {
-  var o = new api.ProductVisibility();
-  buildCounterProductVisibility++;
-  if (buildCounterProductVisibility < 3) {
-    o.visibleOnlyForServiceProvider = true;
-    o.visibleOnlyForWhiteListedCustomers = true;
-  }
-  buildCounterProductVisibility--;
-  return o;
-}
-
-checkProductVisibility(api.ProductVisibility o) {
-  buildCounterProductVisibility++;
-  if (buildCounterProductVisibility < 3) {
-    unittest.expect(o.visibleOnlyForServiceProvider, unittest.isTrue);
-    unittest.expect(o.visibleOnlyForWhiteListedCustomers, unittest.isTrue);
-  }
-  buildCounterProductVisibility--;
-}
-
-buildUnnamed84() {
-  var o = new core.List<core.String>();
-  o.add("foo");
-  o.add("foo");
-  return o;
-}
-
-checkUnnamed84(core.List<core.String> o) {
-  unittest.expect(o, unittest.hasLength(2));
-  unittest.expect(o[0], unittest.equals('foo'));
-  unittest.expect(o[1], unittest.equals('foo'));
-}
-
-buildUnnamed85() {
-  var o = new core.List<api.ScheduleRestriction>();
-  o.add(buildScheduleRestriction());
-  o.add(buildScheduleRestriction());
-  return o;
-}
-
-checkUnnamed85(core.List<api.ScheduleRestriction> o) {
-  unittest.expect(o, unittest.hasLength(2));
-  checkScheduleRestriction(o[0]);
-  checkScheduleRestriction(o[1]);
-}
-
-core.int buildCounterSchedule = 0;
-buildSchedule() {
-  var o = new api.Schedule();
-  buildCounterSchedule++;
-  if (buildCounterSchedule < 3) {
-    o.daysOfWeek = buildUnnamed84();
-    o.frequency = 42;
-    o.frequencyType = "foo";
-    o.restrictions = buildUnnamed85();
-    o.scheduleType = "foo";
-  }
-  buildCounterSchedule--;
-  return o;
-}
-
-checkSchedule(api.Schedule o) {
-  buildCounterSchedule++;
-  if (buildCounterSchedule < 3) {
-    checkUnnamed84(o.daysOfWeek);
-    unittest.expect(o.frequency, unittest.equals(42));
-    unittest.expect(o.frequencyType, unittest.equals('foo'));
-    checkUnnamed85(o.restrictions);
-    unittest.expect(o.scheduleType, unittest.equals('foo'));
-  }
-  buildCounterSchedule--;
-}
-
-buildUnnamed86() {
-  var o = new core.List<core.String>();
-  o.add("foo");
-  o.add("foo");
-  return o;
-}
-
-checkUnnamed86(core.List<core.String> o) {
-  unittest.expect(o, unittest.hasLength(2));
-  unittest.expect(o[0], unittest.equals('foo'));
-  unittest.expect(o[1], unittest.equals('foo'));
-}
-
-core.int buildCounterScheduleRestriction = 0;
-buildScheduleRestriction() {
-  var o = new api.ScheduleRestriction();
-  buildCounterScheduleRestriction++;
-  if (buildCounterScheduleRestriction < 3) {
-    o.daysOfWeek = buildUnnamed86();
-    o.scheduleType = "foo";
-  }
-  buildCounterScheduleRestriction--;
-  return o;
-}
-
-checkScheduleRestriction(api.ScheduleRestriction o) {
-  buildCounterScheduleRestriction++;
-  if (buildCounterScheduleRestriction < 3) {
-    checkUnnamed86(o.daysOfWeek);
-    unittest.expect(o.scheduleType, unittest.equals('foo'));
-  }
-  buildCounterScheduleRestriction--;
 }
 
 main() {
@@ -728,14 +256,6 @@ main() {
       var o = buildAccountBalanceSummary();
       var od = new api.AccountBalanceSummary.fromJson(o.toJson());
       checkAccountBalanceSummary(od);
-    });
-  });
-
-  unittest.group("obj-schema-Amount", () {
-    unittest.test("to-json--from-json", () {
-      var o = buildAmount();
-      var od = new api.Amount.fromJson(o.toJson());
-      checkAmount(od);
     });
   });
 
@@ -771,99 +291,11 @@ main() {
     });
   });
 
-  unittest.group("obj-schema-PriceList", () {
-    unittest.test("to-json--from-json", () {
-      var o = buildPriceList();
-      var od = new api.PriceList.fromJson(o.toJson());
-      checkPriceList(od);
-    });
-  });
-
   unittest.group("obj-schema-PricingPlan", () {
     unittest.test("to-json--from-json", () {
       var o = buildPricingPlan();
       var od = new api.PricingPlan.fromJson(o.toJson());
       checkPricingPlan(od);
-    });
-  });
-
-  unittest.group("obj-schema-Product", () {
-    unittest.test("to-json--from-json", () {
-      var o = buildProduct();
-      var od = new api.Product.fromJson(o.toJson());
-      checkProduct(od);
-    });
-  });
-
-  unittest.group("obj-schema-ProductAvailability", () {
-    unittest.test("to-json--from-json", () {
-      var o = buildProductAvailability();
-      var od = new api.ProductAvailability.fromJson(o.toJson());
-      checkProductAvailability(od);
-    });
-  });
-
-  unittest.group("obj-schema-ProductCategory", () {
-    unittest.test("to-json--from-json", () {
-      var o = buildProductCategory();
-      var od = new api.ProductCategory.fromJson(o.toJson());
-      checkProductCategory(od);
-    });
-  });
-
-  unittest.group("obj-schema-ProductGroup", () {
-    unittest.test("to-json--from-json", () {
-      var o = buildProductGroup();
-      var od = new api.ProductGroup.fromJson(o.toJson());
-      checkProductGroup(od);
-    });
-  });
-
-  unittest.group("obj-schema-ProductImage", () {
-    unittest.test("to-json--from-json", () {
-      var o = buildProductImage();
-      var od = new api.ProductImage.fromJson(o.toJson());
-      checkProductImage(od);
-    });
-  });
-
-  unittest.group("obj-schema-ProductPrice", () {
-    unittest.test("to-json--from-json", () {
-      var o = buildProductPrice();
-      var od = new api.ProductPrice.fromJson(o.toJson());
-      checkProductPrice(od);
-    });
-  });
-
-  unittest.group("obj-schema-ProductPriceList", () {
-    unittest.test("to-json--from-json", () {
-      var o = buildProductPriceList();
-      var od = new api.ProductPriceList.fromJson(o.toJson());
-      checkProductPriceList(od);
-    });
-  });
-
-  unittest.group("obj-schema-ProductVisibility", () {
-    unittest.test("to-json--from-json", () {
-      var o = buildProductVisibility();
-      var od = new api.ProductVisibility.fromJson(o.toJson());
-      checkProductVisibility(od);
-    });
-  });
-
-  unittest.group("obj-schema-Schedule", () {
-    unittest.test("to-json--from-json", () {
-      var o = buildSchedule();
-      var od = new api.Schedule.fromJson(o.toJson());
-      checkSchedule(od);
-    });
-  });
-
-  unittest.group("obj-schema-ScheduleRestriction", () {
-    unittest.test("to-json--from-json", () {
-      var o = buildScheduleRestriction();
-      var od = new api.ScheduleRestriction.fromJson(o.toJson());
-      checkScheduleRestriction(od);
     });
   });
 

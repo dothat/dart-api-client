@@ -36,61 +36,6 @@ class ProductApi {
   ///
   /// [svcProviderId] - null
   ///
-  /// [plnId] - null
-  ///
-  /// [$fields] - Selector specifying which fields to include in a partial
-  /// response.
-  ///
-  /// Completes with a [PriceList].
-  ///
-  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
-  /// error.
-  ///
-  /// If the used [http.Client] completes with an error when making a REST call,
-  /// this method will complete with the same error.
-  async.Future<PriceList> createPriceList(
-      PriceList request, core.String svcProviderId, core.String plnId,
-      {core.String $fields}) {
-    var _url = null;
-    var _queryParams = new core.Map<core.String, core.List<core.String>>();
-    var _uploadMedia = null;
-    var _uploadOptions = null;
-    var _downloadOptions = commons.DownloadOptions.Metadata;
-    var _body = null;
-
-    if (request != null) {
-      _body = convert.json.encode((request).toJson());
-    }
-    if (svcProviderId == null) {
-      throw new core.ArgumentError("Parameter svcProviderId is required.");
-    }
-    if (plnId == null) {
-      throw new core.ArgumentError("Parameter plnId is required.");
-    }
-    if ($fields != null) {
-      _queryParams["fields"] = [$fields];
-    }
-
-    _url = commons.Escaper.ecapeVariable('$svcProviderId') +
-        '/pricingPlans/' +
-        commons.Escaper.ecapeVariable('$plnId') +
-        '/priceLists';
-
-    var _response = _requester.request(_url, "POST",
-        body: _body,
-        queryParams: _queryParams,
-        uploadOptions: _uploadOptions,
-        uploadMedia: _uploadMedia,
-        downloadOptions: _downloadOptions);
-    return _response.then((data) => new PriceList.fromJson(data));
-  }
-
-  /// [request] - The metadata request object.
-  ///
-  /// Request parameters:
-  ///
-  /// [svcProviderId] - null
-  ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
@@ -179,6 +124,71 @@ class ProductApi {
     return _response.then((data) => new Product.fromJson(data));
   }
 
+  /// [request] - The metadata request object.
+  ///
+  /// Request parameters:
+  ///
+  /// [svcProviderId] - null
+  ///
+  /// [plnId] - null
+  ///
+  /// [prodId] - null
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [ProductPriceList].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<ProductPriceList> createProductPriceList(
+      ProductPriceList request,
+      core.String svcProviderId,
+      core.String plnId,
+      core.String prodId,
+      {core.String $fields}) {
+    var _url = null;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia = null;
+    var _uploadOptions = null;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body = null;
+
+    if (request != null) {
+      _body = convert.json.encode((request).toJson());
+    }
+    if (svcProviderId == null) {
+      throw new core.ArgumentError("Parameter svcProviderId is required.");
+    }
+    if (plnId == null) {
+      throw new core.ArgumentError("Parameter plnId is required.");
+    }
+    if (prodId == null) {
+      throw new core.ArgumentError("Parameter prodId is required.");
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = commons.Escaper.ecapeVariable('$svcProviderId') +
+        '/pricingPlans/' +
+        commons.Escaper.ecapeVariable('$plnId') +
+        '/products/' +
+        commons.Escaper.ecapeVariable('$prodId') +
+        '/prices';
+
+    var _response = _requester.request(_url, "POST",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response.then((data) => new ProductPriceList.fromJson(data));
+  }
+
   /// Request parameters:
   ///
   /// [svcProviderId] - null
@@ -188,14 +198,14 @@ class ProductApi {
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
-  /// Completes with a [PriceListCollection].
+  /// Completes with a [ProductPriceListCollection].
   ///
   /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
   /// error.
   ///
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
-  async.Future<PriceListCollection> findPriceLists(
+  async.Future<ProductPriceListCollection> findAllPlanProductPriceLists(
       core.String svcProviderId, core.String plnId,
       {core.String $fields}) {
     var _url = null;
@@ -218,7 +228,7 @@ class ProductApi {
     _url = commons.Escaper.ecapeVariable('$svcProviderId') +
         '/pricingPlans/' +
         commons.Escaper.ecapeVariable('$plnId') +
-        '/priceLists';
+        '/prices';
 
     var _response = _requester.request(_url, "GET",
         body: _body,
@@ -226,7 +236,66 @@ class ProductApi {
         uploadOptions: _uploadOptions,
         uploadMedia: _uploadMedia,
         downloadOptions: _downloadOptions);
-    return _response.then((data) => new PriceListCollection.fromJson(data));
+    return _response
+        .then((data) => new ProductPriceListCollection.fromJson(data));
+  }
+
+  /// Request parameters:
+  ///
+  /// [svcProviderId] - null
+  ///
+  /// [plnId] - null
+  ///
+  /// [prodId] - null
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [ProductPriceListCollection].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<ProductPriceListCollection> findAllProductPriceLists(
+      core.String svcProviderId, core.String plnId, core.String prodId,
+      {core.String $fields}) {
+    var _url = null;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia = null;
+    var _uploadOptions = null;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body = null;
+
+    if (svcProviderId == null) {
+      throw new core.ArgumentError("Parameter svcProviderId is required.");
+    }
+    if (plnId == null) {
+      throw new core.ArgumentError("Parameter plnId is required.");
+    }
+    if (prodId == null) {
+      throw new core.ArgumentError("Parameter prodId is required.");
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = commons.Escaper.ecapeVariable('$svcProviderId') +
+        '/pricingPlans/' +
+        commons.Escaper.ecapeVariable('$plnId') +
+        '/products/' +
+        commons.Escaper.ecapeVariable('$prodId') +
+        '/prices';
+
+    var _response = _requester.request(_url, "GET",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response
+        .then((data) => new ProductPriceListCollection.fromJson(data));
   }
 
   /// Request parameters:
@@ -368,62 +437,6 @@ class ProductApi {
   ///
   /// [plnId] - null
   ///
-  /// [priceLstId] - null
-  ///
-  /// [$fields] - Selector specifying which fields to include in a partial
-  /// response.
-  ///
-  /// Completes with a [PriceList].
-  ///
-  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
-  /// error.
-  ///
-  /// If the used [http.Client] completes with an error when making a REST call,
-  /// this method will complete with the same error.
-  async.Future<PriceList> getPriceList(
-      core.String svcProviderId, core.String plnId, core.String priceLstId,
-      {core.String $fields}) {
-    var _url = null;
-    var _queryParams = new core.Map<core.String, core.List<core.String>>();
-    var _uploadMedia = null;
-    var _uploadOptions = null;
-    var _downloadOptions = commons.DownloadOptions.Metadata;
-    var _body = null;
-
-    if (svcProviderId == null) {
-      throw new core.ArgumentError("Parameter svcProviderId is required.");
-    }
-    if (plnId == null) {
-      throw new core.ArgumentError("Parameter plnId is required.");
-    }
-    if (priceLstId == null) {
-      throw new core.ArgumentError("Parameter priceLstId is required.");
-    }
-    if ($fields != null) {
-      _queryParams["fields"] = [$fields];
-    }
-
-    _url = commons.Escaper.ecapeVariable('$svcProviderId') +
-        '/pricingPlans/' +
-        commons.Escaper.ecapeVariable('$plnId') +
-        '/priceLists/' +
-        commons.Escaper.ecapeVariable('$priceLstId');
-
-    var _response = _requester.request(_url, "GET",
-        body: _body,
-        queryParams: _queryParams,
-        uploadOptions: _uploadOptions,
-        uploadMedia: _uploadMedia,
-        downloadOptions: _downloadOptions);
-    return _response.then((data) => new PriceList.fromJson(data));
-  }
-
-  /// Request parameters:
-  ///
-  /// [svcProviderId] - null
-  ///
-  /// [plnId] - null
-  ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
@@ -516,28 +529,28 @@ class ProductApi {
     return _response.then((data) => new Product.fromJson(data));
   }
 
-  /// [request] - The metadata request object.
-  ///
   /// Request parameters:
   ///
   /// [svcProviderId] - null
   ///
   /// [plnId] - null
   ///
-  /// [priceLstId] - null
+  /// [prodId] - null
+  ///
+  /// [prcListId] - null
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
-  /// Completes with a [PriceList].
+  /// Completes with a [ProductPriceList].
   ///
   /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
   /// error.
   ///
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
-  async.Future<PriceList> updatePriceList(PriceList request,
-      core.String svcProviderId, core.String plnId, core.String priceLstId,
+  async.Future<ProductPriceList> getProductPriceList(core.String svcProviderId,
+      core.String plnId, core.String prodId, core.String prcListId,
       {core.String $fields}) {
     var _url = null;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -546,17 +559,17 @@ class ProductApi {
     var _downloadOptions = commons.DownloadOptions.Metadata;
     var _body = null;
 
-    if (request != null) {
-      _body = convert.json.encode((request).toJson());
-    }
     if (svcProviderId == null) {
       throw new core.ArgumentError("Parameter svcProviderId is required.");
     }
     if (plnId == null) {
       throw new core.ArgumentError("Parameter plnId is required.");
     }
-    if (priceLstId == null) {
-      throw new core.ArgumentError("Parameter priceLstId is required.");
+    if (prodId == null) {
+      throw new core.ArgumentError("Parameter prodId is required.");
+    }
+    if (prcListId == null) {
+      throw new core.ArgumentError("Parameter prcListId is required.");
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -565,16 +578,18 @@ class ProductApi {
     _url = commons.Escaper.ecapeVariable('$svcProviderId') +
         '/pricingPlans/' +
         commons.Escaper.ecapeVariable('$plnId') +
-        '/priceList/' +
-        commons.Escaper.ecapeVariable('$priceLstId');
+        '/products/' +
+        commons.Escaper.ecapeVariable('$prodId') +
+        '/prices/' +
+        commons.Escaper.ecapeVariable('$prcListId');
 
-    var _response = _requester.request(_url, "POST",
+    var _response = _requester.request(_url, "GET",
         body: _body,
         queryParams: _queryParams,
         uploadOptions: _uploadOptions,
         uploadMedia: _uploadMedia,
         downloadOptions: _downloadOptions);
-    return _response.then((data) => new PriceList.fromJson(data));
+    return _response.then((data) => new ProductPriceList.fromJson(data));
   }
 
   /// [request] - The metadata request object.
@@ -684,6 +699,78 @@ class ProductApi {
         downloadOptions: _downloadOptions);
     return _response.then((data) => new Product.fromJson(data));
   }
+
+  /// [request] - The metadata request object.
+  ///
+  /// Request parameters:
+  ///
+  /// [svcProviderId] - null
+  ///
+  /// [plnId] - null
+  ///
+  /// [prodId] - null
+  ///
+  /// [prcListId] - null
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [ProductPriceList].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<ProductPriceList> updateProductPriceList(
+      ProductPriceList request,
+      core.String svcProviderId,
+      core.String plnId,
+      core.String prodId,
+      core.String prcListId,
+      {core.String $fields}) {
+    var _url = null;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia = null;
+    var _uploadOptions = null;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body = null;
+
+    if (request != null) {
+      _body = convert.json.encode((request).toJson());
+    }
+    if (svcProviderId == null) {
+      throw new core.ArgumentError("Parameter svcProviderId is required.");
+    }
+    if (plnId == null) {
+      throw new core.ArgumentError("Parameter plnId is required.");
+    }
+    if (prodId == null) {
+      throw new core.ArgumentError("Parameter prodId is required.");
+    }
+    if (prcListId == null) {
+      throw new core.ArgumentError("Parameter prcListId is required.");
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = commons.Escaper.ecapeVariable('$svcProviderId') +
+        '/pricingPlans/' +
+        commons.Escaper.ecapeVariable('$plnId') +
+        '/products/' +
+        commons.Escaper.ecapeVariable('$prodId') +
+        '/prices/' +
+        commons.Escaper.ecapeVariable('$prcListId');
+
+    var _response = _requester.request(_url, "POST",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response.then((data) => new ProductPriceList.fromJson(data));
+  }
 }
 
 class Amount {
@@ -749,139 +836,66 @@ class ChangeContext {
   }
 }
 
-class PriceList {
-  ChangeContext changeContext;
-  core.DateTime creationTimestamp;
-  core.DateTime endDate;
-  core.DateTime modificationTimestamp;
-  core.String priceListId;
-  PricingPlan pricingPlan;
-  core.String pricingPlanId;
-  core.List<ProductPriceList> productPriceLists;
-  core.DateTime startDate;
-  core.String version;
+class Measurement {
+  core.double quantity;
+  core.String quantityUnit;
+  core.String unitName;
 
-  PriceList();
+  Measurement();
 
-  PriceList.fromJson(core.Map _json) {
-    if (_json.containsKey("changeContext")) {
-      changeContext = new ChangeContext.fromJson(_json["changeContext"]);
+  Measurement.fromJson(core.Map _json) {
+    if (_json.containsKey("quantity")) {
+      quantity = _json["quantity"].toDouble();
     }
-    if (_json.containsKey("creationTimestamp")) {
-      creationTimestamp = core.DateTime.parse(_json["creationTimestamp"]);
+    if (_json.containsKey("quantityUnit")) {
+      quantityUnit = _json["quantityUnit"];
     }
-    if (_json.containsKey("endDate")) {
-      endDate = core.DateTime.parse(_json["endDate"]);
-    }
-    if (_json.containsKey("modificationTimestamp")) {
-      modificationTimestamp =
-          core.DateTime.parse(_json["modificationTimestamp"]);
-    }
-    if (_json.containsKey("priceListId")) {
-      priceListId = _json["priceListId"];
-    }
-    if (_json.containsKey("pricingPlan")) {
-      pricingPlan = new PricingPlan.fromJson(_json["pricingPlan"]);
-    }
-    if (_json.containsKey("pricingPlanId")) {
-      pricingPlanId = _json["pricingPlanId"];
-    }
-    if (_json.containsKey("productPriceLists")) {
-      productPriceLists = (_json["productPriceLists"] as core.List)
-          .map<ProductPriceList>(
-              (value) => new ProductPriceList.fromJson(value))
-          .toList();
-    }
-    if (_json.containsKey("startDate")) {
-      startDate = core.DateTime.parse(_json["startDate"]);
-    }
-    if (_json.containsKey("version")) {
-      version = _json["version"];
+    if (_json.containsKey("unitName")) {
+      unitName = _json["unitName"];
     }
   }
 
   core.Map<core.String, core.Object> toJson() {
     final core.Map<core.String, core.Object> _json =
         new core.Map<core.String, core.Object>();
-    if (changeContext != null) {
-      _json["changeContext"] = (changeContext).toJson();
+    if (quantity != null) {
+      _json["quantity"] = quantity;
     }
-    if (creationTimestamp != null) {
-      _json["creationTimestamp"] = (creationTimestamp).toIso8601String();
+    if (quantityUnit != null) {
+      _json["quantityUnit"] = quantityUnit;
     }
-    if (endDate != null) {
-      _json["endDate"] =
-          "${(endDate).year.toString().padLeft(4, '0')}-${(endDate).month.toString().padLeft(2, '0')}-${(endDate).day.toString().padLeft(2, '0')}";
-    }
-    if (modificationTimestamp != null) {
-      _json["modificationTimestamp"] =
-          (modificationTimestamp).toIso8601String();
-    }
-    if (priceListId != null) {
-      _json["priceListId"] = priceListId;
-    }
-    if (pricingPlan != null) {
-      _json["pricingPlan"] = (pricingPlan).toJson();
-    }
-    if (pricingPlanId != null) {
-      _json["pricingPlanId"] = pricingPlanId;
-    }
-    if (productPriceLists != null) {
-      _json["productPriceLists"] =
-          productPriceLists.map((value) => (value).toJson()).toList();
-    }
-    if (startDate != null) {
-      _json["startDate"] =
-          "${(startDate).year.toString().padLeft(4, '0')}-${(startDate).month.toString().padLeft(2, '0')}-${(startDate).day.toString().padLeft(2, '0')}";
-    }
-    if (version != null) {
-      _json["version"] = version;
-    }
-    return _json;
-  }
-}
-
-class PriceListCollection {
-  core.List<PriceList> items;
-
-  PriceListCollection();
-
-  PriceListCollection.fromJson(core.Map _json) {
-    if (_json.containsKey("items")) {
-      items = (_json["items"] as core.List)
-          .map<PriceList>((value) => new PriceList.fromJson(value))
-          .toList();
-    }
-  }
-
-  core.Map<core.String, core.Object> toJson() {
-    final core.Map<core.String, core.Object> _json =
-        new core.Map<core.String, core.Object>();
-    if (items != null) {
-      _json["items"] = items.map((value) => (value).toJson()).toList();
+    if (unitName != null) {
+      _json["unitName"] = unitName;
     }
     return _json;
   }
 }
 
 class PricingPlan {
+  core.bool active;
   ChangeContext changeContext;
   core.DateTime creationTimestamp;
+  core.bool default_;
   core.DateTime modificationTimestamp;
   core.String planCode;
   core.String planId;
   core.String planName;
-  core.List<PriceList> priceLists;
   core.String version;
 
   PricingPlan();
 
   PricingPlan.fromJson(core.Map _json) {
+    if (_json.containsKey("active")) {
+      active = _json["active"];
+    }
     if (_json.containsKey("changeContext")) {
       changeContext = new ChangeContext.fromJson(_json["changeContext"]);
     }
     if (_json.containsKey("creationTimestamp")) {
       creationTimestamp = core.DateTime.parse(_json["creationTimestamp"]);
+    }
+    if (_json.containsKey("default")) {
+      default_ = _json["default"];
     }
     if (_json.containsKey("modificationTimestamp")) {
       modificationTimestamp =
@@ -896,11 +910,6 @@ class PricingPlan {
     if (_json.containsKey("planName")) {
       planName = _json["planName"];
     }
-    if (_json.containsKey("priceLists")) {
-      priceLists = (_json["priceLists"] as core.List)
-          .map<PriceList>((value) => new PriceList.fromJson(value))
-          .toList();
-    }
     if (_json.containsKey("version")) {
       version = _json["version"];
     }
@@ -909,11 +918,17 @@ class PricingPlan {
   core.Map<core.String, core.Object> toJson() {
     final core.Map<core.String, core.Object> _json =
         new core.Map<core.String, core.Object>();
+    if (active != null) {
+      _json["active"] = active;
+    }
     if (changeContext != null) {
       _json["changeContext"] = (changeContext).toJson();
     }
     if (creationTimestamp != null) {
       _json["creationTimestamp"] = (creationTimestamp).toIso8601String();
+    }
+    if (default_ != null) {
+      _json["default"] = default_;
     }
     if (modificationTimestamp != null) {
       _json["modificationTimestamp"] =
@@ -927,10 +942,6 @@ class PricingPlan {
     }
     if (planName != null) {
       _json["planName"] = planName;
-    }
-    if (priceLists != null) {
-      _json["priceLists"] =
-          priceLists.map((value) => (value).toJson()).toList();
     }
     if (version != null) {
       _json["version"] = version;
@@ -976,7 +987,7 @@ class Product {
   core.String measurementUnit;
   core.DateTime modificationTimestamp;
   core.String name;
-  core.List<ProductPriceList> priceLists;
+  core.List<ProductPrice> prices;
   ProductCategory productCategory;
   core.String productCode;
   ProductGroup productGroup;
@@ -1033,10 +1044,9 @@ class Product {
     if (_json.containsKey("name")) {
       name = _json["name"];
     }
-    if (_json.containsKey("priceLists")) {
-      priceLists = (_json["priceLists"] as core.List)
-          .map<ProductPriceList>(
-              (value) => new ProductPriceList.fromJson(value))
+    if (_json.containsKey("prices")) {
+      prices = (_json["prices"] as core.List)
+          .map<ProductPrice>((value) => new ProductPrice.fromJson(value))
           .toList();
     }
     if (_json.containsKey("productCategory")) {
@@ -1114,9 +1124,8 @@ class Product {
     if (name != null) {
       _json["name"] = name;
     }
-    if (priceLists != null) {
-      _json["priceLists"] =
-          priceLists.map((value) => (value).toJson()).toList();
+    if (prices != null) {
+      _json["prices"] = prices.map((value) => (value).toJson()).toList();
     }
     if (productCategory != null) {
       _json["productCategory"] = (productCategory).toJson();
@@ -1318,6 +1327,7 @@ class ProductPrice {
   Amount amount;
   core.double duration;
   core.String durationType;
+  Measurement measurement;
   Schedule schedule;
 
   ProductPrice();
@@ -1331,6 +1341,9 @@ class ProductPrice {
     }
     if (_json.containsKey("durationType")) {
       durationType = _json["durationType"];
+    }
+    if (_json.containsKey("measurement")) {
+      measurement = new Measurement.fromJson(_json["measurement"]);
     }
     if (_json.containsKey("schedule")) {
       schedule = new Schedule.fromJson(_json["schedule"]);
@@ -1349,6 +1362,9 @@ class ProductPrice {
     if (durationType != null) {
       _json["durationType"] = durationType;
     }
+    if (measurement != null) {
+      _json["measurement"] = (measurement).toJson();
+    }
     if (schedule != null) {
       _json["schedule"] = (schedule).toJson();
     }
@@ -1357,22 +1373,37 @@ class ProductPrice {
 }
 
 class ProductPriceList {
+  core.DateTime creationTimestamp;
   core.DateTime endDate;
+  core.DateTime modificationTimestamp;
   core.List<ProductPrice> prices;
+  core.String pricingPlanId;
   Product product;
   core.String productId;
+  core.String productPriceListId;
   core.DateTime startDate;
+  core.String version;
 
   ProductPriceList();
 
   ProductPriceList.fromJson(core.Map _json) {
+    if (_json.containsKey("creationTimestamp")) {
+      creationTimestamp = core.DateTime.parse(_json["creationTimestamp"]);
+    }
     if (_json.containsKey("endDate")) {
       endDate = core.DateTime.parse(_json["endDate"]);
+    }
+    if (_json.containsKey("modificationTimestamp")) {
+      modificationTimestamp =
+          core.DateTime.parse(_json["modificationTimestamp"]);
     }
     if (_json.containsKey("prices")) {
       prices = (_json["prices"] as core.List)
           .map<ProductPrice>((value) => new ProductPrice.fromJson(value))
           .toList();
+    }
+    if (_json.containsKey("pricingPlanId")) {
+      pricingPlanId = _json["pricingPlanId"];
     }
     if (_json.containsKey("product")) {
       product = new Product.fromJson(_json["product"]);
@@ -1380,20 +1411,36 @@ class ProductPriceList {
     if (_json.containsKey("productId")) {
       productId = _json["productId"];
     }
+    if (_json.containsKey("productPriceListId")) {
+      productPriceListId = _json["productPriceListId"];
+    }
     if (_json.containsKey("startDate")) {
       startDate = core.DateTime.parse(_json["startDate"]);
+    }
+    if (_json.containsKey("version")) {
+      version = _json["version"];
     }
   }
 
   core.Map<core.String, core.Object> toJson() {
     final core.Map<core.String, core.Object> _json =
         new core.Map<core.String, core.Object>();
+    if (creationTimestamp != null) {
+      _json["creationTimestamp"] = (creationTimestamp).toIso8601String();
+    }
     if (endDate != null) {
       _json["endDate"] =
           "${(endDate).year.toString().padLeft(4, '0')}-${(endDate).month.toString().padLeft(2, '0')}-${(endDate).day.toString().padLeft(2, '0')}";
     }
+    if (modificationTimestamp != null) {
+      _json["modificationTimestamp"] =
+          (modificationTimestamp).toIso8601String();
+    }
     if (prices != null) {
       _json["prices"] = prices.map((value) => (value).toJson()).toList();
+    }
+    if (pricingPlanId != null) {
+      _json["pricingPlanId"] = pricingPlanId;
     }
     if (product != null) {
       _json["product"] = (product).toJson();
@@ -1401,9 +1448,39 @@ class ProductPriceList {
     if (productId != null) {
       _json["productId"] = productId;
     }
+    if (productPriceListId != null) {
+      _json["productPriceListId"] = productPriceListId;
+    }
     if (startDate != null) {
       _json["startDate"] =
           "${(startDate).year.toString().padLeft(4, '0')}-${(startDate).month.toString().padLeft(2, '0')}-${(startDate).day.toString().padLeft(2, '0')}";
+    }
+    if (version != null) {
+      _json["version"] = version;
+    }
+    return _json;
+  }
+}
+
+class ProductPriceListCollection {
+  core.List<ProductPriceList> items;
+
+  ProductPriceListCollection();
+
+  ProductPriceListCollection.fromJson(core.Map _json) {
+    if (_json.containsKey("items")) {
+      items = (_json["items"] as core.List)
+          .map<ProductPriceList>(
+              (value) => new ProductPriceList.fromJson(value))
+          .toList();
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (items != null) {
+      _json["items"] = items.map((value) => (value).toJson()).toList();
     }
     return _json;
   }

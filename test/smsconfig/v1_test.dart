@@ -75,14 +75,14 @@ checkParserConfig(api.ParserConfig o) {
   buildCounterParserConfig--;
 }
 
-buildUnnamed73() {
+buildUnnamed70() {
   var o = new core.List<core.String>();
   o.add("foo");
   o.add("foo");
   return o;
 }
 
-checkUnnamed73(core.List<core.String> o) {
+checkUnnamed70(core.List<core.String> o) {
   unittest.expect(o, unittest.hasLength(2));
   unittest.expect(o[0], unittest.equals('foo'));
   unittest.expect(o[1], unittest.equals('foo'));
@@ -94,7 +94,7 @@ buildParserRegexConfig() {
   buildCounterParserRegexConfig++;
   if (buildCounterParserRegexConfig < 3) {
     o.changeType = "foo";
-    o.extractExpressions = buildUnnamed73();
+    o.extractExpressions = buildUnnamed70();
     o.matchExpression = "foo";
   }
   buildCounterParserRegexConfig--;
@@ -105,7 +105,7 @@ checkParserRegexConfig(api.ParserRegexConfig o) {
   buildCounterParserRegexConfig++;
   if (buildCounterParserRegexConfig < 3) {
     unittest.expect(o.changeType, unittest.equals('foo'));
-    checkUnnamed73(o.extractExpressions);
+    checkUnnamed70(o.extractExpressions);
     unittest.expect(o.matchExpression, unittest.equals('foo'));
   }
   buildCounterParserRegexConfig--;
@@ -151,27 +151,27 @@ checkParserUrlConfig(api.ParserUrlConfig o) {
   buildCounterParserUrlConfig--;
 }
 
-buildUnnamed74() {
+buildUnnamed71() {
   var o = new core.List<api.ParserConfig>();
   o.add(buildParserConfig());
   o.add(buildParserConfig());
   return o;
 }
 
-checkUnnamed74(core.List<api.ParserConfig> o) {
+checkUnnamed71(core.List<api.ParserConfig> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkParserConfig(o[0]);
   checkParserConfig(o[1]);
 }
 
-buildUnnamed75() {
+buildUnnamed72() {
   var o = new core.List<api.SmsReceiverConfig>();
   o.add(buildSmsReceiverConfig());
   o.add(buildSmsReceiverConfig());
   return o;
 }
 
-checkUnnamed75(core.List<api.SmsReceiverConfig> o) {
+checkUnnamed72(core.List<api.SmsReceiverConfig> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkSmsReceiverConfig(o[0]);
   checkSmsReceiverConfig(o[1]);
@@ -182,8 +182,8 @@ buildSmsConfig() {
   var o = new api.SmsConfig();
   buildCounterSmsConfig++;
   if (buildCounterSmsConfig < 3) {
-    o.parsers = buildUnnamed74();
-    o.receivers = buildUnnamed75();
+    o.parsers = buildUnnamed71();
+    o.receivers = buildUnnamed72();
   }
   buildCounterSmsConfig--;
   return o;
@@ -192,8 +192,8 @@ buildSmsConfig() {
 checkSmsConfig(api.SmsConfig o) {
   buildCounterSmsConfig++;
   if (buildCounterSmsConfig < 3) {
-    checkUnnamed74(o.parsers);
-    checkUnnamed75(o.receivers);
+    checkUnnamed71(o.parsers);
+    checkUnnamed72(o.receivers);
   }
   buildCounterSmsConfig--;
 }
