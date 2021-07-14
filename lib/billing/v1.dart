@@ -1,34 +1,45 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: camel_case_types
+// ignore_for_file: comment_references
+// ignore_for_file: file_names
+// ignore_for_file: library_names
+// ignore_for_file: lines_longer_than_80_chars
+// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: prefer_expression_function_bodies
+// ignore_for_file: prefer_interpolation_to_compose_strings
+// ignore_for_file: unnecessary_brace_in_string_interps
+// ignore_for_file: unnecessary_lambdas
+// ignore_for_file: unnecessary_string_interpolations
 
-library dothatapis.billing.v1;
+/// API to access Billing Transactions
+library billing.v1;
 
-import 'dart:core' as core;
 import 'dart:async' as async;
 import 'dart:convert' as convert;
+import 'dart:core' as core;
 
 import 'package:_discoveryapis_commons/_discoveryapis_commons.dart' as commons;
 import 'package:http/http.dart' as http;
 
+import '../src/user_agent.dart';
+
 export 'package:_discoveryapis_commons/_discoveryapis_commons.dart'
     show ApiRequestError, DetailedApiRequestError;
-
-const core.String USER_AGENT = 'dart-api-client billing/v1';
 
 /// API to access Billing Transactions
 class BillingApi {
   /// View your email address
-  static const UserinfoEmailScope =
-      "https://www.googleapis.com/auth/userinfo.email";
+  static const userinfoEmailScope =
+      'https://www.googleapis.com/auth/userinfo.email';
 
   final commons.ApiRequester _requester;
 
   BillingApi(http.Client client,
-      {core.String rootUrl: "https://dev-dothat-api.appspot.com/_ah/api/",
-      core.String servicePath: "billing/v1/serviceProviders/"})
+      {core.String rootUrl = 'https://dev-dothat-api.appspot.com/_ah/api/',
+      core.String servicePath = 'billing/v1/serviceProviders/'})
       : _requester =
-            new commons.ApiRequester(client, rootUrl, servicePath, USER_AGENT);
+            commons.ApiRequester(client, rootUrl, servicePath, requestHeaders);
 
   /// [request] - The metadata request object.
   ///
@@ -50,46 +61,33 @@ class BillingApi {
   ///
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
-  async.Future<BillingTransaction> createTransaction(BillingTransaction request,
-      core.String svcProviderId, core.String custId, core.String acctId,
-      {core.String $fields}) {
-    var _url = null;
-    var _queryParams = new core.Map<core.String, core.List<core.String>>();
-    var _uploadMedia = null;
-    var _uploadOptions = null;
-    var _downloadOptions = commons.DownloadOptions.Metadata;
-    var _body = null;
+  async.Future<BillingTransaction> createTransaction(
+    BillingTransaction request,
+    core.String svcProviderId,
+    core.String custId,
+    core.String acctId, {
+    core.String? $fields,
+  }) async {
+    final _body = convert.json.encode(request.toJson());
+    final _queryParams = <core.String, core.List<core.String>>{
+      if ($fields != null) 'fields': [$fields],
+    };
 
-    if (request != null) {
-      _body = convert.json.encode((request).toJson());
-    }
-    if (svcProviderId == null) {
-      throw new core.ArgumentError("Parameter svcProviderId is required.");
-    }
-    if (custId == null) {
-      throw new core.ArgumentError("Parameter custId is required.");
-    }
-    if (acctId == null) {
-      throw new core.ArgumentError("Parameter acctId is required.");
-    }
-    if ($fields != null) {
-      _queryParams["fields"] = [$fields];
-    }
-
-    _url = commons.Escaper.ecapeVariable('$svcProviderId') +
+    final _url = commons.escapeVariable('$svcProviderId') +
         '/customers/' +
-        commons.Escaper.ecapeVariable('$custId') +
+        commons.escapeVariable('$custId') +
         '/accounts/' +
-        commons.Escaper.ecapeVariable('$acctId') +
+        commons.escapeVariable('$acctId') +
         '/transactions';
 
-    var _response = _requester.request(_url, "POST",
-        body: _body,
-        queryParams: _queryParams,
-        uploadOptions: _uploadOptions,
-        uploadMedia: _uploadMedia,
-        downloadOptions: _downloadOptions);
-    return _response.then((data) => new BillingTransaction.fromJson(data));
+    final _response = await _requester.request(
+      _url,
+      'POST',
+      body: _body,
+      queryParams: _queryParams,
+    );
+    return BillingTransaction.fromJson(
+        _response as core.Map<core.String, core.dynamic>);
   }
 
   /// Request parameters:
@@ -127,56 +125,34 @@ class BillingApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<BillingTransactionCollection> getAllTransactions(
-      core.String svcProviderId,
-      core.String custId,
-      core.String acctId,
-      core.String reasnType,
-      core.String reasnId,
-      {core.String $fields}) {
-    var _url = null;
-    var _queryParams = new core.Map<core.String, core.List<core.String>>();
-    var _uploadMedia = null;
-    var _uploadOptions = null;
-    var _downloadOptions = commons.DownloadOptions.Metadata;
-    var _body = null;
+    core.String svcProviderId,
+    core.String custId,
+    core.String acctId,
+    core.String reasnType,
+    core.String reasnId, {
+    core.String? $fields,
+  }) async {
+    final _queryParams = <core.String, core.List<core.String>>{
+      if ($fields != null) 'fields': [$fields],
+    };
 
-    if (svcProviderId == null) {
-      throw new core.ArgumentError("Parameter svcProviderId is required.");
-    }
-    if (custId == null) {
-      throw new core.ArgumentError("Parameter custId is required.");
-    }
-    if (acctId == null) {
-      throw new core.ArgumentError("Parameter acctId is required.");
-    }
-    if (reasnType == null) {
-      throw new core.ArgumentError("Parameter reasnType is required.");
-    }
-    if (reasnId == null) {
-      throw new core.ArgumentError("Parameter reasnId is required.");
-    }
-    if ($fields != null) {
-      _queryParams["fields"] = [$fields];
-    }
-
-    _url = commons.Escaper.ecapeVariable('$svcProviderId') +
+    final _url = commons.escapeVariable('$svcProviderId') +
         '/customers/' +
-        commons.Escaper.ecapeVariable('$custId') +
+        commons.escapeVariable('$custId') +
         '/accounts/' +
-        commons.Escaper.ecapeVariable('$acctId') +
+        commons.escapeVariable('$acctId') +
         '/transactions/reasons/' +
-        commons.Escaper.ecapeVariable('$reasnType') +
+        commons.escapeVariable('$reasnType') +
         '/' +
-        commons.Escaper.ecapeVariable('$reasnId');
+        commons.escapeVariable('$reasnId');
 
-    var _response = _requester.request(_url, "GET",
-        body: _body,
-        queryParams: _queryParams,
-        uploadOptions: _uploadOptions,
-        uploadMedia: _uploadMedia,
-        downloadOptions: _downloadOptions);
-    return _response
-        .then((data) => new BillingTransactionCollection.fromJson(data));
+    final _response = await _requester.request(
+      _url,
+      'GET',
+      queryParams: _queryParams,
+    );
+    return BillingTransactionCollection.fromJson(
+        _response as core.Map<core.String, core.dynamic>);
   }
 
   /// Request parameters:
@@ -199,47 +175,32 @@ class BillingApi {
   ///
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
-  async.Future<BillingTransaction> getTransaction(core.String svcProviderId,
-      core.String custId, core.String acctId, core.String transId,
-      {core.String $fields}) {
-    var _url = null;
-    var _queryParams = new core.Map<core.String, core.List<core.String>>();
-    var _uploadMedia = null;
-    var _uploadOptions = null;
-    var _downloadOptions = commons.DownloadOptions.Metadata;
-    var _body = null;
+  async.Future<BillingTransaction> getTransaction(
+    core.String svcProviderId,
+    core.String custId,
+    core.String acctId,
+    core.String transId, {
+    core.String? $fields,
+  }) async {
+    final _queryParams = <core.String, core.List<core.String>>{
+      if ($fields != null) 'fields': [$fields],
+    };
 
-    if (svcProviderId == null) {
-      throw new core.ArgumentError("Parameter svcProviderId is required.");
-    }
-    if (custId == null) {
-      throw new core.ArgumentError("Parameter custId is required.");
-    }
-    if (acctId == null) {
-      throw new core.ArgumentError("Parameter acctId is required.");
-    }
-    if (transId == null) {
-      throw new core.ArgumentError("Parameter transId is required.");
-    }
-    if ($fields != null) {
-      _queryParams["fields"] = [$fields];
-    }
-
-    _url = commons.Escaper.ecapeVariable('$svcProviderId') +
+    final _url = commons.escapeVariable('$svcProviderId') +
         '/customers/' +
-        commons.Escaper.ecapeVariable('$custId') +
+        commons.escapeVariable('$custId') +
         '/accounts/' +
-        commons.Escaper.ecapeVariable('$acctId') +
+        commons.escapeVariable('$acctId') +
         '/transactions/' +
-        commons.Escaper.ecapeVariable('$transId');
+        commons.escapeVariable('$transId');
 
-    var _response = _requester.request(_url, "GET",
-        body: _body,
-        queryParams: _queryParams,
-        uploadOptions: _uploadOptions,
-        uploadMedia: _uploadMedia,
-        downloadOptions: _downloadOptions);
-    return _response.then((data) => new BillingTransaction.fromJson(data));
+    final _response = await _requester.request(
+      _url,
+      'GET',
+      queryParams: _queryParams,
+    );
+    return BillingTransaction.fromJson(
+        _response as core.Map<core.String, core.dynamic>);
   }
 
   /// [request] - The metadata request object.
@@ -265,54 +226,35 @@ class BillingApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<BillingTransactionList> replaceTransactionsForOrder(
-      BillingTransactionList request,
-      core.String svcProviderId,
-      core.String custId,
-      core.String acctId,
-      core.String ordId,
-      {core.String $fields}) {
-    var _url = null;
-    var _queryParams = new core.Map<core.String, core.List<core.String>>();
-    var _uploadMedia = null;
-    var _uploadOptions = null;
-    var _downloadOptions = commons.DownloadOptions.Metadata;
-    var _body = null;
+    BillingTransactionList request,
+    core.String svcProviderId,
+    core.String custId,
+    core.String acctId,
+    core.String ordId, {
+    core.String? $fields,
+  }) async {
+    final _body = convert.json.encode(request.toJson());
+    final _queryParams = <core.String, core.List<core.String>>{
+      if ($fields != null) 'fields': [$fields],
+    };
 
-    if (request != null) {
-      _body = convert.json.encode((request).toJson());
-    }
-    if (svcProviderId == null) {
-      throw new core.ArgumentError("Parameter svcProviderId is required.");
-    }
-    if (custId == null) {
-      throw new core.ArgumentError("Parameter custId is required.");
-    }
-    if (acctId == null) {
-      throw new core.ArgumentError("Parameter acctId is required.");
-    }
-    if (ordId == null) {
-      throw new core.ArgumentError("Parameter ordId is required.");
-    }
-    if ($fields != null) {
-      _queryParams["fields"] = [$fields];
-    }
-
-    _url = commons.Escaper.ecapeVariable('$svcProviderId') +
+    final _url = commons.escapeVariable('$svcProviderId') +
         '/customers/' +
-        commons.Escaper.ecapeVariable('$custId') +
+        commons.escapeVariable('$custId') +
         '/accounts/' +
-        commons.Escaper.ecapeVariable('$acctId') +
+        commons.escapeVariable('$acctId') +
         '/orders/' +
-        commons.Escaper.ecapeVariable('$ordId') +
+        commons.escapeVariable('$ordId') +
         '/transactions';
 
-    var _response = _requester.request(_url, "PUT",
-        body: _body,
-        queryParams: _queryParams,
-        uploadOptions: _uploadOptions,
-        uploadMedia: _uploadMedia,
-        downloadOptions: _downloadOptions);
-    return _response.then((data) => new BillingTransactionList.fromJson(data));
+    final _response = await _requester.request(
+      _url,
+      'PUT',
+      body: _body,
+      queryParams: _queryParams,
+    );
+    return BillingTransactionList.fromJson(
+        _response as core.Map<core.String, core.dynamic>);
   }
 
   /// [request] - The metadata request object.
@@ -338,53 +280,34 @@ class BillingApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<BillingTransaction> updateTransaction(
-      BillingTransaction request,
-      core.String svcProviderId,
-      core.String custId,
-      core.String acctId,
-      core.String transId,
-      {core.String $fields}) {
-    var _url = null;
-    var _queryParams = new core.Map<core.String, core.List<core.String>>();
-    var _uploadMedia = null;
-    var _uploadOptions = null;
-    var _downloadOptions = commons.DownloadOptions.Metadata;
-    var _body = null;
+    BillingTransaction request,
+    core.String svcProviderId,
+    core.String custId,
+    core.String acctId,
+    core.String transId, {
+    core.String? $fields,
+  }) async {
+    final _body = convert.json.encode(request.toJson());
+    final _queryParams = <core.String, core.List<core.String>>{
+      'transId': [transId],
+      if ($fields != null) 'fields': [$fields],
+    };
 
-    if (request != null) {
-      _body = convert.json.encode((request).toJson());
-    }
-    if (svcProviderId == null) {
-      throw new core.ArgumentError("Parameter svcProviderId is required.");
-    }
-    if (custId == null) {
-      throw new core.ArgumentError("Parameter custId is required.");
-    }
-    if (acctId == null) {
-      throw new core.ArgumentError("Parameter acctId is required.");
-    }
-    if (transId == null) {
-      throw new core.ArgumentError("Parameter transId is required.");
-    }
-    _queryParams["transId"] = [transId];
-    if ($fields != null) {
-      _queryParams["fields"] = [$fields];
-    }
-
-    _url = commons.Escaper.ecapeVariable('$svcProviderId') +
+    final _url = commons.escapeVariable('$svcProviderId') +
         '/customers/' +
-        commons.Escaper.ecapeVariable('$custId') +
+        commons.escapeVariable('$custId') +
         '/accounts/' +
-        commons.Escaper.ecapeVariable('$acctId') +
+        commons.escapeVariable('$acctId') +
         '/transactions';
 
-    var _response = _requester.request(_url, "PUT",
-        body: _body,
-        queryParams: _queryParams,
-        uploadOptions: _uploadOptions,
-        uploadMedia: _uploadMedia,
-        downloadOptions: _downloadOptions);
-    return _response.then((data) => new BillingTransaction.fromJson(data));
+    final _response = await _requester.request(
+      _url,
+      'PUT',
+      body: _body,
+      queryParams: _queryParams,
+    );
+    return BillingTransaction.fromJson(
+        _response as core.Map<core.String, core.dynamic>);
   }
 
   /// [request] - The metadata request object.
@@ -410,230 +333,172 @@ class BillingApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<BillingTransactionList> updateTransactionForInvoice(
-      BillingTransactionList request,
-      core.String svcProviderId,
-      core.String custId,
-      core.String acctId,
-      core.String invId,
-      {core.String $fields}) {
-    var _url = null;
-    var _queryParams = new core.Map<core.String, core.List<core.String>>();
-    var _uploadMedia = null;
-    var _uploadOptions = null;
-    var _downloadOptions = commons.DownloadOptions.Metadata;
-    var _body = null;
+    BillingTransactionList request,
+    core.String svcProviderId,
+    core.String custId,
+    core.String acctId,
+    core.String invId, {
+    core.String? $fields,
+  }) async {
+    final _body = convert.json.encode(request.toJson());
+    final _queryParams = <core.String, core.List<core.String>>{
+      if ($fields != null) 'fields': [$fields],
+    };
 
-    if (request != null) {
-      _body = convert.json.encode((request).toJson());
-    }
-    if (svcProviderId == null) {
-      throw new core.ArgumentError("Parameter svcProviderId is required.");
-    }
-    if (custId == null) {
-      throw new core.ArgumentError("Parameter custId is required.");
-    }
-    if (acctId == null) {
-      throw new core.ArgumentError("Parameter acctId is required.");
-    }
-    if (invId == null) {
-      throw new core.ArgumentError("Parameter invId is required.");
-    }
-    if ($fields != null) {
-      _queryParams["fields"] = [$fields];
-    }
-
-    _url = commons.Escaper.ecapeVariable('$svcProviderId') +
+    final _url = commons.escapeVariable('$svcProviderId') +
         '/customers/' +
-        commons.Escaper.ecapeVariable('$custId') +
+        commons.escapeVariable('$custId') +
         '/accounts/' +
-        commons.Escaper.ecapeVariable('$acctId') +
+        commons.escapeVariable('$acctId') +
         '/invoices/' +
-        commons.Escaper.ecapeVariable('$invId') +
+        commons.escapeVariable('$invId') +
         '/transactions';
 
-    var _response = _requester.request(_url, "PUT",
-        body: _body,
-        queryParams: _queryParams,
-        uploadOptions: _uploadOptions,
-        uploadMedia: _uploadMedia,
-        downloadOptions: _downloadOptions);
-    return _response.then((data) => new BillingTransactionList.fromJson(data));
+    final _response = await _requester.request(
+      _url,
+      'PUT',
+      body: _body,
+      queryParams: _queryParams,
+    );
+    return BillingTransactionList.fromJson(
+        _response as core.Map<core.String, core.dynamic>);
   }
 }
 
 class BillingTransaction {
-  core.String accountId;
-  core.DateTime creationTimestamp;
-  core.String customerId;
-  core.String invoiceId;
-  core.DateTime modificationTimestamp;
-  core.String notes;
-  core.String reasonDetailId;
-  core.String reasonId;
-  core.double transactionAmount;
-  core.String transactionCurrency;
-  core.String transactionId;
-  core.String transactionReason;
-  core.String transactionStatus;
-  core.DateTime transactionTimestamp;
-  core.String transactionType;
-  core.String version;
+  core.String? accountId;
+  core.DateTime? creationTimestamp;
+  core.String? customerId;
+  core.String? invoiceId;
+  core.DateTime? modificationTimestamp;
+  core.String? notes;
+  core.String? reasonDetailId;
+  core.String? reasonId;
+  core.double? transactionAmount;
+  core.String? transactionCurrency;
+  core.String? transactionId;
+  core.String? transactionReason;
+  core.String? transactionStatus;
+  core.DateTime? transactionTimestamp;
+  core.String? transactionType;
+  core.String? version;
 
   BillingTransaction();
 
   BillingTransaction.fromJson(core.Map _json) {
-    if (_json.containsKey("accountId")) {
-      accountId = _json["accountId"];
+    if (_json.containsKey('accountId')) {
+      accountId = _json['accountId'] as core.String;
     }
-    if (_json.containsKey("creationTimestamp")) {
-      creationTimestamp = core.DateTime.parse(_json["creationTimestamp"]);
+    if (_json.containsKey('creationTimestamp')) {
+      creationTimestamp =
+          core.DateTime.parse(_json['creationTimestamp'] as core.String);
     }
-    if (_json.containsKey("customerId")) {
-      customerId = _json["customerId"];
+    if (_json.containsKey('customerId')) {
+      customerId = _json['customerId'] as core.String;
     }
-    if (_json.containsKey("invoiceId")) {
-      invoiceId = _json["invoiceId"];
+    if (_json.containsKey('invoiceId')) {
+      invoiceId = _json['invoiceId'] as core.String;
     }
-    if (_json.containsKey("modificationTimestamp")) {
+    if (_json.containsKey('modificationTimestamp')) {
       modificationTimestamp =
-          core.DateTime.parse(_json["modificationTimestamp"]);
+          core.DateTime.parse(_json['modificationTimestamp'] as core.String);
     }
-    if (_json.containsKey("notes")) {
-      notes = _json["notes"];
+    if (_json.containsKey('notes')) {
+      notes = _json['notes'] as core.String;
     }
-    if (_json.containsKey("reasonDetailId")) {
-      reasonDetailId = _json["reasonDetailId"];
+    if (_json.containsKey('reasonDetailId')) {
+      reasonDetailId = _json['reasonDetailId'] as core.String;
     }
-    if (_json.containsKey("reasonId")) {
-      reasonId = _json["reasonId"];
+    if (_json.containsKey('reasonId')) {
+      reasonId = _json['reasonId'] as core.String;
     }
-    if (_json.containsKey("transactionAmount")) {
-      transactionAmount = _json["transactionAmount"].toDouble();
+    if (_json.containsKey('transactionAmount')) {
+      transactionAmount = (_json['transactionAmount'] as core.num).toDouble();
     }
-    if (_json.containsKey("transactionCurrency")) {
-      transactionCurrency = _json["transactionCurrency"];
+    if (_json.containsKey('transactionCurrency')) {
+      transactionCurrency = _json['transactionCurrency'] as core.String;
     }
-    if (_json.containsKey("transactionId")) {
-      transactionId = _json["transactionId"];
+    if (_json.containsKey('transactionId')) {
+      transactionId = _json['transactionId'] as core.String;
     }
-    if (_json.containsKey("transactionReason")) {
-      transactionReason = _json["transactionReason"];
+    if (_json.containsKey('transactionReason')) {
+      transactionReason = _json['transactionReason'] as core.String;
     }
-    if (_json.containsKey("transactionStatus")) {
-      transactionStatus = _json["transactionStatus"];
+    if (_json.containsKey('transactionStatus')) {
+      transactionStatus = _json['transactionStatus'] as core.String;
     }
-    if (_json.containsKey("transactionTimestamp")) {
-      transactionTimestamp = core.DateTime.parse(_json["transactionTimestamp"]);
+    if (_json.containsKey('transactionTimestamp')) {
+      transactionTimestamp =
+          core.DateTime.parse(_json['transactionTimestamp'] as core.String);
     }
-    if (_json.containsKey("transactionType")) {
-      transactionType = _json["transactionType"];
+    if (_json.containsKey('transactionType')) {
+      transactionType = _json['transactionType'] as core.String;
     }
-    if (_json.containsKey("version")) {
-      version = _json["version"];
+    if (_json.containsKey('version')) {
+      version = _json['version'] as core.String;
     }
   }
 
-  core.Map<core.String, core.Object> toJson() {
-    final core.Map<core.String, core.Object> _json =
-        new core.Map<core.String, core.Object>();
-    if (accountId != null) {
-      _json["accountId"] = accountId;
-    }
-    if (creationTimestamp != null) {
-      _json["creationTimestamp"] = (creationTimestamp).toIso8601String();
-    }
-    if (customerId != null) {
-      _json["customerId"] = customerId;
-    }
-    if (invoiceId != null) {
-      _json["invoiceId"] = invoiceId;
-    }
-    if (modificationTimestamp != null) {
-      _json["modificationTimestamp"] =
-          (modificationTimestamp).toIso8601String();
-    }
-    if (notes != null) {
-      _json["notes"] = notes;
-    }
-    if (reasonDetailId != null) {
-      _json["reasonDetailId"] = reasonDetailId;
-    }
-    if (reasonId != null) {
-      _json["reasonId"] = reasonId;
-    }
-    if (transactionAmount != null) {
-      _json["transactionAmount"] = transactionAmount;
-    }
-    if (transactionCurrency != null) {
-      _json["transactionCurrency"] = transactionCurrency;
-    }
-    if (transactionId != null) {
-      _json["transactionId"] = transactionId;
-    }
-    if (transactionReason != null) {
-      _json["transactionReason"] = transactionReason;
-    }
-    if (transactionStatus != null) {
-      _json["transactionStatus"] = transactionStatus;
-    }
-    if (transactionTimestamp != null) {
-      _json["transactionTimestamp"] = (transactionTimestamp).toIso8601String();
-    }
-    if (transactionType != null) {
-      _json["transactionType"] = transactionType;
-    }
-    if (version != null) {
-      _json["version"] = version;
-    }
-    return _json;
-  }
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (accountId != null) 'accountId': accountId!,
+        if (creationTimestamp != null)
+          'creationTimestamp': creationTimestamp!.toIso8601String(),
+        if (customerId != null) 'customerId': customerId!,
+        if (invoiceId != null) 'invoiceId': invoiceId!,
+        if (modificationTimestamp != null)
+          'modificationTimestamp': modificationTimestamp!.toIso8601String(),
+        if (notes != null) 'notes': notes!,
+        if (reasonDetailId != null) 'reasonDetailId': reasonDetailId!,
+        if (reasonId != null) 'reasonId': reasonId!,
+        if (transactionAmount != null) 'transactionAmount': transactionAmount!,
+        if (transactionCurrency != null)
+          'transactionCurrency': transactionCurrency!,
+        if (transactionId != null) 'transactionId': transactionId!,
+        if (transactionReason != null) 'transactionReason': transactionReason!,
+        if (transactionStatus != null) 'transactionStatus': transactionStatus!,
+        if (transactionTimestamp != null)
+          'transactionTimestamp': transactionTimestamp!.toIso8601String(),
+        if (transactionType != null) 'transactionType': transactionType!,
+        if (version != null) 'version': version!,
+      };
 }
 
 class BillingTransactionCollection {
-  core.List<BillingTransaction> items;
+  core.List<BillingTransaction>? items;
 
   BillingTransactionCollection();
 
   BillingTransactionCollection.fromJson(core.Map _json) {
-    if (_json.containsKey("items")) {
-      items = (_json["items"] as core.List)
-          .map<BillingTransaction>(
-              (value) => new BillingTransaction.fromJson(value))
+    if (_json.containsKey('items')) {
+      items = (_json['items'] as core.List)
+          .map<BillingTransaction>((value) => BillingTransaction.fromJson(
+              value as core.Map<core.String, core.dynamic>))
           .toList();
     }
   }
 
-  core.Map<core.String, core.Object> toJson() {
-    final core.Map<core.String, core.Object> _json =
-        new core.Map<core.String, core.Object>();
-    if (items != null) {
-      _json["items"] = items.map((value) => (value).toJson()).toList();
-    }
-    return _json;
-  }
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (items != null)
+          'items': items!.map((value) => value.toJson()).toList(),
+      };
 }
 
 class BillingTransactionList {
-  core.List<BillingTransaction> transactions;
+  core.List<BillingTransaction>? transactions;
 
   BillingTransactionList();
 
   BillingTransactionList.fromJson(core.Map _json) {
-    if (_json.containsKey("transactions")) {
-      transactions = (_json["transactions"] as core.List)
-          .map<BillingTransaction>(
-              (value) => new BillingTransaction.fromJson(value))
+    if (_json.containsKey('transactions')) {
+      transactions = (_json['transactions'] as core.List)
+          .map<BillingTransaction>((value) => BillingTransaction.fromJson(
+              value as core.Map<core.String, core.dynamic>))
           .toList();
     }
   }
 
-  core.Map<core.String, core.Object> toJson() {
-    final core.Map<core.String, core.Object> _json =
-        new core.Map<core.String, core.Object>();
-    if (transactions != null) {
-      _json["transactions"] =
-          transactions.map((value) => (value).toJson()).toList();
-    }
-    return _json;
-  }
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (transactions != null)
+          'transactions': transactions!.map((value) => value.toJson()).toList(),
+      };
 }

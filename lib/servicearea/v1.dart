@@ -1,34 +1,45 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: camel_case_types
+// ignore_for_file: comment_references
+// ignore_for_file: file_names
+// ignore_for_file: library_names
+// ignore_for_file: lines_longer_than_80_chars
+// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: prefer_expression_function_bodies
+// ignore_for_file: prefer_interpolation_to_compose_strings
+// ignore_for_file: unnecessary_brace_in_string_interps
+// ignore_for_file: unnecessary_lambdas
+// ignore_for_file: unnecessary_string_interpolations
 
-library dothatapis.serviceArea.v1;
+/// API to access Service Areas and Serviced Addresses
+library serviceArea.v1;
 
-import 'dart:core' as core;
 import 'dart:async' as async;
 import 'dart:convert' as convert;
+import 'dart:core' as core;
 
 import 'package:_discoveryapis_commons/_discoveryapis_commons.dart' as commons;
 import 'package:http/http.dart' as http;
 
+import '../src/user_agent.dart';
+
 export 'package:_discoveryapis_commons/_discoveryapis_commons.dart'
     show ApiRequestError, DetailedApiRequestError;
-
-const core.String USER_AGENT = 'dart-api-client serviceArea/v1';
 
 /// API to access Service Areas and Serviced Addresses
 class ServiceAreaApi {
   /// View your email address
-  static const UserinfoEmailScope =
-      "https://www.googleapis.com/auth/userinfo.email";
+  static const userinfoEmailScope =
+      'https://www.googleapis.com/auth/userinfo.email';
 
   final commons.ApiRequester _requester;
 
   ServiceAreaApi(http.Client client,
-      {core.String rootUrl: "https://dev-dothat-api.appspot.com/_ah/api/",
-      core.String servicePath: "serviceArea/v1/"})
+      {core.String rootUrl = 'https://dev-dothat-api.appspot.com/_ah/api/',
+      core.String servicePath = 'serviceArea/v1/'})
       : _requester =
-            new commons.ApiRequester(client, rootUrl, servicePath, USER_AGENT);
+            commons.ApiRequester(client, rootUrl, servicePath, requestHeaders);
 
   /// [request] - The metadata request object.
   ///
@@ -44,31 +55,25 @@ class ServiceAreaApi {
   ///
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
-  async.Future<ServiceArea> createServiceArea(ServiceArea request,
-      {core.String $fields}) {
-    var _url = null;
-    var _queryParams = new core.Map<core.String, core.List<core.String>>();
-    var _uploadMedia = null;
-    var _uploadOptions = null;
-    var _downloadOptions = commons.DownloadOptions.Metadata;
-    var _body = null;
+  async.Future<ServiceArea> createServiceArea(
+    ServiceArea request, {
+    core.String? $fields,
+  }) async {
+    final _body = convert.json.encode(request.toJson());
+    final _queryParams = <core.String, core.List<core.String>>{
+      if ($fields != null) 'fields': [$fields],
+    };
 
-    if (request != null) {
-      _body = convert.json.encode((request).toJson());
-    }
-    if ($fields != null) {
-      _queryParams["fields"] = [$fields];
-    }
+    const _url = 'serviceAreas';
 
-    _url = 'serviceAreas';
-
-    var _response = _requester.request(_url, "POST",
-        body: _body,
-        queryParams: _queryParams,
-        uploadOptions: _uploadOptions,
-        uploadMedia: _uploadMedia,
-        downloadOptions: _downloadOptions);
-    return _response.then((data) => new ServiceArea.fromJson(data));
+    final _response = await _requester.request(
+      _url,
+      'POST',
+      body: _body,
+      queryParams: _queryParams,
+    );
+    return ServiceArea.fromJson(
+        _response as core.Map<core.String, core.dynamic>);
   }
 
   /// [request] - The metadata request object.
@@ -90,43 +95,30 @@ class ServiceAreaApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ServiceArea> createServiceProviderServiceArea(
-      ServiceArea request,
-      core.String svcProviderId,
-      core.String parentSvcAreaId,
-      {core.String $fields}) {
-    var _url = null;
-    var _queryParams = new core.Map<core.String, core.List<core.String>>();
-    var _uploadMedia = null;
-    var _uploadOptions = null;
-    var _downloadOptions = commons.DownloadOptions.Metadata;
-    var _body = null;
+    ServiceArea request,
+    core.String svcProviderId,
+    core.String parentSvcAreaId, {
+    core.String? $fields,
+  }) async {
+    final _body = convert.json.encode(request.toJson());
+    final _queryParams = <core.String, core.List<core.String>>{
+      if ($fields != null) 'fields': [$fields],
+    };
 
-    if (request != null) {
-      _body = convert.json.encode((request).toJson());
-    }
-    if (svcProviderId == null) {
-      throw new core.ArgumentError("Parameter svcProviderId is required.");
-    }
-    if (parentSvcAreaId == null) {
-      throw new core.ArgumentError("Parameter parentSvcAreaId is required.");
-    }
-    if ($fields != null) {
-      _queryParams["fields"] = [$fields];
-    }
-
-    _url = 'serviceProviders/' +
-        commons.Escaper.ecapeVariable('$svcProviderId') +
+    final _url = 'serviceProviders/' +
+        commons.escapeVariable('$svcProviderId') +
         '/serviceAreas/' +
-        commons.Escaper.ecapeVariable('$parentSvcAreaId') +
+        commons.escapeVariable('$parentSvcAreaId') +
         '/serviceAreas';
 
-    var _response = _requester.request(_url, "POST",
-        body: _body,
-        queryParams: _queryParams,
-        uploadOptions: _uploadOptions,
-        uploadMedia: _uploadMedia,
-        downloadOptions: _downloadOptions);
-    return _response.then((data) => new ServiceArea.fromJson(data));
+    final _response = await _requester.request(
+      _url,
+      'POST',
+      body: _body,
+      queryParams: _queryParams,
+    );
+    return ServiceArea.fromJson(
+        _response as core.Map<core.String, core.dynamic>);
   }
 
   /// [request] - The metadata request object.
@@ -146,36 +138,26 @@ class ServiceAreaApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ServicedAddress> createServicedAddress(
-      ServicedAddress request, core.String areaId,
-      {core.String $fields}) {
-    var _url = null;
-    var _queryParams = new core.Map<core.String, core.List<core.String>>();
-    var _uploadMedia = null;
-    var _uploadOptions = null;
-    var _downloadOptions = commons.DownloadOptions.Metadata;
-    var _body = null;
+    ServicedAddress request,
+    core.String areaId, {
+    core.String? $fields,
+  }) async {
+    final _body = convert.json.encode(request.toJson());
+    final _queryParams = <core.String, core.List<core.String>>{
+      if ($fields != null) 'fields': [$fields],
+    };
 
-    if (request != null) {
-      _body = convert.json.encode((request).toJson());
-    }
-    if (areaId == null) {
-      throw new core.ArgumentError("Parameter areaId is required.");
-    }
-    if ($fields != null) {
-      _queryParams["fields"] = [$fields];
-    }
+    final _url =
+        'serviceAreas/' + commons.escapeVariable('$areaId') + '/addresses';
 
-    _url = 'serviceAreas/' +
-        commons.Escaper.ecapeVariable('$areaId') +
-        '/addresses';
-
-    var _response = _requester.request(_url, "POST",
-        body: _body,
-        queryParams: _queryParams,
-        uploadOptions: _uploadOptions,
-        uploadMedia: _uploadMedia,
-        downloadOptions: _downloadOptions);
-    return _response.then((data) => new ServicedAddress.fromJson(data));
+    final _response = await _requester.request(
+      _url,
+      'POST',
+      body: _body,
+      queryParams: _queryParams,
+    );
+    return ServicedAddress.fromJson(
+        _response as core.Map<core.String, core.dynamic>);
   }
 
   /// Request parameters:
@@ -195,37 +177,26 @@ class ServiceAreaApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ServicedAddress> deleteServicedAddress(
-      core.String areaId, core.String addressId,
-      {core.String $fields}) {
-    var _url = null;
-    var _queryParams = new core.Map<core.String, core.List<core.String>>();
-    var _uploadMedia = null;
-    var _uploadOptions = null;
-    var _downloadOptions = commons.DownloadOptions.Metadata;
-    var _body = null;
+    core.String areaId,
+    core.String addressId, {
+    core.String? $fields,
+  }) async {
+    final _queryParams = <core.String, core.List<core.String>>{
+      if ($fields != null) 'fields': [$fields],
+    };
 
-    if (areaId == null) {
-      throw new core.ArgumentError("Parameter areaId is required.");
-    }
-    if (addressId == null) {
-      throw new core.ArgumentError("Parameter addressId is required.");
-    }
-    if ($fields != null) {
-      _queryParams["fields"] = [$fields];
-    }
-
-    _url = 'serviceAreas/' +
-        commons.Escaper.ecapeVariable('$areaId') +
+    final _url = 'serviceAreas/' +
+        commons.escapeVariable('$areaId') +
         '/addresses/' +
-        commons.Escaper.ecapeVariable('$addressId');
+        commons.escapeVariable('$addressId');
 
-    var _response = _requester.request(_url, "DELETE",
-        body: _body,
-        queryParams: _queryParams,
-        uploadOptions: _uploadOptions,
-        uploadMedia: _uploadMedia,
-        downloadOptions: _downloadOptions);
-    return _response.then((data) => new ServicedAddress.fromJson(data));
+    final _response = await _requester.request(
+      _url,
+      'DELETE',
+      queryParams: _queryParams,
+    );
+    return ServicedAddress.fromJson(
+        _response as core.Map<core.String, core.dynamic>);
   }
 
   /// Request parameters:
@@ -242,31 +213,24 @@ class ServiceAreaApi {
   ///
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
-  async.Future<ServiceAreaCollection> findUnassignedServiceAreas(
-      {core.String serviceProviderId, core.String $fields}) {
-    var _url = null;
-    var _queryParams = new core.Map<core.String, core.List<core.String>>();
-    var _uploadMedia = null;
-    var _uploadOptions = null;
-    var _downloadOptions = commons.DownloadOptions.Metadata;
-    var _body = null;
+  async.Future<ServiceAreaCollection> findUnassignedServiceAreas({
+    core.String? serviceProviderId,
+    core.String? $fields,
+  }) async {
+    final _queryParams = <core.String, core.List<core.String>>{
+      if (serviceProviderId != null) 'serviceProviderId': [serviceProviderId],
+      if ($fields != null) 'fields': [$fields],
+    };
 
-    if (serviceProviderId != null) {
-      _queryParams["serviceProviderId"] = [serviceProviderId];
-    }
-    if ($fields != null) {
-      _queryParams["fields"] = [$fields];
-    }
+    const _url = 'serviceAreas/findUnassignedServiceAreas';
 
-    _url = 'serviceAreas/findUnassignedServiceAreas';
-
-    var _response = _requester.request(_url, "GET",
-        body: _body,
-        queryParams: _queryParams,
-        uploadOptions: _uploadOptions,
-        uploadMedia: _uploadMedia,
-        downloadOptions: _downloadOptions);
-    return _response.then((data) => new ServiceAreaCollection.fromJson(data));
+    final _response = await _requester.request(
+      _url,
+      'GET',
+      queryParams: _queryParams,
+    );
+    return ServiceAreaCollection.fromJson(
+        _response as core.Map<core.String, core.dynamic>);
   }
 
   /// Request parameters:
@@ -283,31 +247,23 @@ class ServiceAreaApi {
   ///
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
-  async.Future<ServiceArea> getServiceArea(core.String svcAreaId,
-      {core.String $fields}) {
-    var _url = null;
-    var _queryParams = new core.Map<core.String, core.List<core.String>>();
-    var _uploadMedia = null;
-    var _uploadOptions = null;
-    var _downloadOptions = commons.DownloadOptions.Metadata;
-    var _body = null;
+  async.Future<ServiceArea> getServiceArea(
+    core.String svcAreaId, {
+    core.String? $fields,
+  }) async {
+    final _queryParams = <core.String, core.List<core.String>>{
+      if ($fields != null) 'fields': [$fields],
+    };
 
-    if (svcAreaId == null) {
-      throw new core.ArgumentError("Parameter svcAreaId is required.");
-    }
-    if ($fields != null) {
-      _queryParams["fields"] = [$fields];
-    }
+    final _url = 'serviceAreas/' + commons.escapeVariable('$svcAreaId');
 
-    _url = 'serviceAreas/' + commons.Escaper.ecapeVariable('$svcAreaId');
-
-    var _response = _requester.request(_url, "GET",
-        body: _body,
-        queryParams: _queryParams,
-        uploadOptions: _uploadOptions,
-        uploadMedia: _uploadMedia,
-        downloadOptions: _downloadOptions);
-    return _response.then((data) => new ServiceArea.fromJson(data));
+    final _response = await _requester.request(
+      _url,
+      'GET',
+      queryParams: _queryParams,
+    );
+    return ServiceArea.fromJson(
+        _response as core.Map<core.String, core.dynamic>);
   }
 
   /// Request parameters:
@@ -327,37 +283,26 @@ class ServiceAreaApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ServiceArea> getServiceProviderServiceArea(
-      core.String svcProviderId, core.String svcAreaId,
-      {core.String $fields}) {
-    var _url = null;
-    var _queryParams = new core.Map<core.String, core.List<core.String>>();
-    var _uploadMedia = null;
-    var _uploadOptions = null;
-    var _downloadOptions = commons.DownloadOptions.Metadata;
-    var _body = null;
+    core.String svcProviderId,
+    core.String svcAreaId, {
+    core.String? $fields,
+  }) async {
+    final _queryParams = <core.String, core.List<core.String>>{
+      if ($fields != null) 'fields': [$fields],
+    };
 
-    if (svcProviderId == null) {
-      throw new core.ArgumentError("Parameter svcProviderId is required.");
-    }
-    if (svcAreaId == null) {
-      throw new core.ArgumentError("Parameter svcAreaId is required.");
-    }
-    if ($fields != null) {
-      _queryParams["fields"] = [$fields];
-    }
-
-    _url = 'serviceProviders/' +
-        commons.Escaper.ecapeVariable('$svcProviderId') +
+    final _url = 'serviceProviders/' +
+        commons.escapeVariable('$svcProviderId') +
         '/serviceAreas/' +
-        commons.Escaper.ecapeVariable('$svcAreaId');
+        commons.escapeVariable('$svcAreaId');
 
-    var _response = _requester.request(_url, "GET",
-        body: _body,
-        queryParams: _queryParams,
-        uploadOptions: _uploadOptions,
-        uploadMedia: _uploadMedia,
-        downloadOptions: _downloadOptions);
-    return _response.then((data) => new ServiceArea.fromJson(data));
+    final _response = await _requester.request(
+      _url,
+      'GET',
+      queryParams: _queryParams,
+    );
+    return ServiceArea.fromJson(
+        _response as core.Map<core.String, core.dynamic>);
   }
 
   /// Request parameters:
@@ -377,37 +322,26 @@ class ServiceAreaApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ServicedAddress> getServicedAddress(
-      core.String areaId, core.String addressId,
-      {core.String $fields}) {
-    var _url = null;
-    var _queryParams = new core.Map<core.String, core.List<core.String>>();
-    var _uploadMedia = null;
-    var _uploadOptions = null;
-    var _downloadOptions = commons.DownloadOptions.Metadata;
-    var _body = null;
+    core.String areaId,
+    core.String addressId, {
+    core.String? $fields,
+  }) async {
+    final _queryParams = <core.String, core.List<core.String>>{
+      if ($fields != null) 'fields': [$fields],
+    };
 
-    if (areaId == null) {
-      throw new core.ArgumentError("Parameter areaId is required.");
-    }
-    if (addressId == null) {
-      throw new core.ArgumentError("Parameter addressId is required.");
-    }
-    if ($fields != null) {
-      _queryParams["fields"] = [$fields];
-    }
-
-    _url = 'serviceAreas/' +
-        commons.Escaper.ecapeVariable('$areaId') +
+    final _url = 'serviceAreas/' +
+        commons.escapeVariable('$areaId') +
         '/addresses/' +
-        commons.Escaper.ecapeVariable('$addressId');
+        commons.escapeVariable('$addressId');
 
-    var _response = _requester.request(_url, "GET",
-        body: _body,
-        queryParams: _queryParams,
-        uploadOptions: _uploadOptions,
-        uploadMedia: _uploadMedia,
-        downloadOptions: _downloadOptions);
-    return _response.then((data) => new ServicedAddress.fromJson(data));
+    final _response = await _requester.request(
+      _url,
+      'GET',
+      queryParams: _queryParams,
+    );
+    return ServicedAddress.fromJson(
+        _response as core.Map<core.String, core.dynamic>);
   }
 
   /// Request parameters:
@@ -429,53 +363,38 @@ class ServiceAreaApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ServicedAddressCollection> searchServiceAddresses(
-      core.String areaId,
-      {core.String businessName,
-      core.String houseNumber,
-      core.String $fields}) {
-    var _url = null;
-    var _queryParams = new core.Map<core.String, core.List<core.String>>();
-    var _uploadMedia = null;
-    var _uploadOptions = null;
-    var _downloadOptions = commons.DownloadOptions.Metadata;
-    var _body = null;
+    core.String areaId, {
+    core.String? businessName,
+    core.String? houseNumber,
+    core.String? $fields,
+  }) async {
+    final _queryParams = <core.String, core.List<core.String>>{
+      if (businessName != null) 'businessName': [businessName],
+      if (houseNumber != null) 'houseNumber': [houseNumber],
+      if ($fields != null) 'fields': [$fields],
+    };
 
-    if (areaId == null) {
-      throw new core.ArgumentError("Parameter areaId is required.");
-    }
-    if (businessName != null) {
-      _queryParams["businessName"] = [businessName];
-    }
-    if (houseNumber != null) {
-      _queryParams["houseNumber"] = [houseNumber];
-    }
-    if ($fields != null) {
-      _queryParams["fields"] = [$fields];
-    }
+    final _url =
+        'serviceAreas/' + commons.escapeVariable('$areaId') + '/addresses';
 
-    _url = 'serviceAreas/' +
-        commons.Escaper.ecapeVariable('$areaId') +
-        '/addresses';
-
-    var _response = _requester.request(_url, "GET",
-        body: _body,
-        queryParams: _queryParams,
-        uploadOptions: _uploadOptions,
-        uploadMedia: _uploadMedia,
-        downloadOptions: _downloadOptions);
-    return _response
-        .then((data) => new ServicedAddressCollection.fromJson(data));
+    final _response = await _requester.request(
+      _url,
+      'GET',
+      queryParams: _queryParams,
+    );
+    return ServicedAddressCollection.fromJson(
+        _response as core.Map<core.String, core.dynamic>);
   }
 
   /// Request parameters:
   ///
-  /// [country] - null
-  ///
-  /// [state] - null
-  ///
   /// [city] - null
   ///
+  /// [country] - null
+  ///
   /// [searchQuery] - null
+  ///
+  /// [state] - null
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -487,44 +406,30 @@ class ServiceAreaApi {
   ///
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
-  async.Future<ServiceAreaCollection> searchServiceArea(
-      {core.String country,
-      core.String state,
-      core.String city,
-      core.String searchQuery,
-      core.String $fields}) {
-    var _url = null;
-    var _queryParams = new core.Map<core.String, core.List<core.String>>();
-    var _uploadMedia = null;
-    var _uploadOptions = null;
-    var _downloadOptions = commons.DownloadOptions.Metadata;
-    var _body = null;
+  async.Future<ServiceAreaCollection> searchServiceArea({
+    core.String? city,
+    core.String? country,
+    core.String? searchQuery,
+    core.String? state,
+    core.String? $fields,
+  }) async {
+    final _queryParams = <core.String, core.List<core.String>>{
+      if (city != null) 'city': [city],
+      if (country != null) 'country': [country],
+      if (searchQuery != null) 'searchQuery': [searchQuery],
+      if (state != null) 'state': [state],
+      if ($fields != null) 'fields': [$fields],
+    };
 
-    if (country != null) {
-      _queryParams["country"] = [country];
-    }
-    if (state != null) {
-      _queryParams["state"] = [state];
-    }
-    if (city != null) {
-      _queryParams["city"] = [city];
-    }
-    if (searchQuery != null) {
-      _queryParams["searchQuery"] = [searchQuery];
-    }
-    if ($fields != null) {
-      _queryParams["fields"] = [$fields];
-    }
+    const _url = 'serviceAreas';
 
-    _url = 'serviceAreas';
-
-    var _response = _requester.request(_url, "GET",
-        body: _body,
-        queryParams: _queryParams,
-        uploadOptions: _uploadOptions,
-        uploadMedia: _uploadMedia,
-        downloadOptions: _downloadOptions);
-    return _response.then((data) => new ServiceAreaCollection.fromJson(data));
+    final _response = await _requester.request(
+      _url,
+      'GET',
+      queryParams: _queryParams,
+    );
+    return ServiceAreaCollection.fromJson(
+        _response as core.Map<core.String, core.dynamic>);
   }
 
   /// [request] - The metadata request object.
@@ -544,34 +449,25 @@ class ServiceAreaApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ServiceArea> updateServiceArea(
-      ServiceArea request, core.String svcAreaId,
-      {core.String $fields}) {
-    var _url = null;
-    var _queryParams = new core.Map<core.String, core.List<core.String>>();
-    var _uploadMedia = null;
-    var _uploadOptions = null;
-    var _downloadOptions = commons.DownloadOptions.Metadata;
-    var _body = null;
+    ServiceArea request,
+    core.String svcAreaId, {
+    core.String? $fields,
+  }) async {
+    final _body = convert.json.encode(request.toJson());
+    final _queryParams = <core.String, core.List<core.String>>{
+      if ($fields != null) 'fields': [$fields],
+    };
 
-    if (request != null) {
-      _body = convert.json.encode((request).toJson());
-    }
-    if (svcAreaId == null) {
-      throw new core.ArgumentError("Parameter svcAreaId is required.");
-    }
-    if ($fields != null) {
-      _queryParams["fields"] = [$fields];
-    }
+    final _url = 'serviceAreas/' + commons.escapeVariable('$svcAreaId');
 
-    _url = 'serviceAreas/' + commons.Escaper.ecapeVariable('$svcAreaId');
-
-    var _response = _requester.request(_url, "POST",
-        body: _body,
-        queryParams: _queryParams,
-        uploadOptions: _uploadOptions,
-        uploadMedia: _uploadMedia,
-        downloadOptions: _downloadOptions);
-    return _response.then((data) => new ServiceArea.fromJson(data));
+    final _response = await _requester.request(
+      _url,
+      'POST',
+      body: _body,
+      queryParams: _queryParams,
+    );
+    return ServiceArea.fromJson(
+        _response as core.Map<core.String, core.dynamic>);
   }
 
   /// [request] - The metadata request object.
@@ -595,48 +491,32 @@ class ServiceAreaApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ServiceArea> updateServiceProviderServiceArea(
-      ServiceArea request,
-      core.String svcProviderId,
-      core.String parentSvcAreaId,
-      core.String svcAreaId,
-      {core.String $fields}) {
-    var _url = null;
-    var _queryParams = new core.Map<core.String, core.List<core.String>>();
-    var _uploadMedia = null;
-    var _uploadOptions = null;
-    var _downloadOptions = commons.DownloadOptions.Metadata;
-    var _body = null;
+    ServiceArea request,
+    core.String svcProviderId,
+    core.String parentSvcAreaId,
+    core.String svcAreaId, {
+    core.String? $fields,
+  }) async {
+    final _body = convert.json.encode(request.toJson());
+    final _queryParams = <core.String, core.List<core.String>>{
+      if ($fields != null) 'fields': [$fields],
+    };
 
-    if (request != null) {
-      _body = convert.json.encode((request).toJson());
-    }
-    if (svcProviderId == null) {
-      throw new core.ArgumentError("Parameter svcProviderId is required.");
-    }
-    if (parentSvcAreaId == null) {
-      throw new core.ArgumentError("Parameter parentSvcAreaId is required.");
-    }
-    if (svcAreaId == null) {
-      throw new core.ArgumentError("Parameter svcAreaId is required.");
-    }
-    if ($fields != null) {
-      _queryParams["fields"] = [$fields];
-    }
-
-    _url = 'serviceProviders/' +
-        commons.Escaper.ecapeVariable('$svcProviderId') +
+    final _url = 'serviceProviders/' +
+        commons.escapeVariable('$svcProviderId') +
         '/serviceAreas/' +
-        commons.Escaper.ecapeVariable('$parentSvcAreaId') +
+        commons.escapeVariable('$parentSvcAreaId') +
         '/serviceAreas/' +
-        commons.Escaper.ecapeVariable('$svcAreaId');
+        commons.escapeVariable('$svcAreaId');
 
-    var _response = _requester.request(_url, "POST",
-        body: _body,
-        queryParams: _queryParams,
-        uploadOptions: _uploadOptions,
-        uploadMedia: _uploadMedia,
-        downloadOptions: _downloadOptions);
-    return _response.then((data) => new ServiceArea.fromJson(data));
+    final _response = await _requester.request(
+      _url,
+      'POST',
+      body: _body,
+      queryParams: _queryParams,
+    );
+    return ServiceArea.fromJson(
+        _response as core.Map<core.String, core.dynamic>);
   }
 
   /// [request] - The metadata request object.
@@ -658,318 +538,244 @@ class ServiceAreaApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ServicedAddress> updateServicedAddress(
-      ServicedAddress request, core.String areaId, core.String addressId,
-      {core.String $fields}) {
-    var _url = null;
-    var _queryParams = new core.Map<core.String, core.List<core.String>>();
-    var _uploadMedia = null;
-    var _uploadOptions = null;
-    var _downloadOptions = commons.DownloadOptions.Metadata;
-    var _body = null;
+    ServicedAddress request,
+    core.String areaId,
+    core.String addressId, {
+    core.String? $fields,
+  }) async {
+    final _body = convert.json.encode(request.toJson());
+    final _queryParams = <core.String, core.List<core.String>>{
+      if ($fields != null) 'fields': [$fields],
+    };
 
-    if (request != null) {
-      _body = convert.json.encode((request).toJson());
-    }
-    if (areaId == null) {
-      throw new core.ArgumentError("Parameter areaId is required.");
-    }
-    if (addressId == null) {
-      throw new core.ArgumentError("Parameter addressId is required.");
-    }
-    if ($fields != null) {
-      _queryParams["fields"] = [$fields];
-    }
-
-    _url = 'serviceAreas/' +
-        commons.Escaper.ecapeVariable('$areaId') +
+    final _url = 'serviceAreas/' +
+        commons.escapeVariable('$areaId') +
         '/addresses/' +
-        commons.Escaper.ecapeVariable('$addressId');
+        commons.escapeVariable('$addressId');
 
-    var _response = _requester.request(_url, "PUT",
-        body: _body,
-        queryParams: _queryParams,
-        uploadOptions: _uploadOptions,
-        uploadMedia: _uploadMedia,
-        downloadOptions: _downloadOptions);
-    return _response.then((data) => new ServicedAddress.fromJson(data));
+    final _response = await _requester.request(
+      _url,
+      'PUT',
+      body: _body,
+      queryParams: _queryParams,
+    );
+    return ServicedAddress.fromJson(
+        _response as core.Map<core.String, core.dynamic>);
   }
 }
 
 class ChangeContext {
-  core.String initiatorType;
-  core.String messageId;
-  core.String userIdentifier;
+  core.String? initiatorType;
+  core.String? messageId;
+  core.String? userIdentifier;
 
   ChangeContext();
 
   ChangeContext.fromJson(core.Map _json) {
-    if (_json.containsKey("initiatorType")) {
-      initiatorType = _json["initiatorType"];
+    if (_json.containsKey('initiatorType')) {
+      initiatorType = _json['initiatorType'] as core.String;
     }
-    if (_json.containsKey("messageId")) {
-      messageId = _json["messageId"];
+    if (_json.containsKey('messageId')) {
+      messageId = _json['messageId'] as core.String;
     }
-    if (_json.containsKey("userIdentifier")) {
-      userIdentifier = _json["userIdentifier"];
+    if (_json.containsKey('userIdentifier')) {
+      userIdentifier = _json['userIdentifier'] as core.String;
     }
   }
 
-  core.Map<core.String, core.Object> toJson() {
-    final core.Map<core.String, core.Object> _json =
-        new core.Map<core.String, core.Object>();
-    if (initiatorType != null) {
-      _json["initiatorType"] = initiatorType;
-    }
-    if (messageId != null) {
-      _json["messageId"] = messageId;
-    }
-    if (userIdentifier != null) {
-      _json["userIdentifier"] = userIdentifier;
-    }
-    return _json;
-  }
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (initiatorType != null) 'initiatorType': initiatorType!,
+        if (messageId != null) 'messageId': messageId!,
+        if (userIdentifier != null) 'userIdentifier': userIdentifier!,
+      };
 }
 
 class ServiceArea {
-  core.String addressLine1;
-  core.String addressLine2;
-  core.String addressLine3;
-  ChangeContext changeContext;
-  core.String city;
-  core.String country;
-  core.DateTime creationTimestamp;
-  core.String fullName;
-  core.DateTime modificationTimestamp;
-  core.String name;
-  core.String parentServiceAreaId;
-  core.String parentTreeId;
-  core.String postalCode;
-  core.String serviceAreaId;
-  core.String serviceProviderId;
-  core.String state;
-  core.String stateCode;
-  core.String universalServiceAreaId;
-  core.String version;
+  core.String? addressLine1;
+  core.String? addressLine2;
+  core.String? addressLine3;
+  ChangeContext? changeContext;
+  core.String? city;
+  core.String? country;
+  core.DateTime? creationTimestamp;
+  core.String? fullName;
+  core.DateTime? modificationTimestamp;
+  core.String? name;
+  core.String? parentServiceAreaId;
+  core.String? parentTreeId;
+  core.String? postalCode;
+  core.String? serviceAreaId;
+  core.String? serviceProviderId;
+  core.String? state;
+  core.String? stateCode;
+  core.String? universalServiceAreaId;
+  core.String? version;
 
   ServiceArea();
 
   ServiceArea.fromJson(core.Map _json) {
-    if (_json.containsKey("addressLine1")) {
-      addressLine1 = _json["addressLine1"];
+    if (_json.containsKey('addressLine1')) {
+      addressLine1 = _json['addressLine1'] as core.String;
     }
-    if (_json.containsKey("addressLine2")) {
-      addressLine2 = _json["addressLine2"];
+    if (_json.containsKey('addressLine2')) {
+      addressLine2 = _json['addressLine2'] as core.String;
     }
-    if (_json.containsKey("addressLine3")) {
-      addressLine3 = _json["addressLine3"];
+    if (_json.containsKey('addressLine3')) {
+      addressLine3 = _json['addressLine3'] as core.String;
     }
-    if (_json.containsKey("changeContext")) {
-      changeContext = new ChangeContext.fromJson(_json["changeContext"]);
+    if (_json.containsKey('changeContext')) {
+      changeContext = ChangeContext.fromJson(
+          _json['changeContext'] as core.Map<core.String, core.dynamic>);
     }
-    if (_json.containsKey("city")) {
-      city = _json["city"];
+    if (_json.containsKey('city')) {
+      city = _json['city'] as core.String;
     }
-    if (_json.containsKey("country")) {
-      country = _json["country"];
+    if (_json.containsKey('country')) {
+      country = _json['country'] as core.String;
     }
-    if (_json.containsKey("creationTimestamp")) {
-      creationTimestamp = core.DateTime.parse(_json["creationTimestamp"]);
+    if (_json.containsKey('creationTimestamp')) {
+      creationTimestamp =
+          core.DateTime.parse(_json['creationTimestamp'] as core.String);
     }
-    if (_json.containsKey("fullName")) {
-      fullName = _json["fullName"];
+    if (_json.containsKey('fullName')) {
+      fullName = _json['fullName'] as core.String;
     }
-    if (_json.containsKey("modificationTimestamp")) {
+    if (_json.containsKey('modificationTimestamp')) {
       modificationTimestamp =
-          core.DateTime.parse(_json["modificationTimestamp"]);
+          core.DateTime.parse(_json['modificationTimestamp'] as core.String);
     }
-    if (_json.containsKey("name")) {
-      name = _json["name"];
+    if (_json.containsKey('name')) {
+      name = _json['name'] as core.String;
     }
-    if (_json.containsKey("parentServiceAreaId")) {
-      parentServiceAreaId = _json["parentServiceAreaId"];
+    if (_json.containsKey('parentServiceAreaId')) {
+      parentServiceAreaId = _json['parentServiceAreaId'] as core.String;
     }
-    if (_json.containsKey("parentTreeId")) {
-      parentTreeId = _json["parentTreeId"];
+    if (_json.containsKey('parentTreeId')) {
+      parentTreeId = _json['parentTreeId'] as core.String;
     }
-    if (_json.containsKey("postalCode")) {
-      postalCode = _json["postalCode"];
+    if (_json.containsKey('postalCode')) {
+      postalCode = _json['postalCode'] as core.String;
     }
-    if (_json.containsKey("serviceAreaId")) {
-      serviceAreaId = _json["serviceAreaId"];
+    if (_json.containsKey('serviceAreaId')) {
+      serviceAreaId = _json['serviceAreaId'] as core.String;
     }
-    if (_json.containsKey("serviceProviderId")) {
-      serviceProviderId = _json["serviceProviderId"];
+    if (_json.containsKey('serviceProviderId')) {
+      serviceProviderId = _json['serviceProviderId'] as core.String;
     }
-    if (_json.containsKey("state")) {
-      state = _json["state"];
+    if (_json.containsKey('state')) {
+      state = _json['state'] as core.String;
     }
-    if (_json.containsKey("stateCode")) {
-      stateCode = _json["stateCode"];
+    if (_json.containsKey('stateCode')) {
+      stateCode = _json['stateCode'] as core.String;
     }
-    if (_json.containsKey("universalServiceAreaId")) {
-      universalServiceAreaId = _json["universalServiceAreaId"];
+    if (_json.containsKey('universalServiceAreaId')) {
+      universalServiceAreaId = _json['universalServiceAreaId'] as core.String;
     }
-    if (_json.containsKey("version")) {
-      version = _json["version"];
+    if (_json.containsKey('version')) {
+      version = _json['version'] as core.String;
     }
   }
 
-  core.Map<core.String, core.Object> toJson() {
-    final core.Map<core.String, core.Object> _json =
-        new core.Map<core.String, core.Object>();
-    if (addressLine1 != null) {
-      _json["addressLine1"] = addressLine1;
-    }
-    if (addressLine2 != null) {
-      _json["addressLine2"] = addressLine2;
-    }
-    if (addressLine3 != null) {
-      _json["addressLine3"] = addressLine3;
-    }
-    if (changeContext != null) {
-      _json["changeContext"] = (changeContext).toJson();
-    }
-    if (city != null) {
-      _json["city"] = city;
-    }
-    if (country != null) {
-      _json["country"] = country;
-    }
-    if (creationTimestamp != null) {
-      _json["creationTimestamp"] = (creationTimestamp).toIso8601String();
-    }
-    if (fullName != null) {
-      _json["fullName"] = fullName;
-    }
-    if (modificationTimestamp != null) {
-      _json["modificationTimestamp"] =
-          (modificationTimestamp).toIso8601String();
-    }
-    if (name != null) {
-      _json["name"] = name;
-    }
-    if (parentServiceAreaId != null) {
-      _json["parentServiceAreaId"] = parentServiceAreaId;
-    }
-    if (parentTreeId != null) {
-      _json["parentTreeId"] = parentTreeId;
-    }
-    if (postalCode != null) {
-      _json["postalCode"] = postalCode;
-    }
-    if (serviceAreaId != null) {
-      _json["serviceAreaId"] = serviceAreaId;
-    }
-    if (serviceProviderId != null) {
-      _json["serviceProviderId"] = serviceProviderId;
-    }
-    if (state != null) {
-      _json["state"] = state;
-    }
-    if (stateCode != null) {
-      _json["stateCode"] = stateCode;
-    }
-    if (universalServiceAreaId != null) {
-      _json["universalServiceAreaId"] = universalServiceAreaId;
-    }
-    if (version != null) {
-      _json["version"] = version;
-    }
-    return _json;
-  }
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (addressLine1 != null) 'addressLine1': addressLine1!,
+        if (addressLine2 != null) 'addressLine2': addressLine2!,
+        if (addressLine3 != null) 'addressLine3': addressLine3!,
+        if (changeContext != null) 'changeContext': changeContext!.toJson(),
+        if (city != null) 'city': city!,
+        if (country != null) 'country': country!,
+        if (creationTimestamp != null)
+          'creationTimestamp': creationTimestamp!.toIso8601String(),
+        if (fullName != null) 'fullName': fullName!,
+        if (modificationTimestamp != null)
+          'modificationTimestamp': modificationTimestamp!.toIso8601String(),
+        if (name != null) 'name': name!,
+        if (parentServiceAreaId != null)
+          'parentServiceAreaId': parentServiceAreaId!,
+        if (parentTreeId != null) 'parentTreeId': parentTreeId!,
+        if (postalCode != null) 'postalCode': postalCode!,
+        if (serviceAreaId != null) 'serviceAreaId': serviceAreaId!,
+        if (serviceProviderId != null) 'serviceProviderId': serviceProviderId!,
+        if (state != null) 'state': state!,
+        if (stateCode != null) 'stateCode': stateCode!,
+        if (universalServiceAreaId != null)
+          'universalServiceAreaId': universalServiceAreaId!,
+        if (version != null) 'version': version!,
+      };
 }
 
 class ServiceAreaCollection {
-  core.List<ServiceArea> items;
+  core.List<ServiceArea>? items;
 
   ServiceAreaCollection();
 
   ServiceAreaCollection.fromJson(core.Map _json) {
-    if (_json.containsKey("items")) {
-      items = (_json["items"] as core.List)
-          .map<ServiceArea>((value) => new ServiceArea.fromJson(value))
+    if (_json.containsKey('items')) {
+      items = (_json['items'] as core.List)
+          .map<ServiceArea>((value) => ServiceArea.fromJson(
+              value as core.Map<core.String, core.dynamic>))
           .toList();
     }
   }
 
-  core.Map<core.String, core.Object> toJson() {
-    final core.Map<core.String, core.Object> _json =
-        new core.Map<core.String, core.Object>();
-    if (items != null) {
-      _json["items"] = items.map((value) => (value).toJson()).toList();
-    }
-    return _json;
-  }
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (items != null)
+          'items': items!.map((value) => value.toJson()).toList(),
+      };
 }
 
 class ServicedAddress {
-  core.String businessName;
-  core.String floor;
-  core.String houseNumber;
-  ServiceArea serviceArea;
-  core.String servicedAddressId;
+  core.String? businessName;
+  core.String? floor;
+  core.String? houseNumber;
+  ServiceArea? serviceArea;
+  core.String? servicedAddressId;
 
   ServicedAddress();
 
   ServicedAddress.fromJson(core.Map _json) {
-    if (_json.containsKey("businessName")) {
-      businessName = _json["businessName"];
+    if (_json.containsKey('businessName')) {
+      businessName = _json['businessName'] as core.String;
     }
-    if (_json.containsKey("floor")) {
-      floor = _json["floor"];
+    if (_json.containsKey('floor')) {
+      floor = _json['floor'] as core.String;
     }
-    if (_json.containsKey("houseNumber")) {
-      houseNumber = _json["houseNumber"];
+    if (_json.containsKey('houseNumber')) {
+      houseNumber = _json['houseNumber'] as core.String;
     }
-    if (_json.containsKey("serviceArea")) {
-      serviceArea = new ServiceArea.fromJson(_json["serviceArea"]);
+    if (_json.containsKey('serviceArea')) {
+      serviceArea = ServiceArea.fromJson(
+          _json['serviceArea'] as core.Map<core.String, core.dynamic>);
     }
-    if (_json.containsKey("servicedAddressId")) {
-      servicedAddressId = _json["servicedAddressId"];
+    if (_json.containsKey('servicedAddressId')) {
+      servicedAddressId = _json['servicedAddressId'] as core.String;
     }
   }
 
-  core.Map<core.String, core.Object> toJson() {
-    final core.Map<core.String, core.Object> _json =
-        new core.Map<core.String, core.Object>();
-    if (businessName != null) {
-      _json["businessName"] = businessName;
-    }
-    if (floor != null) {
-      _json["floor"] = floor;
-    }
-    if (houseNumber != null) {
-      _json["houseNumber"] = houseNumber;
-    }
-    if (serviceArea != null) {
-      _json["serviceArea"] = (serviceArea).toJson();
-    }
-    if (servicedAddressId != null) {
-      _json["servicedAddressId"] = servicedAddressId;
-    }
-    return _json;
-  }
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (businessName != null) 'businessName': businessName!,
+        if (floor != null) 'floor': floor!,
+        if (houseNumber != null) 'houseNumber': houseNumber!,
+        if (serviceArea != null) 'serviceArea': serviceArea!.toJson(),
+        if (servicedAddressId != null) 'servicedAddressId': servicedAddressId!,
+      };
 }
 
 class ServicedAddressCollection {
-  core.List<ServicedAddress> items;
+  core.List<ServicedAddress>? items;
 
   ServicedAddressCollection();
 
   ServicedAddressCollection.fromJson(core.Map _json) {
-    if (_json.containsKey("items")) {
-      items = (_json["items"] as core.List)
-          .map<ServicedAddress>((value) => new ServicedAddress.fromJson(value))
+    if (_json.containsKey('items')) {
+      items = (_json['items'] as core.List)
+          .map<ServicedAddress>((value) => ServicedAddress.fromJson(
+              value as core.Map<core.String, core.dynamic>))
           .toList();
     }
   }
 
-  core.Map<core.String, core.Object> toJson() {
-    final core.Map<core.String, core.Object> _json =
-        new core.Map<core.String, core.Object>();
-    if (items != null) {
-      _json["items"] = items.map((value) => (value).toJson()).toList();
-    }
-    return _json;
-  }
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (items != null)
+          'items': items!.map((value) => value.toJson()).toList(),
+      };
 }
