@@ -1,373 +1,488 @@
-library dothatapis.route.v1.test;
+// ignore_for_file: avoid_returning_null
+// ignore_for_file: camel_case_types
+// ignore_for_file: cascade_invocations
+// ignore_for_file: comment_references
+// ignore_for_file: file_names
+// ignore_for_file: library_names
+// ignore_for_file: lines_longer_than_80_chars
+// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: prefer_expression_function_bodies
+// ignore_for_file: prefer_final_locals
+// ignore_for_file: prefer_interpolation_to_compose_strings
+// ignore_for_file: prefer_single_quotes
+// ignore_for_file: unnecessary_brace_in_string_interps
+// ignore_for_file: unnecessary_cast
+// ignore_for_file: unnecessary_lambdas
+// ignore_for_file: unnecessary_parenthesis
+// ignore_for_file: unnecessary_string_interpolations
+// ignore_for_file: unused_local_variable
 
-import "dart:core" as core;
-import "dart:async" as async;
-import "dart:convert" as convert;
+import 'dart:async' as async;
+import 'dart:convert' as convert;
+import 'dart:core' as core;
 
+import 'package:dothatapis/route/v1.dart' as api;
 import 'package:http/http.dart' as http;
 import 'package:test/test.dart' as unittest;
 
-import 'package:dothatapis/route/v1.dart' as api;
-
-class HttpServerMock extends http.BaseClient {
-  core.Function _callback;
-  core.bool _expectJson;
-
-  void register(core.Function callback, core.bool expectJson) {
-    _callback = callback;
-    _expectJson = expectJson;
-  }
-
-  async.Future<http.StreamedResponse> send(http.BaseRequest request) {
-    if (_expectJson) {
-      return request
-          .finalize()
-          .transform(convert.utf8.decoder)
-          .join('')
-          .then((core.String jsonString) {
-        if (jsonString.isEmpty) {
-          return _callback(request, null);
-        } else {
-          return _callback(request, convert.json.decode(jsonString));
-        }
-      });
-    } else {
-      var stream = request.finalize();
-      if (stream == null) {
-        return _callback(request, []);
-      } else {
-        return stream.toBytes().then((data) {
-          return _callback(request, data);
-        });
-      }
-    }
-  }
-}
-
-http.StreamedResponse stringResponse(core.int status,
-    core.Map<core.String, core.String> headers, core.String body) {
-  var stream = new async.Stream.fromIterable([convert.utf8.encode(body)]);
-  return new http.StreamedResponse(stream, status, headers: headers);
-}
+import '../test_shared.dart';
 
 core.int buildCounterChangeContext = 0;
-buildChangeContext() {
-  var o = new api.ChangeContext();
+api.ChangeContext buildChangeContext() {
+  var o = api.ChangeContext();
   buildCounterChangeContext++;
   if (buildCounterChangeContext < 3) {
-    o.initiatorType = "foo";
-    o.messageId = "foo";
-    o.userIdentifier = "foo";
+    o.initiatorType = 'foo';
+    o.messageId = 'foo';
+    o.userIdentifier = 'foo';
   }
   buildCounterChangeContext--;
   return o;
 }
 
-checkChangeContext(api.ChangeContext o) {
+void checkChangeContext(api.ChangeContext o) {
   buildCounterChangeContext++;
   if (buildCounterChangeContext < 3) {
-    unittest.expect(o.initiatorType, unittest.equals('foo'));
-    unittest.expect(o.messageId, unittest.equals('foo'));
-    unittest.expect(o.userIdentifier, unittest.equals('foo'));
+    unittest.expect(
+      o.initiatorType!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.messageId!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.userIdentifier!,
+      unittest.equals('foo'),
+    );
   }
   buildCounterChangeContext--;
 }
 
-buildUnnamed7() {
-  var o = new core.List<api.CustomerAddress>();
+core.List<api.CustomerAddress> buildUnnamed7() {
+  var o = <api.CustomerAddress>[];
   o.add(buildCustomerAddress());
   o.add(buildCustomerAddress());
   return o;
 }
 
-checkUnnamed7(core.List<api.CustomerAddress> o) {
+void checkUnnamed7(core.List<api.CustomerAddress> o) {
   unittest.expect(o, unittest.hasLength(2));
-  checkCustomerAddress(o[0]);
-  checkCustomerAddress(o[1]);
+  checkCustomerAddress(o[0] as api.CustomerAddress);
+  checkCustomerAddress(o[1] as api.CustomerAddress);
 }
 
-buildUnnamed8() {
-  var o = new core.List<api.CustomerContact>();
+core.List<api.CustomerContact> buildUnnamed8() {
+  var o = <api.CustomerContact>[];
   o.add(buildCustomerContact());
   o.add(buildCustomerContact());
   return o;
 }
 
-checkUnnamed8(core.List<api.CustomerContact> o) {
+void checkUnnamed8(core.List<api.CustomerContact> o) {
   unittest.expect(o, unittest.hasLength(2));
-  checkCustomerContact(o[0]);
-  checkCustomerContact(o[1]);
+  checkCustomerContact(o[0] as api.CustomerContact);
+  checkCustomerContact(o[1] as api.CustomerContact);
 }
 
 core.int buildCounterCustomer = 0;
-buildCustomer() {
-  var o = new api.Customer();
+api.Customer buildCustomer() {
+  var o = api.Customer();
   buildCounterCustomer++;
   if (buildCounterCustomer < 3) {
     o.active = true;
     o.addresses = buildUnnamed7();
-    o.businessName = "foo";
+    o.businessName = 'foo';
     o.changeContext = buildChangeContext();
     o.contacts = buildUnnamed8();
     o.creationTimestamp = core.DateTime.parse("2002-02-27T14:01:02");
-    o.customerId = "foo";
+    o.customerId = 'foo';
     o.deleted = true;
     o.modificationTimestamp = core.DateTime.parse("2002-02-27T14:01:02");
-    o.name = "foo";
-    o.version = "foo";
+    o.name = 'foo';
+    o.version = 'foo';
   }
   buildCounterCustomer--;
   return o;
 }
 
-checkCustomer(api.Customer o) {
+void checkCustomer(api.Customer o) {
   buildCounterCustomer++;
   if (buildCounterCustomer < 3) {
-    unittest.expect(o.active, unittest.isTrue);
-    checkUnnamed7(o.addresses);
-    unittest.expect(o.businessName, unittest.equals('foo'));
-    checkChangeContext(o.changeContext);
-    checkUnnamed8(o.contacts);
-    unittest.expect(o.creationTimestamp,
-        unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")));
-    unittest.expect(o.customerId, unittest.equals('foo'));
-    unittest.expect(o.deleted, unittest.isTrue);
-    unittest.expect(o.modificationTimestamp,
-        unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")));
-    unittest.expect(o.name, unittest.equals('foo'));
-    unittest.expect(o.version, unittest.equals('foo'));
+    unittest.expect(o.active!, unittest.isTrue);
+    checkUnnamed7(o.addresses!);
+    unittest.expect(
+      o.businessName!,
+      unittest.equals('foo'),
+    );
+    checkChangeContext(o.changeContext! as api.ChangeContext);
+    checkUnnamed8(o.contacts!);
+    unittest.expect(
+      o.creationTimestamp!,
+      unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")),
+    );
+    unittest.expect(
+      o.customerId!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(o.deleted!, unittest.isTrue);
+    unittest.expect(
+      o.modificationTimestamp!,
+      unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")),
+    );
+    unittest.expect(
+      o.name!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.version!,
+      unittest.equals('foo'),
+    );
   }
   buildCounterCustomer--;
 }
 
 core.int buildCounterCustomerAddress = 0;
-buildCustomerAddress() {
-  var o = new api.CustomerAddress();
+api.CustomerAddress buildCustomerAddress() {
+  var o = api.CustomerAddress();
   buildCounterCustomerAddress++;
   if (buildCounterCustomerAddress < 3) {
     o.active = true;
-    o.addressId = "foo";
-    o.addressLine1 = "foo";
-    o.addressLine2 = "foo";
-    o.addressLine3 = "foo";
-    o.addressType = "foo";
-    o.area = "foo";
-    o.block = "foo";
-    o.building = "foo";
-    o.businessName = "foo";
-    o.city = "foo";
-    o.country = "foo";
+    o.addressId = 'foo';
+    o.addressLine1 = 'foo';
+    o.addressLine2 = 'foo';
+    o.addressLine3 = 'foo';
+    o.addressType = 'foo';
+    o.area = 'foo';
+    o.block = 'foo';
+    o.building = 'foo';
+    o.businessName = 'foo';
+    o.city = 'foo';
+    o.country = 'foo';
     o.creationTimestamp = core.DateTime.parse("2002-02-27T14:01:02");
     o.deleted = true;
-    o.floor = "foo";
-    o.label = "foo";
-    o.locality = "foo";
+    o.floor = 'foo';
+    o.label = 'foo';
+    o.locality = 'foo';
     o.modificationTimestamp = core.DateTime.parse("2002-02-27T14:01:02");
-    o.postalCode = "foo";
+    o.postalCode = 'foo';
     o.primary = true;
     o.serviceArea = buildServiceArea();
-    o.serviceAreaId = "foo";
+    o.serviceAreaId = 'foo';
     o.servicedAddress = buildServicedAddress();
-    o.servicedAddressId = "foo";
-    o.state = "foo";
-    o.stateCode = "foo";
-    o.subLocality = "foo";
-    o.unitNumber = "foo";
-    o.verificationStatus = "foo";
-    o.version = "foo";
+    o.servicedAddressId = 'foo';
+    o.state = 'foo';
+    o.stateCode = 'foo';
+    o.subLocality = 'foo';
+    o.unitNumber = 'foo';
+    o.verificationStatus = 'foo';
+    o.version = 'foo';
   }
   buildCounterCustomerAddress--;
   return o;
 }
 
-checkCustomerAddress(api.CustomerAddress o) {
+void checkCustomerAddress(api.CustomerAddress o) {
   buildCounterCustomerAddress++;
   if (buildCounterCustomerAddress < 3) {
-    unittest.expect(o.active, unittest.isTrue);
-    unittest.expect(o.addressId, unittest.equals('foo'));
-    unittest.expect(o.addressLine1, unittest.equals('foo'));
-    unittest.expect(o.addressLine2, unittest.equals('foo'));
-    unittest.expect(o.addressLine3, unittest.equals('foo'));
-    unittest.expect(o.addressType, unittest.equals('foo'));
-    unittest.expect(o.area, unittest.equals('foo'));
-    unittest.expect(o.block, unittest.equals('foo'));
-    unittest.expect(o.building, unittest.equals('foo'));
-    unittest.expect(o.businessName, unittest.equals('foo'));
-    unittest.expect(o.city, unittest.equals('foo'));
-    unittest.expect(o.country, unittest.equals('foo'));
-    unittest.expect(o.creationTimestamp,
-        unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")));
-    unittest.expect(o.deleted, unittest.isTrue);
-    unittest.expect(o.floor, unittest.equals('foo'));
-    unittest.expect(o.label, unittest.equals('foo'));
-    unittest.expect(o.locality, unittest.equals('foo'));
-    unittest.expect(o.modificationTimestamp,
-        unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")));
-    unittest.expect(o.postalCode, unittest.equals('foo'));
-    unittest.expect(o.primary, unittest.isTrue);
-    checkServiceArea(o.serviceArea);
-    unittest.expect(o.serviceAreaId, unittest.equals('foo'));
-    checkServicedAddress(o.servicedAddress);
-    unittest.expect(o.servicedAddressId, unittest.equals('foo'));
-    unittest.expect(o.state, unittest.equals('foo'));
-    unittest.expect(o.stateCode, unittest.equals('foo'));
-    unittest.expect(o.subLocality, unittest.equals('foo'));
-    unittest.expect(o.unitNumber, unittest.equals('foo'));
-    unittest.expect(o.verificationStatus, unittest.equals('foo'));
-    unittest.expect(o.version, unittest.equals('foo'));
+    unittest.expect(o.active!, unittest.isTrue);
+    unittest.expect(
+      o.addressId!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.addressLine1!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.addressLine2!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.addressLine3!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.addressType!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.area!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.block!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.building!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.businessName!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.city!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.country!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.creationTimestamp!,
+      unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")),
+    );
+    unittest.expect(o.deleted!, unittest.isTrue);
+    unittest.expect(
+      o.floor!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.label!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.locality!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.modificationTimestamp!,
+      unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")),
+    );
+    unittest.expect(
+      o.postalCode!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(o.primary!, unittest.isTrue);
+    checkServiceArea(o.serviceArea! as api.ServiceArea);
+    unittest.expect(
+      o.serviceAreaId!,
+      unittest.equals('foo'),
+    );
+    checkServicedAddress(o.servicedAddress! as api.ServicedAddress);
+    unittest.expect(
+      o.servicedAddressId!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.state!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.stateCode!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.subLocality!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.unitNumber!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.verificationStatus!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.version!,
+      unittest.equals('foo'),
+    );
   }
   buildCounterCustomerAddress--;
 }
 
-buildUnnamed9() {
-  var o = new core.List<api.EmailAddress>();
+core.List<api.EmailAddress> buildUnnamed9() {
+  var o = <api.EmailAddress>[];
   o.add(buildEmailAddress());
   o.add(buildEmailAddress());
   return o;
 }
 
-checkUnnamed9(core.List<api.EmailAddress> o) {
+void checkUnnamed9(core.List<api.EmailAddress> o) {
   unittest.expect(o, unittest.hasLength(2));
-  checkEmailAddress(o[0]);
-  checkEmailAddress(o[1]);
+  checkEmailAddress(o[0] as api.EmailAddress);
+  checkEmailAddress(o[1] as api.EmailAddress);
 }
 
-buildUnnamed10() {
-  var o = new core.List<api.PhoneNumber>();
+core.List<api.PhoneNumber> buildUnnamed10() {
+  var o = <api.PhoneNumber>[];
   o.add(buildPhoneNumber());
   o.add(buildPhoneNumber());
   return o;
 }
 
-checkUnnamed10(core.List<api.PhoneNumber> o) {
+void checkUnnamed10(core.List<api.PhoneNumber> o) {
   unittest.expect(o, unittest.hasLength(2));
-  checkPhoneNumber(o[0]);
-  checkPhoneNumber(o[1]);
+  checkPhoneNumber(o[0] as api.PhoneNumber);
+  checkPhoneNumber(o[1] as api.PhoneNumber);
 }
 
 core.int buildCounterCustomerContact = 0;
-buildCustomerContact() {
-  var o = new api.CustomerContact();
+api.CustomerContact buildCustomerContact() {
+  var o = api.CustomerContact();
   buildCounterCustomerContact++;
   if (buildCounterCustomerContact < 3) {
     o.active = true;
-    o.contactId = "foo";
+    o.contactId = 'foo';
     o.creationTimestamp = core.DateTime.parse("2002-02-27T14:01:02");
     o.deleted = true;
     o.emailAddresses = buildUnnamed9();
-    o.label = "foo";
+    o.label = 'foo';
     o.modificationTimestamp = core.DateTime.parse("2002-02-27T14:01:02");
-    o.name = "foo";
+    o.name = 'foo';
     o.phoneNumbers = buildUnnamed10();
     o.primary = true;
-    o.verificationStatus = "foo";
-    o.version = "foo";
+    o.verificationStatus = 'foo';
+    o.version = 'foo';
   }
   buildCounterCustomerContact--;
   return o;
 }
 
-checkCustomerContact(api.CustomerContact o) {
+void checkCustomerContact(api.CustomerContact o) {
   buildCounterCustomerContact++;
   if (buildCounterCustomerContact < 3) {
-    unittest.expect(o.active, unittest.isTrue);
-    unittest.expect(o.contactId, unittest.equals('foo'));
-    unittest.expect(o.creationTimestamp,
-        unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")));
-    unittest.expect(o.deleted, unittest.isTrue);
-    checkUnnamed9(o.emailAddresses);
-    unittest.expect(o.label, unittest.equals('foo'));
-    unittest.expect(o.modificationTimestamp,
-        unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")));
-    unittest.expect(o.name, unittest.equals('foo'));
-    checkUnnamed10(o.phoneNumbers);
-    unittest.expect(o.primary, unittest.isTrue);
-    unittest.expect(o.verificationStatus, unittest.equals('foo'));
-    unittest.expect(o.version, unittest.equals('foo'));
+    unittest.expect(o.active!, unittest.isTrue);
+    unittest.expect(
+      o.contactId!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.creationTimestamp!,
+      unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")),
+    );
+    unittest.expect(o.deleted!, unittest.isTrue);
+    checkUnnamed9(o.emailAddresses!);
+    unittest.expect(
+      o.label!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.modificationTimestamp!,
+      unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")),
+    );
+    unittest.expect(
+      o.name!,
+      unittest.equals('foo'),
+    );
+    checkUnnamed10(o.phoneNumbers!);
+    unittest.expect(o.primary!, unittest.isTrue);
+    unittest.expect(
+      o.verificationStatus!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.version!,
+      unittest.equals('foo'),
+    );
   }
   buildCounterCustomerContact--;
 }
 
 core.int buildCounterDeliveryInstruction = 0;
-buildDeliveryInstruction() {
-  var o = new api.DeliveryInstruction();
+api.DeliveryInstruction buildDeliveryInstruction() {
+  var o = api.DeliveryInstruction();
   buildCounterDeliveryInstruction++;
   if (buildCounterDeliveryInstruction < 3) {
-    o.notes = "foo";
+    o.notes = 'foo';
   }
   buildCounterDeliveryInstruction--;
   return o;
 }
 
-checkDeliveryInstruction(api.DeliveryInstruction o) {
+void checkDeliveryInstruction(api.DeliveryInstruction o) {
   buildCounterDeliveryInstruction++;
   if (buildCounterDeliveryInstruction < 3) {
-    unittest.expect(o.notes, unittest.equals('foo'));
+    unittest.expect(
+      o.notes!,
+      unittest.equals('foo'),
+    );
   }
   buildCounterDeliveryInstruction--;
 }
 
 core.int buildCounterEmailAddress = 0;
-buildEmailAddress() {
-  var o = new api.EmailAddress();
+api.EmailAddress buildEmailAddress() {
+  var o = api.EmailAddress();
   buildCounterEmailAddress++;
   if (buildCounterEmailAddress < 3) {
     o.active = true;
-    o.address = "foo";
+    o.address = 'foo';
     o.deleted = true;
-    o.label = "foo";
+    o.label = 'foo';
     o.primary = true;
-    o.verificationStatus = "foo";
+    o.verificationStatus = 'foo';
   }
   buildCounterEmailAddress--;
   return o;
 }
 
-checkEmailAddress(api.EmailAddress o) {
+void checkEmailAddress(api.EmailAddress o) {
   buildCounterEmailAddress++;
   if (buildCounterEmailAddress < 3) {
-    unittest.expect(o.active, unittest.isTrue);
-    unittest.expect(o.address, unittest.equals('foo'));
-    unittest.expect(o.deleted, unittest.isTrue);
-    unittest.expect(o.label, unittest.equals('foo'));
-    unittest.expect(o.primary, unittest.isTrue);
-    unittest.expect(o.verificationStatus, unittest.equals('foo'));
+    unittest.expect(o.active!, unittest.isTrue);
+    unittest.expect(
+      o.address!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(o.deleted!, unittest.isTrue);
+    unittest.expect(
+      o.label!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(o.primary!, unittest.isTrue);
+    unittest.expect(
+      o.verificationStatus!,
+      unittest.equals('foo'),
+    );
   }
   buildCounterEmailAddress--;
 }
 
 core.int buildCounterPhoneNumber = 0;
-buildPhoneNumber() {
-  var o = new api.PhoneNumber();
+api.PhoneNumber buildPhoneNumber() {
+  var o = api.PhoneNumber();
   buildCounterPhoneNumber++;
   if (buildCounterPhoneNumber < 3) {
     o.active = true;
     o.deleted = true;
-    o.label = "foo";
-    o.number = "foo";
+    o.label = 'foo';
+    o.number = 'foo';
     o.primary = true;
-    o.verificationStatus = "foo";
+    o.verificationStatus = 'foo';
   }
   buildCounterPhoneNumber--;
   return o;
 }
 
-checkPhoneNumber(api.PhoneNumber o) {
+void checkPhoneNumber(api.PhoneNumber o) {
   buildCounterPhoneNumber++;
   if (buildCounterPhoneNumber < 3) {
-    unittest.expect(o.active, unittest.isTrue);
-    unittest.expect(o.deleted, unittest.isTrue);
-    unittest.expect(o.label, unittest.equals('foo'));
-    unittest.expect(o.number, unittest.equals('foo'));
-    unittest.expect(o.primary, unittest.isTrue);
-    unittest.expect(o.verificationStatus, unittest.equals('foo'));
+    unittest.expect(o.active!, unittest.isTrue);
+    unittest.expect(o.deleted!, unittest.isTrue);
+    unittest.expect(
+      o.label!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.number!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(o.primary!, unittest.isTrue);
+    unittest.expect(
+      o.verificationStatus!,
+      unittest.equals('foo'),
+    );
   }
   buildCounterPhoneNumber--;
 }
 
 core.int buildCounterRoute = 0;
-buildRoute() {
-  var o = new api.Route();
+api.Route buildRoute() {
+  var o = api.Route();
   buildCounterRoute++;
   if (buildCounterRoute < 3) {
     o.active = true;
@@ -376,131 +491,172 @@ buildRoute() {
     o.deleted = true;
     o.deliverySchedule = buildRouteSchedule();
     o.modificationTimestamp = core.DateTime.parse("2002-02-27T14:01:02");
-    o.name = "foo";
-    o.routeCode = "foo";
-    o.routeId = "foo";
-    o.version = "foo";
+    o.name = 'foo';
+    o.routeCode = 'foo';
+    o.routeId = 'foo';
+    o.version = 'foo';
   }
   buildCounterRoute--;
   return o;
 }
 
-checkRoute(api.Route o) {
+void checkRoute(api.Route o) {
   buildCounterRoute++;
   if (buildCounterRoute < 3) {
-    unittest.expect(o.active, unittest.isTrue);
-    checkChangeContext(o.changeContext);
-    unittest.expect(o.creationTimestamp,
-        unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")));
-    unittest.expect(o.deleted, unittest.isTrue);
-    checkRouteSchedule(o.deliverySchedule);
-    unittest.expect(o.modificationTimestamp,
-        unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")));
-    unittest.expect(o.name, unittest.equals('foo'));
-    unittest.expect(o.routeCode, unittest.equals('foo'));
-    unittest.expect(o.routeId, unittest.equals('foo'));
-    unittest.expect(o.version, unittest.equals('foo'));
+    unittest.expect(o.active!, unittest.isTrue);
+    checkChangeContext(o.changeContext! as api.ChangeContext);
+    unittest.expect(
+      o.creationTimestamp!,
+      unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")),
+    );
+    unittest.expect(o.deleted!, unittest.isTrue);
+    checkRouteSchedule(o.deliverySchedule! as api.RouteSchedule);
+    unittest.expect(
+      o.modificationTimestamp!,
+      unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")),
+    );
+    unittest.expect(
+      o.name!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.routeCode!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.routeId!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.version!,
+      unittest.equals('foo'),
+    );
   }
   buildCounterRoute--;
 }
 
 core.int buildCounterRouteAddress = 0;
-buildRouteAddress() {
-  var o = new api.RouteAddress();
+api.RouteAddress buildRouteAddress() {
+  var o = api.RouteAddress();
   buildCounterRouteAddress++;
   if (buildCounterRouteAddress < 3) {
     o.address = buildCustomerAddress();
-    o.addressId = "foo";
+    o.addressId = 'foo';
     o.creationTimestamp = core.DateTime.parse("2002-02-27T14:01:02");
     o.customer = buildCustomer();
-    o.customerId = "foo";
+    o.customerId = 'foo';
     o.deliveryInstruction = buildDeliveryInstruction();
     o.modificationTimestamp = core.DateTime.parse("2002-02-27T14:01:02");
     o.route = buildRoute();
-    o.routeAddressId = "foo";
-    o.routeId = "foo";
+    o.routeAddressId = 'foo';
+    o.routeId = 'foo';
     o.routeOrder = 42;
-    o.version = "foo";
+    o.version = 'foo';
   }
   buildCounterRouteAddress--;
   return o;
 }
 
-checkRouteAddress(api.RouteAddress o) {
+void checkRouteAddress(api.RouteAddress o) {
   buildCounterRouteAddress++;
   if (buildCounterRouteAddress < 3) {
-    checkCustomerAddress(o.address);
-    unittest.expect(o.addressId, unittest.equals('foo'));
-    unittest.expect(o.creationTimestamp,
-        unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")));
-    checkCustomer(o.customer);
-    unittest.expect(o.customerId, unittest.equals('foo'));
-    checkDeliveryInstruction(o.deliveryInstruction);
-    unittest.expect(o.modificationTimestamp,
-        unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")));
-    checkRoute(o.route);
-    unittest.expect(o.routeAddressId, unittest.equals('foo'));
-    unittest.expect(o.routeId, unittest.equals('foo'));
-    unittest.expect(o.routeOrder, unittest.equals(42));
-    unittest.expect(o.version, unittest.equals('foo'));
+    checkCustomerAddress(o.address! as api.CustomerAddress);
+    unittest.expect(
+      o.addressId!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.creationTimestamp!,
+      unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")),
+    );
+    checkCustomer(o.customer! as api.Customer);
+    unittest.expect(
+      o.customerId!,
+      unittest.equals('foo'),
+    );
+    checkDeliveryInstruction(o.deliveryInstruction! as api.DeliveryInstruction);
+    unittest.expect(
+      o.modificationTimestamp!,
+      unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")),
+    );
+    checkRoute(o.route! as api.Route);
+    unittest.expect(
+      o.routeAddressId!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.routeId!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.routeOrder!,
+      unittest.equals(42),
+    );
+    unittest.expect(
+      o.version!,
+      unittest.equals('foo'),
+    );
   }
   buildCounterRouteAddress--;
 }
 
-buildUnnamed11() {
-  var o = new core.List<api.RouteAddress>();
+core.List<api.RouteAddress> buildUnnamed11() {
+  var o = <api.RouteAddress>[];
   o.add(buildRouteAddress());
   o.add(buildRouteAddress());
   return o;
 }
 
-checkUnnamed11(core.List<api.RouteAddress> o) {
+void checkUnnamed11(core.List<api.RouteAddress> o) {
   unittest.expect(o, unittest.hasLength(2));
-  checkRouteAddress(o[0]);
-  checkRouteAddress(o[1]);
+  checkRouteAddress(o[0] as api.RouteAddress);
+  checkRouteAddress(o[1] as api.RouteAddress);
 }
 
 core.int buildCounterRouteAddressList = 0;
-buildRouteAddressList() {
-  var o = new api.RouteAddressList();
+api.RouteAddressList buildRouteAddressList() {
+  var o = api.RouteAddressList();
   buildCounterRouteAddressList++;
   if (buildCounterRouteAddressList < 3) {
     o.addresses = buildUnnamed11();
     o.changeContext = buildChangeContext();
     o.route = buildRoute();
-    o.routeId = "foo";
+    o.routeId = 'foo';
   }
   buildCounterRouteAddressList--;
   return o;
 }
 
-checkRouteAddressList(api.RouteAddressList o) {
+void checkRouteAddressList(api.RouteAddressList o) {
   buildCounterRouteAddressList++;
   if (buildCounterRouteAddressList < 3) {
-    checkUnnamed11(o.addresses);
-    checkChangeContext(o.changeContext);
-    checkRoute(o.route);
-    unittest.expect(o.routeId, unittest.equals('foo'));
+    checkUnnamed11(o.addresses!);
+    checkChangeContext(o.changeContext! as api.ChangeContext);
+    checkRoute(o.route! as api.Route);
+    unittest.expect(
+      o.routeId!,
+      unittest.equals('foo'),
+    );
   }
   buildCounterRouteAddressList--;
 }
 
-buildUnnamed12() {
-  var o = new core.List<api.Route>();
+core.List<api.Route> buildUnnamed12() {
+  var o = <api.Route>[];
   o.add(buildRoute());
   o.add(buildRoute());
   return o;
 }
 
-checkUnnamed12(core.List<api.Route> o) {
+void checkUnnamed12(core.List<api.Route> o) {
   unittest.expect(o, unittest.hasLength(2));
-  checkRoute(o[0]);
-  checkRoute(o[1]);
+  checkRoute(o[0] as api.Route);
+  checkRoute(o[1] as api.Route);
 }
 
 core.int buildCounterRouteCollection = 0;
-buildRouteCollection() {
-  var o = new api.RouteCollection();
+api.RouteCollection buildRouteCollection() {
+  var o = api.RouteCollection();
   buildCounterRouteCollection++;
   if (buildCounterRouteCollection < 3) {
     o.items = buildUnnamed12();
@@ -509,532 +665,632 @@ buildRouteCollection() {
   return o;
 }
 
-checkRouteCollection(api.RouteCollection o) {
+void checkRouteCollection(api.RouteCollection o) {
   buildCounterRouteCollection++;
   if (buildCounterRouteCollection < 3) {
-    checkUnnamed12(o.items);
+    checkUnnamed12(o.items!);
   }
   buildCounterRouteCollection--;
 }
 
 core.int buildCounterRouteSchedule = 0;
-buildRouteSchedule() {
-  var o = new api.RouteSchedule();
+api.RouteSchedule buildRouteSchedule() {
+  var o = api.RouteSchedule();
   buildCounterRouteSchedule++;
   if (buildCounterRouteSchedule < 3) {
-    o.policyType = "foo";
-    o.scheduleType = "foo";
+    o.policyType = 'foo';
+    o.scheduleType = 'foo';
   }
   buildCounterRouteSchedule--;
   return o;
 }
 
-checkRouteSchedule(api.RouteSchedule o) {
+void checkRouteSchedule(api.RouteSchedule o) {
   buildCounterRouteSchedule++;
   if (buildCounterRouteSchedule < 3) {
-    unittest.expect(o.policyType, unittest.equals('foo'));
-    unittest.expect(o.scheduleType, unittest.equals('foo'));
+    unittest.expect(
+      o.policyType!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.scheduleType!,
+      unittest.equals('foo'),
+    );
   }
   buildCounterRouteSchedule--;
 }
 
 core.int buildCounterServiceArea = 0;
-buildServiceArea() {
-  var o = new api.ServiceArea();
+api.ServiceArea buildServiceArea() {
+  var o = api.ServiceArea();
   buildCounterServiceArea++;
   if (buildCounterServiceArea < 3) {
-    o.addressLine1 = "foo";
-    o.addressLine2 = "foo";
-    o.addressLine3 = "foo";
+    o.addressLine1 = 'foo';
+    o.addressLine2 = 'foo';
+    o.addressLine3 = 'foo';
     o.changeContext = buildChangeContext();
-    o.city = "foo";
-    o.country = "foo";
+    o.city = 'foo';
+    o.country = 'foo';
     o.creationTimestamp = core.DateTime.parse("2002-02-27T14:01:02");
-    o.fullName = "foo";
+    o.fullName = 'foo';
     o.modificationTimestamp = core.DateTime.parse("2002-02-27T14:01:02");
-    o.name = "foo";
-    o.parentServiceAreaId = "foo";
-    o.parentTreeId = "foo";
-    o.postalCode = "foo";
-    o.serviceAreaId = "foo";
-    o.serviceProviderId = "foo";
-    o.state = "foo";
-    o.stateCode = "foo";
-    o.universalServiceAreaId = "foo";
-    o.version = "foo";
+    o.name = 'foo';
+    o.parentServiceAreaId = 'foo';
+    o.parentTreeId = 'foo';
+    o.postalCode = 'foo';
+    o.serviceAreaId = 'foo';
+    o.serviceProviderId = 'foo';
+    o.state = 'foo';
+    o.stateCode = 'foo';
+    o.universalServiceAreaId = 'foo';
+    o.version = 'foo';
   }
   buildCounterServiceArea--;
   return o;
 }
 
-checkServiceArea(api.ServiceArea o) {
+void checkServiceArea(api.ServiceArea o) {
   buildCounterServiceArea++;
   if (buildCounterServiceArea < 3) {
-    unittest.expect(o.addressLine1, unittest.equals('foo'));
-    unittest.expect(o.addressLine2, unittest.equals('foo'));
-    unittest.expect(o.addressLine3, unittest.equals('foo'));
-    checkChangeContext(o.changeContext);
-    unittest.expect(o.city, unittest.equals('foo'));
-    unittest.expect(o.country, unittest.equals('foo'));
-    unittest.expect(o.creationTimestamp,
-        unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")));
-    unittest.expect(o.fullName, unittest.equals('foo'));
-    unittest.expect(o.modificationTimestamp,
-        unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")));
-    unittest.expect(o.name, unittest.equals('foo'));
-    unittest.expect(o.parentServiceAreaId, unittest.equals('foo'));
-    unittest.expect(o.parentTreeId, unittest.equals('foo'));
-    unittest.expect(o.postalCode, unittest.equals('foo'));
-    unittest.expect(o.serviceAreaId, unittest.equals('foo'));
-    unittest.expect(o.serviceProviderId, unittest.equals('foo'));
-    unittest.expect(o.state, unittest.equals('foo'));
-    unittest.expect(o.stateCode, unittest.equals('foo'));
-    unittest.expect(o.universalServiceAreaId, unittest.equals('foo'));
-    unittest.expect(o.version, unittest.equals('foo'));
+    unittest.expect(
+      o.addressLine1!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.addressLine2!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.addressLine3!,
+      unittest.equals('foo'),
+    );
+    checkChangeContext(o.changeContext! as api.ChangeContext);
+    unittest.expect(
+      o.city!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.country!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.creationTimestamp!,
+      unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")),
+    );
+    unittest.expect(
+      o.fullName!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.modificationTimestamp!,
+      unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")),
+    );
+    unittest.expect(
+      o.name!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.parentServiceAreaId!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.parentTreeId!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.postalCode!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.serviceAreaId!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.serviceProviderId!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.state!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.stateCode!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.universalServiceAreaId!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.version!,
+      unittest.equals('foo'),
+    );
   }
   buildCounterServiceArea--;
 }
 
 core.int buildCounterServicedAddress = 0;
-buildServicedAddress() {
-  var o = new api.ServicedAddress();
+api.ServicedAddress buildServicedAddress() {
+  var o = api.ServicedAddress();
   buildCounterServicedAddress++;
   if (buildCounterServicedAddress < 3) {
-    o.businessName = "foo";
-    o.floor = "foo";
-    o.houseNumber = "foo";
+    o.businessName = 'foo';
+    o.floor = 'foo';
+    o.houseNumber = 'foo';
     o.serviceArea = buildServiceArea();
-    o.servicedAddressId = "foo";
+    o.servicedAddressId = 'foo';
   }
   buildCounterServicedAddress--;
   return o;
 }
 
-checkServicedAddress(api.ServicedAddress o) {
+void checkServicedAddress(api.ServicedAddress o) {
   buildCounterServicedAddress++;
   if (buildCounterServicedAddress < 3) {
-    unittest.expect(o.businessName, unittest.equals('foo'));
-    unittest.expect(o.floor, unittest.equals('foo'));
-    unittest.expect(o.houseNumber, unittest.equals('foo'));
-    checkServiceArea(o.serviceArea);
-    unittest.expect(o.servicedAddressId, unittest.equals('foo'));
+    unittest.expect(
+      o.businessName!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.floor!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.houseNumber!,
+      unittest.equals('foo'),
+    );
+    checkServiceArea(o.serviceArea! as api.ServiceArea);
+    unittest.expect(
+      o.servicedAddressId!,
+      unittest.equals('foo'),
+    );
   }
   buildCounterServicedAddress--;
 }
 
-main() {
-  unittest.group("obj-schema-ChangeContext", () {
-    unittest.test("to-json--from-json", () {
+void main() {
+  unittest.group('obj-schema-ChangeContext', () {
+    unittest.test('to-json--from-json', () async {
       var o = buildChangeContext();
-      var od = new api.ChangeContext.fromJson(o.toJson());
-      checkChangeContext(od);
+      var oJson = convert.jsonDecode(convert.jsonEncode(o));
+      var od = api.ChangeContext.fromJson(
+          oJson as core.Map<core.String, core.dynamic>);
+      checkChangeContext(od as api.ChangeContext);
     });
   });
 
-  unittest.group("obj-schema-Customer", () {
-    unittest.test("to-json--from-json", () {
+  unittest.group('obj-schema-Customer', () {
+    unittest.test('to-json--from-json', () async {
       var o = buildCustomer();
-      var od = new api.Customer.fromJson(o.toJson());
-      checkCustomer(od);
+      var oJson = convert.jsonDecode(convert.jsonEncode(o));
+      var od =
+          api.Customer.fromJson(oJson as core.Map<core.String, core.dynamic>);
+      checkCustomer(od as api.Customer);
     });
   });
 
-  unittest.group("obj-schema-CustomerAddress", () {
-    unittest.test("to-json--from-json", () {
+  unittest.group('obj-schema-CustomerAddress', () {
+    unittest.test('to-json--from-json', () async {
       var o = buildCustomerAddress();
-      var od = new api.CustomerAddress.fromJson(o.toJson());
-      checkCustomerAddress(od);
+      var oJson = convert.jsonDecode(convert.jsonEncode(o));
+      var od = api.CustomerAddress.fromJson(
+          oJson as core.Map<core.String, core.dynamic>);
+      checkCustomerAddress(od as api.CustomerAddress);
     });
   });
 
-  unittest.group("obj-schema-CustomerContact", () {
-    unittest.test("to-json--from-json", () {
+  unittest.group('obj-schema-CustomerContact', () {
+    unittest.test('to-json--from-json', () async {
       var o = buildCustomerContact();
-      var od = new api.CustomerContact.fromJson(o.toJson());
-      checkCustomerContact(od);
+      var oJson = convert.jsonDecode(convert.jsonEncode(o));
+      var od = api.CustomerContact.fromJson(
+          oJson as core.Map<core.String, core.dynamic>);
+      checkCustomerContact(od as api.CustomerContact);
     });
   });
 
-  unittest.group("obj-schema-DeliveryInstruction", () {
-    unittest.test("to-json--from-json", () {
+  unittest.group('obj-schema-DeliveryInstruction', () {
+    unittest.test('to-json--from-json', () async {
       var o = buildDeliveryInstruction();
-      var od = new api.DeliveryInstruction.fromJson(o.toJson());
-      checkDeliveryInstruction(od);
+      var oJson = convert.jsonDecode(convert.jsonEncode(o));
+      var od = api.DeliveryInstruction.fromJson(
+          oJson as core.Map<core.String, core.dynamic>);
+      checkDeliveryInstruction(od as api.DeliveryInstruction);
     });
   });
 
-  unittest.group("obj-schema-EmailAddress", () {
-    unittest.test("to-json--from-json", () {
+  unittest.group('obj-schema-EmailAddress', () {
+    unittest.test('to-json--from-json', () async {
       var o = buildEmailAddress();
-      var od = new api.EmailAddress.fromJson(o.toJson());
-      checkEmailAddress(od);
+      var oJson = convert.jsonDecode(convert.jsonEncode(o));
+      var od = api.EmailAddress.fromJson(
+          oJson as core.Map<core.String, core.dynamic>);
+      checkEmailAddress(od as api.EmailAddress);
     });
   });
 
-  unittest.group("obj-schema-PhoneNumber", () {
-    unittest.test("to-json--from-json", () {
+  unittest.group('obj-schema-PhoneNumber', () {
+    unittest.test('to-json--from-json', () async {
       var o = buildPhoneNumber();
-      var od = new api.PhoneNumber.fromJson(o.toJson());
-      checkPhoneNumber(od);
+      var oJson = convert.jsonDecode(convert.jsonEncode(o));
+      var od = api.PhoneNumber.fromJson(
+          oJson as core.Map<core.String, core.dynamic>);
+      checkPhoneNumber(od as api.PhoneNumber);
     });
   });
 
-  unittest.group("obj-schema-Route", () {
-    unittest.test("to-json--from-json", () {
+  unittest.group('obj-schema-Route', () {
+    unittest.test('to-json--from-json', () async {
       var o = buildRoute();
-      var od = new api.Route.fromJson(o.toJson());
-      checkRoute(od);
+      var oJson = convert.jsonDecode(convert.jsonEncode(o));
+      var od = api.Route.fromJson(oJson as core.Map<core.String, core.dynamic>);
+      checkRoute(od as api.Route);
     });
   });
 
-  unittest.group("obj-schema-RouteAddress", () {
-    unittest.test("to-json--from-json", () {
+  unittest.group('obj-schema-RouteAddress', () {
+    unittest.test('to-json--from-json', () async {
       var o = buildRouteAddress();
-      var od = new api.RouteAddress.fromJson(o.toJson());
-      checkRouteAddress(od);
+      var oJson = convert.jsonDecode(convert.jsonEncode(o));
+      var od = api.RouteAddress.fromJson(
+          oJson as core.Map<core.String, core.dynamic>);
+      checkRouteAddress(od as api.RouteAddress);
     });
   });
 
-  unittest.group("obj-schema-RouteAddressList", () {
-    unittest.test("to-json--from-json", () {
+  unittest.group('obj-schema-RouteAddressList', () {
+    unittest.test('to-json--from-json', () async {
       var o = buildRouteAddressList();
-      var od = new api.RouteAddressList.fromJson(o.toJson());
-      checkRouteAddressList(od);
+      var oJson = convert.jsonDecode(convert.jsonEncode(o));
+      var od = api.RouteAddressList.fromJson(
+          oJson as core.Map<core.String, core.dynamic>);
+      checkRouteAddressList(od as api.RouteAddressList);
     });
   });
 
-  unittest.group("obj-schema-RouteCollection", () {
-    unittest.test("to-json--from-json", () {
+  unittest.group('obj-schema-RouteCollection', () {
+    unittest.test('to-json--from-json', () async {
       var o = buildRouteCollection();
-      var od = new api.RouteCollection.fromJson(o.toJson());
-      checkRouteCollection(od);
+      var oJson = convert.jsonDecode(convert.jsonEncode(o));
+      var od = api.RouteCollection.fromJson(
+          oJson as core.Map<core.String, core.dynamic>);
+      checkRouteCollection(od as api.RouteCollection);
     });
   });
 
-  unittest.group("obj-schema-RouteSchedule", () {
-    unittest.test("to-json--from-json", () {
+  unittest.group('obj-schema-RouteSchedule', () {
+    unittest.test('to-json--from-json', () async {
       var o = buildRouteSchedule();
-      var od = new api.RouteSchedule.fromJson(o.toJson());
-      checkRouteSchedule(od);
+      var oJson = convert.jsonDecode(convert.jsonEncode(o));
+      var od = api.RouteSchedule.fromJson(
+          oJson as core.Map<core.String, core.dynamic>);
+      checkRouteSchedule(od as api.RouteSchedule);
     });
   });
 
-  unittest.group("obj-schema-ServiceArea", () {
-    unittest.test("to-json--from-json", () {
+  unittest.group('obj-schema-ServiceArea', () {
+    unittest.test('to-json--from-json', () async {
       var o = buildServiceArea();
-      var od = new api.ServiceArea.fromJson(o.toJson());
-      checkServiceArea(od);
+      var oJson = convert.jsonDecode(convert.jsonEncode(o));
+      var od = api.ServiceArea.fromJson(
+          oJson as core.Map<core.String, core.dynamic>);
+      checkServiceArea(od as api.ServiceArea);
     });
   });
 
-  unittest.group("obj-schema-ServicedAddress", () {
-    unittest.test("to-json--from-json", () {
+  unittest.group('obj-schema-ServicedAddress', () {
+    unittest.test('to-json--from-json', () async {
       var o = buildServicedAddress();
-      var od = new api.ServicedAddress.fromJson(o.toJson());
-      checkServicedAddress(od);
+      var oJson = convert.jsonDecode(convert.jsonEncode(o));
+      var od = api.ServicedAddress.fromJson(
+          oJson as core.Map<core.String, core.dynamic>);
+      checkServicedAddress(od as api.ServicedAddress);
     });
   });
 
-  unittest.group("resource-RouteApi", () {
-    unittest.test("method--createRoute", () {
-      var mock = new HttpServerMock();
-      api.RouteApi res = new api.RouteApi(mock);
+  unittest.group('resource-RouteApi', () {
+    unittest.test('method--createRoute', () async {
+      var mock = HttpServerMock();
+      var res = api.RouteApi(mock);
       var arg_request = buildRoute();
-      var arg_svcProviderId = "foo";
-      var arg_$fields = "foo";
+      var arg_svcProviderId = 'foo';
+      var arg_$fields = 'foo';
       mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
-        var obj = new api.Route.fromJson(json);
-        checkRoute(obj);
+        var obj =
+            api.Route.fromJson(json as core.Map<core.String, core.dynamic>);
+        checkRoute(obj as api.Route);
 
         var path = (req.url).path;
         var pathOffset = 0;
-        var index;
-        var subPart;
-        unittest.expect(path.substring(pathOffset, pathOffset + 9),
-            unittest.equals("/_ah/api/"));
+        core.int index;
+        core.String subPart;
+        unittest.expect(
+          path.substring(pathOffset, pathOffset + 9),
+          unittest.equals("/_ah/api/"),
+        );
         pathOffset += 9;
 
         var query = (req.url).query;
         var queryOffset = 0;
         var queryMap = <core.String, core.List<core.String>>{};
-        addQueryParam(n, v) => queryMap.putIfAbsent(n, () => []).add(v);
-        parseBool(n) {
-          if (n == "true") return true;
-          if (n == "false") return false;
-          if (n == null) return null;
-          throw new core.ArgumentError("Invalid boolean: $n");
-        }
+        void addQueryParam(core.String n, core.String v) =>
+            queryMap.putIfAbsent(n, () => []).add(v);
 
-        if (query.length > 0) {
-          for (var part in query.split("&")) {
-            var keyvalue = part.split("=");
-            addQueryParam(core.Uri.decodeQueryComponent(keyvalue[0]),
-                core.Uri.decodeQueryComponent(keyvalue[1]));
+        if (query.isNotEmpty) {
+          for (var part in query.split('&')) {
+            var keyValue = part.split('=');
+            addQueryParam(
+              core.Uri.decodeQueryComponent(keyValue[0]),
+              core.Uri.decodeQueryComponent(keyValue[1]),
+            );
           }
         }
-        unittest.expect(queryMap["fields"].first, unittest.equals(arg_$fields));
+        unittest.expect(
+          queryMap["fields"]!.first,
+          unittest.equals(arg_$fields),
+        );
 
         var h = {
-          "content-type": "application/json; charset=utf-8",
+          'content-type': 'application/json; charset=utf-8',
         };
         var resp = convert.json.encode(buildRoute());
-        return new async.Future.value(stringResponse(200, h, resp));
+        return async.Future.value(stringResponse(200, h, resp));
       }), true);
-      res
-          .createRoute(arg_request, arg_svcProviderId, $fields: arg_$fields)
-          .then(unittest.expectAsync1(((response) {
-        checkRoute(response);
-      })));
+      final response = await res.createRoute(arg_request, arg_svcProviderId,
+          $fields: arg_$fields);
+      checkRoute(response as api.Route);
     });
 
-    unittest.test("method--findRoutes", () {
-      var mock = new HttpServerMock();
-      api.RouteApi res = new api.RouteApi(mock);
-      var arg_svcProviderId = "foo";
-      var arg_$fields = "foo";
+    unittest.test('method--findRoutes', () async {
+      var mock = HttpServerMock();
+      var res = api.RouteApi(mock);
+      var arg_svcProviderId = 'foo';
+      var arg_$fields = 'foo';
       mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
         var path = (req.url).path;
         var pathOffset = 0;
-        var index;
-        var subPart;
-        unittest.expect(path.substring(pathOffset, pathOffset + 9),
-            unittest.equals("/_ah/api/"));
+        core.int index;
+        core.String subPart;
+        unittest.expect(
+          path.substring(pathOffset, pathOffset + 9),
+          unittest.equals("/_ah/api/"),
+        );
         pathOffset += 9;
 
         var query = (req.url).query;
         var queryOffset = 0;
         var queryMap = <core.String, core.List<core.String>>{};
-        addQueryParam(n, v) => queryMap.putIfAbsent(n, () => []).add(v);
-        parseBool(n) {
-          if (n == "true") return true;
-          if (n == "false") return false;
-          if (n == null) return null;
-          throw new core.ArgumentError("Invalid boolean: $n");
-        }
+        void addQueryParam(core.String n, core.String v) =>
+            queryMap.putIfAbsent(n, () => []).add(v);
 
-        if (query.length > 0) {
-          for (var part in query.split("&")) {
-            var keyvalue = part.split("=");
-            addQueryParam(core.Uri.decodeQueryComponent(keyvalue[0]),
-                core.Uri.decodeQueryComponent(keyvalue[1]));
+        if (query.isNotEmpty) {
+          for (var part in query.split('&')) {
+            var keyValue = part.split('=');
+            addQueryParam(
+              core.Uri.decodeQueryComponent(keyValue[0]),
+              core.Uri.decodeQueryComponent(keyValue[1]),
+            );
           }
         }
-        unittest.expect(queryMap["fields"].first, unittest.equals(arg_$fields));
+        unittest.expect(
+          queryMap["fields"]!.first,
+          unittest.equals(arg_$fields),
+        );
 
         var h = {
-          "content-type": "application/json; charset=utf-8",
+          'content-type': 'application/json; charset=utf-8',
         };
         var resp = convert.json.encode(buildRouteCollection());
-        return new async.Future.value(stringResponse(200, h, resp));
+        return async.Future.value(stringResponse(200, h, resp));
       }), true);
-      res
-          .findRoutes(arg_svcProviderId, $fields: arg_$fields)
-          .then(unittest.expectAsync1(((response) {
-        checkRouteCollection(response);
-      })));
+      final response =
+          await res.findRoutes(arg_svcProviderId, $fields: arg_$fields);
+      checkRouteCollection(response as api.RouteCollection);
     });
 
-    unittest.test("method--getRoute", () {
-      var mock = new HttpServerMock();
-      api.RouteApi res = new api.RouteApi(mock);
-      var arg_svcProviderId = "foo";
-      var arg_rtId = "foo";
-      var arg_$fields = "foo";
+    unittest.test('method--getRoute', () async {
+      var mock = HttpServerMock();
+      var res = api.RouteApi(mock);
+      var arg_svcProviderId = 'foo';
+      var arg_rtId = 'foo';
+      var arg_$fields = 'foo';
       mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
         var path = (req.url).path;
         var pathOffset = 0;
-        var index;
-        var subPart;
-        unittest.expect(path.substring(pathOffset, pathOffset + 9),
-            unittest.equals("/_ah/api/"));
+        core.int index;
+        core.String subPart;
+        unittest.expect(
+          path.substring(pathOffset, pathOffset + 9),
+          unittest.equals("/_ah/api/"),
+        );
         pathOffset += 9;
 
         var query = (req.url).query;
         var queryOffset = 0;
         var queryMap = <core.String, core.List<core.String>>{};
-        addQueryParam(n, v) => queryMap.putIfAbsent(n, () => []).add(v);
-        parseBool(n) {
-          if (n == "true") return true;
-          if (n == "false") return false;
-          if (n == null) return null;
-          throw new core.ArgumentError("Invalid boolean: $n");
-        }
+        void addQueryParam(core.String n, core.String v) =>
+            queryMap.putIfAbsent(n, () => []).add(v);
 
-        if (query.length > 0) {
-          for (var part in query.split("&")) {
-            var keyvalue = part.split("=");
-            addQueryParam(core.Uri.decodeQueryComponent(keyvalue[0]),
-                core.Uri.decodeQueryComponent(keyvalue[1]));
+        if (query.isNotEmpty) {
+          for (var part in query.split('&')) {
+            var keyValue = part.split('=');
+            addQueryParam(
+              core.Uri.decodeQueryComponent(keyValue[0]),
+              core.Uri.decodeQueryComponent(keyValue[1]),
+            );
           }
         }
-        unittest.expect(queryMap["fields"].first, unittest.equals(arg_$fields));
+        unittest.expect(
+          queryMap["fields"]!.first,
+          unittest.equals(arg_$fields),
+        );
 
         var h = {
-          "content-type": "application/json; charset=utf-8",
+          'content-type': 'application/json; charset=utf-8',
         };
         var resp = convert.json.encode(buildRoute());
-        return new async.Future.value(stringResponse(200, h, resp));
+        return async.Future.value(stringResponse(200, h, resp));
       }), true);
-      res
-          .getRoute(arg_svcProviderId, arg_rtId, $fields: arg_$fields)
-          .then(unittest.expectAsync1(((response) {
-        checkRoute(response);
-      })));
+      final response =
+          await res.getRoute(arg_svcProviderId, arg_rtId, $fields: arg_$fields);
+      checkRoute(response as api.Route);
     });
 
-    unittest.test("method--getRouteAddressList", () {
-      var mock = new HttpServerMock();
-      api.RouteApi res = new api.RouteApi(mock);
-      var arg_svcProviderId = "foo";
-      var arg_rtId = "foo";
-      var arg_$fields = "foo";
+    unittest.test('method--getRouteAddressList', () async {
+      var mock = HttpServerMock();
+      var res = api.RouteApi(mock);
+      var arg_svcProviderId = 'foo';
+      var arg_rtId = 'foo';
+      var arg_$fields = 'foo';
       mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
         var path = (req.url).path;
         var pathOffset = 0;
-        var index;
-        var subPart;
-        unittest.expect(path.substring(pathOffset, pathOffset + 9),
-            unittest.equals("/_ah/api/"));
+        core.int index;
+        core.String subPart;
+        unittest.expect(
+          path.substring(pathOffset, pathOffset + 9),
+          unittest.equals("/_ah/api/"),
+        );
         pathOffset += 9;
 
         var query = (req.url).query;
         var queryOffset = 0;
         var queryMap = <core.String, core.List<core.String>>{};
-        addQueryParam(n, v) => queryMap.putIfAbsent(n, () => []).add(v);
-        parseBool(n) {
-          if (n == "true") return true;
-          if (n == "false") return false;
-          if (n == null) return null;
-          throw new core.ArgumentError("Invalid boolean: $n");
-        }
+        void addQueryParam(core.String n, core.String v) =>
+            queryMap.putIfAbsent(n, () => []).add(v);
 
-        if (query.length > 0) {
-          for (var part in query.split("&")) {
-            var keyvalue = part.split("=");
-            addQueryParam(core.Uri.decodeQueryComponent(keyvalue[0]),
-                core.Uri.decodeQueryComponent(keyvalue[1]));
+        if (query.isNotEmpty) {
+          for (var part in query.split('&')) {
+            var keyValue = part.split('=');
+            addQueryParam(
+              core.Uri.decodeQueryComponent(keyValue[0]),
+              core.Uri.decodeQueryComponent(keyValue[1]),
+            );
           }
         }
-        unittest.expect(queryMap["fields"].first, unittest.equals(arg_$fields));
+        unittest.expect(
+          queryMap["fields"]!.first,
+          unittest.equals(arg_$fields),
+        );
 
         var h = {
-          "content-type": "application/json; charset=utf-8",
+          'content-type': 'application/json; charset=utf-8',
         };
         var resp = convert.json.encode(buildRouteAddressList());
-        return new async.Future.value(stringResponse(200, h, resp));
+        return async.Future.value(stringResponse(200, h, resp));
       }), true);
-      res
-          .getRouteAddressList(arg_svcProviderId, arg_rtId,
-              $fields: arg_$fields)
-          .then(unittest.expectAsync1(((response) {
-        checkRouteAddressList(response);
-      })));
+      final response = await res.getRouteAddressList(
+          arg_svcProviderId, arg_rtId,
+          $fields: arg_$fields);
+      checkRouteAddressList(response as api.RouteAddressList);
     });
 
-    unittest.test("method--updateRoute", () {
-      var mock = new HttpServerMock();
-      api.RouteApi res = new api.RouteApi(mock);
+    unittest.test('method--updateRoute', () async {
+      var mock = HttpServerMock();
+      var res = api.RouteApi(mock);
       var arg_request = buildRoute();
-      var arg_svcProviderId = "foo";
-      var arg_rtId = "foo";
-      var arg_$fields = "foo";
+      var arg_svcProviderId = 'foo';
+      var arg_rtId = 'foo';
+      var arg_$fields = 'foo';
       mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
-        var obj = new api.Route.fromJson(json);
-        checkRoute(obj);
+        var obj =
+            api.Route.fromJson(json as core.Map<core.String, core.dynamic>);
+        checkRoute(obj as api.Route);
 
         var path = (req.url).path;
         var pathOffset = 0;
-        var index;
-        var subPart;
-        unittest.expect(path.substring(pathOffset, pathOffset + 9),
-            unittest.equals("/_ah/api/"));
+        core.int index;
+        core.String subPart;
+        unittest.expect(
+          path.substring(pathOffset, pathOffset + 9),
+          unittest.equals("/_ah/api/"),
+        );
         pathOffset += 9;
 
         var query = (req.url).query;
         var queryOffset = 0;
         var queryMap = <core.String, core.List<core.String>>{};
-        addQueryParam(n, v) => queryMap.putIfAbsent(n, () => []).add(v);
-        parseBool(n) {
-          if (n == "true") return true;
-          if (n == "false") return false;
-          if (n == null) return null;
-          throw new core.ArgumentError("Invalid boolean: $n");
-        }
+        void addQueryParam(core.String n, core.String v) =>
+            queryMap.putIfAbsent(n, () => []).add(v);
 
-        if (query.length > 0) {
-          for (var part in query.split("&")) {
-            var keyvalue = part.split("=");
-            addQueryParam(core.Uri.decodeQueryComponent(keyvalue[0]),
-                core.Uri.decodeQueryComponent(keyvalue[1]));
+        if (query.isNotEmpty) {
+          for (var part in query.split('&')) {
+            var keyValue = part.split('=');
+            addQueryParam(
+              core.Uri.decodeQueryComponent(keyValue[0]),
+              core.Uri.decodeQueryComponent(keyValue[1]),
+            );
           }
         }
-        unittest.expect(queryMap["fields"].first, unittest.equals(arg_$fields));
+        unittest.expect(
+          queryMap["fields"]!.first,
+          unittest.equals(arg_$fields),
+        );
 
         var h = {
-          "content-type": "application/json; charset=utf-8",
+          'content-type': 'application/json; charset=utf-8',
         };
         var resp = convert.json.encode(buildRoute());
-        return new async.Future.value(stringResponse(200, h, resp));
+        return async.Future.value(stringResponse(200, h, resp));
       }), true);
-      res
-          .updateRoute(arg_request, arg_svcProviderId, arg_rtId,
-              $fields: arg_$fields)
-          .then(unittest.expectAsync1(((response) {
-        checkRoute(response);
-      })));
+      final response = await res.updateRoute(
+          arg_request, arg_svcProviderId, arg_rtId,
+          $fields: arg_$fields);
+      checkRoute(response as api.Route);
     });
 
-    unittest.test("method--updateRouteAddressList", () {
-      var mock = new HttpServerMock();
-      api.RouteApi res = new api.RouteApi(mock);
+    unittest.test('method--updateRouteAddressList', () async {
+      var mock = HttpServerMock();
+      var res = api.RouteApi(mock);
       var arg_request = buildRouteAddressList();
-      var arg_svcProviderId = "foo";
-      var arg_rtId = "foo";
-      var arg_$fields = "foo";
+      var arg_svcProviderId = 'foo';
+      var arg_rtId = 'foo';
+      var arg_$fields = 'foo';
       mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
-        var obj = new api.RouteAddressList.fromJson(json);
-        checkRouteAddressList(obj);
+        var obj = api.RouteAddressList.fromJson(
+            json as core.Map<core.String, core.dynamic>);
+        checkRouteAddressList(obj as api.RouteAddressList);
 
         var path = (req.url).path;
         var pathOffset = 0;
-        var index;
-        var subPart;
-        unittest.expect(path.substring(pathOffset, pathOffset + 9),
-            unittest.equals("/_ah/api/"));
+        core.int index;
+        core.String subPart;
+        unittest.expect(
+          path.substring(pathOffset, pathOffset + 9),
+          unittest.equals("/_ah/api/"),
+        );
         pathOffset += 9;
 
         var query = (req.url).query;
         var queryOffset = 0;
         var queryMap = <core.String, core.List<core.String>>{};
-        addQueryParam(n, v) => queryMap.putIfAbsent(n, () => []).add(v);
-        parseBool(n) {
-          if (n == "true") return true;
-          if (n == "false") return false;
-          if (n == null) return null;
-          throw new core.ArgumentError("Invalid boolean: $n");
-        }
+        void addQueryParam(core.String n, core.String v) =>
+            queryMap.putIfAbsent(n, () => []).add(v);
 
-        if (query.length > 0) {
-          for (var part in query.split("&")) {
-            var keyvalue = part.split("=");
-            addQueryParam(core.Uri.decodeQueryComponent(keyvalue[0]),
-                core.Uri.decodeQueryComponent(keyvalue[1]));
+        if (query.isNotEmpty) {
+          for (var part in query.split('&')) {
+            var keyValue = part.split('=');
+            addQueryParam(
+              core.Uri.decodeQueryComponent(keyValue[0]),
+              core.Uri.decodeQueryComponent(keyValue[1]),
+            );
           }
         }
-        unittest.expect(queryMap["fields"].first, unittest.equals(arg_$fields));
+        unittest.expect(
+          queryMap["fields"]!.first,
+          unittest.equals(arg_$fields),
+        );
 
         var h = {
-          "content-type": "application/json; charset=utf-8",
+          'content-type': 'application/json; charset=utf-8',
         };
         var resp = convert.json.encode(buildRouteAddressList());
-        return new async.Future.value(stringResponse(200, h, resp));
+        return async.Future.value(stringResponse(200, h, resp));
       }), true);
-      res
-          .updateRouteAddressList(arg_request, arg_svcProviderId, arg_rtId,
-              $fields: arg_$fields)
-          .then(unittest.expectAsync1(((response) {
-        checkRouteAddressList(response);
-      })));
+      final response = await res.updateRouteAddressList(
+          arg_request, arg_svcProviderId, arg_rtId,
+          $fields: arg_$fields);
+      checkRouteAddressList(response as api.RouteAddressList);
     });
   });
 }
