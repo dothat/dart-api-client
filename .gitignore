@@ -1,2 +1,3 @@
-packages
+.packages
+.dart_tool/
 pubspec.lock
